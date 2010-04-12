@@ -13,6 +13,13 @@ public:
     WorldElement();
     WorldElement(const WorldElement& orig);
     virtual ~WorldElement();
+
+protected:
+    int positionX;
+    int posistionY;
+    int height;
+    int width;
+
 private:
 
 };
