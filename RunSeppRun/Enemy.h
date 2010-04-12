@@ -8,7 +8,9 @@
 #ifndef _ENEMY_H
 #define	_ENEMY_H
 
-class Enemy {
+#include "Character.h"
+
+class Enemy : public Character {
 public:
     Enemy();
 private:
