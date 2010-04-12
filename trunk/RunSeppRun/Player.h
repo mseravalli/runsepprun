@@ -13,7 +13,7 @@
 class Player : public Character {
 public:
     Player();
-    void move();
+    void move(int, int);
     void hit();
     void launch();
 private:

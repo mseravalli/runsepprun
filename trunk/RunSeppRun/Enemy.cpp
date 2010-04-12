@@ -10,6 +10,6 @@
 Enemy::Enemy() {
 }
 
-void Enemy::move(){
+void Enemy::move(int accX, int accY){
     
 }
