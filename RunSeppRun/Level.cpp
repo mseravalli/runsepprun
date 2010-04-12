@@ -10,3 +10,7 @@
 Level::Level() {
 }
 
+bool Level::checkCollision(const Character &actor , int newX, int newY){
+
+    return false;
+}

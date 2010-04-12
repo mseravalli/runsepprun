@@ -11,6 +11,17 @@
 class WorldElement {
 public:
     WorldElement();
+    virtual int getX();
+    virtual int getY();
+    virtual int getWidth();
+    virtual int getHeight();
+
+protected:
+    int posX;
+    int posY;
+    int width;
+    int height;
+
 private:
 
 };

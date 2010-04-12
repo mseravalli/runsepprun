@@ -14,10 +14,9 @@
 class Level {
 public:
     Level();
-    bool checkCollision(Character, int, int);
+     static bool checkCollision(const Character &actor , int newX, int newY);
 private:
 
 };
 
 #endif	/* _LEVEL_H */
-
