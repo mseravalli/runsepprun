@@ -1,8 +1,8 @@
 /*
  * File:   main.cpp
- * Author: KoRn-1201N
+ * Author: korn
  *
- * Created on 12 aprile 2010, 16.11
+ * Created on 12 aprile 2010, 16.45
  */
 
 #include <QtGui/QApplication>

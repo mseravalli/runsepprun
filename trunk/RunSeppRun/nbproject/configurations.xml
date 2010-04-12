@@ -25,8 +25,8 @@
     <conf name="Debug" type="4">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
-        <compilerSet>None|Unknown</compilerSet>
-        <platform>3</platform>
+        <compilerSet>GNU|GNU</compilerSet>
+        <platform>2</platform>
       </toolsSet>
       <qt>
         <modules>core gui</modules>
@@ -41,8 +41,8 @@
     <conf name="Release" type="4">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
-        <compilerSet>None|Unknown</compilerSet>
-        <platform>3</platform>
+        <compilerSet>GNU|GNU</compilerSet>
+        <platform>2</platform>
       </toolsSet>
       <qt>
         <buildMode>1</buildMode>
