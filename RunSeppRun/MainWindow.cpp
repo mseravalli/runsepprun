@@ -2,13 +2,16 @@
 
 MainWindow::MainWindow()
 {
-    createActions();
-    createMenus();
-
     setWindowTitle("Run Sepp Run");
 
+    setWindowIcon(QIcon("ico.gif"));
+
+    setGeometry(200, 200, 0, 0);
     setMinimumSize(800, 600);
     setMaximumSize(1680, 1050);
+
+    createActions();
+    createMenus();
 
     GraphicsView *view = new GraphicsView();
 
