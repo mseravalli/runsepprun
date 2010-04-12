@@ -10,3 +10,18 @@
 WorldElement::WorldElement() {
 }
 
+int WorldElement::getX(){
+    return this->posX;
+}
+
+int WorldElement::getY(){
+    return this->posY;
+}
+
+int WorldElement::getHeight(){
+    return this->height;
+}
+
+int WorldElement::getWidth(){
+    return this->width;
+}
