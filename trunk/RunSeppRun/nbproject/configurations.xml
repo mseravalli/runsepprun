@@ -12,11 +12,16 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>cannonfield.cpp</itemPath>
-      <itemPath>cannonfield.h</itemPath>
-      <itemPath>lcdrange.h</itemPath>
-      <itemPath>ldcrange.cpp</itemPath>
-      <itemPath>main.cpp</itemPath>
+      <itemPath>Block.cpp</itemPath>
+      <itemPath>Block.h</itemPath>
+      <itemPath>Character.cpp</itemPath>
+      <itemPath>Character.h</itemPath>
+      <itemPath>Enemy.cpp</itemPath>
+      <itemPath>Enemy.h</itemPath>
+      <itemPath>Player.cpp</itemPath>
+      <itemPath>Player.h</itemPath>
+      <itemPath>WorldElement.cpp</itemPath>
+      <itemPath>WorldElement.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
