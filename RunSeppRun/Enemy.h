@@ -13,6 +13,7 @@
 class Enemy : public Character {
 public:
     Enemy();
+    void move();
 private:
 
 };
