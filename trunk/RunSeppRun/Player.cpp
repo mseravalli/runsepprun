@@ -11,6 +11,9 @@ Player::Player() {
 }
 
 Player::Player(const Player& orig) {
+
+//    ciao mondo
+
 }
 
 Player::~Player() {
