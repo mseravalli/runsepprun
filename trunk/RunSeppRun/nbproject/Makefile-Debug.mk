@@ -12,14 +12,15 @@ MKDIR=mkdir
 CP=cp
 CCADMIN=CCadmin
 RANLIB=ranlib
-CC=gcc
-CCC=g++
-CXX=g++
+CC=
+CCC=
+CXX=
 FC=
-AS=as
+AS=
+QMAKE=
 
 # Macros
-CND_PLATFORM=GNU-Linux-x86
+CND_PLATFORM=None-Windows
 CND_CONF=Debug
 CND_DISTDIR=dist
 
@@ -48,21 +49,23 @@ ASFLAGS=
 # Link Libraries and Options
 LDLIBSOPTIONS=
 
-nbproject/qt-${CONF}.mk: nbproject/qt-${CONF}.pro FORCE
-	qmake VPATH=. -o qttmp-${CONF}.mk nbproject/qt-${CONF}.pro
-	mv -f qttmp-${CONF}.mk nbproject/qt-${CONF}.mk
+nbproject/qt-${CND_CONF}.mk: nbproject/qt-${CND_CONF}.pro FORCE
+	${QMAKE} VPATH=. -o qttmp-${CND_CONF}.mk nbproject/qt-${CND_CONF}.pro
+	mv -f qttmp-${CND_CONF}.mk nbproject/qt-${CND_CONF}.mk
+	@sed -e 's:\\\(.\):/\1:g' nbproject/qt-${CND_CONF}.mk >nbproject/qt-${CND_CONF}.tmp
+	@mv -f nbproject/qt-${CND_CONF}.tmp nbproject/qt-${CND_CONF}.mk
 
 FORCE:
 
 # Build Targets
-.build-conf: ${BUILD_SUBPROJECTS} nbproject/qt-${CONF}.mk
-	${MAKE} -f nbproject/qt-${CONF}.mk dist/Debug/GNU-Linux-x86/RunSeppRun
+.build-conf: ${BUILD_SUBPROJECTS} nbproject/qt-${CND_CONF}.mk
+	${MAKE} -f nbproject/qt-${CND_CONF}.mk dist/Debug/None-Windows/RunSeppRu.exe
 
 # Subprojects
 .build-subprojects:
 
 # Clean Targets
-.clean-conf: nbproject/qt-Debug.mk
+.clean-conf: ${CLEAN_SUBPROJECTS} nbproject/qt-Debug.mk
 	$(MAKE) -f nbproject/qt-Debug.mk distclean
 
 # Subprojects

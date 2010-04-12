@@ -12,16 +12,7 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>Block.cpp</itemPath>
-      <itemPath>Block.h</itemPath>
-      <itemPath>Character.cpp</itemPath>
-      <itemPath>Character.h</itemPath>
-      <itemPath>Enemy.cpp</itemPath>
-      <itemPath>Enemy.h</itemPath>
-      <itemPath>Player.cpp</itemPath>
-      <itemPath>Player.h</itemPath>
-      <itemPath>WorldElement.cpp</itemPath>
-      <itemPath>WorldElement.h</itemPath>
+      <itemPath>main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -34,8 +25,8 @@
     <conf name="Debug" type="4">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
-        <compilerSet>GNU|GNU</compilerSet>
-        <platform>2</platform>
+        <compilerSet>None|Unknown</compilerSet>
+        <platform>3</platform>
       </toolsSet>
       <qt>
         <modules>core gui</modules>
@@ -50,8 +41,8 @@
     <conf name="Release" type="4">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
-        <compilerSet>GNU|GNU</compilerSet>
-        <platform>2</platform>
+        <compilerSet>None|Unknown</compilerSet>
+        <platform>3</platform>
       </toolsSet>
       <qt>
         <buildMode>1</buildMode>
