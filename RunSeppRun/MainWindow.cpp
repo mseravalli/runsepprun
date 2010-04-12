@@ -24,7 +24,7 @@ void MainWindow::about()
                        "<p>Developers:<ul>"
                        "<li>Corneliu Ilisescu</li>"
                        "<li>Manuel Piubelli</li>"
-                       "<li>Marco Serravalli</li>"
+                       "<li>Marco Seravalli</li>"
                        "<li>Patrick Clara</li></ul>"
                        "</p>");
 }
