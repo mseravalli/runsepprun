@@ -9,3 +9,7 @@
 
 Enemy::Enemy() {
 }
+
+void Enemy::move(){
+    
+}

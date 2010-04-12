@@ -9,6 +9,8 @@
 
 Character::Character() {
 }
-
+void Character::move(){
+    
+}
 
 

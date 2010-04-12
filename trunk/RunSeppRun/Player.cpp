@@ -9,3 +9,15 @@
 
 Player::Player() {
 }
+
+void Player::hit(){
+
+}
+
+void Player::launch(){
+
+}
+
+void Player::move(){
+    
+}
