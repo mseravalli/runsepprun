@@ -8,7 +8,9 @@
 #ifndef _BLOCK_H
 #define	_BLOCK_H
 
-class Block {
+#include "WorldElement.h"
+
+class Block : public WorldElement {
 public:
     Block();
 private:

@@ -11,8 +11,6 @@
 class WorldElement {
 public:
     WorldElement();
-    WorldElement(const WorldElement& orig);
-    virtual ~WorldElement();
 private:
 
 };
