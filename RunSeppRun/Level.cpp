@@ -10,7 +10,7 @@
 Level::Level() {
 }
 
-bool Level::isColliding(const Character &actor , int newX, int newY){
+bool Level::isColliding(Character &actor , int newX, int newY){
 
     WorldElement e = WorldElement(50,50,50,50);
 
