@@ -8,7 +8,7 @@
 #ifndef _CHARACTER_H
 #define	_CHARACTER_H
 
-class Character {
+class Character : public WorldElement {
 public:
     Character();
     Character(const Character& orig);
