@@ -11,6 +11,7 @@
 class WorldElement {
 public:
     WorldElement();
+    WorldElement(int x, int y, int w, int h);
     virtual int getX();
     virtual int getY();
     virtual int getWidth();
