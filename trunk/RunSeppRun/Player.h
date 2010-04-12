@@ -8,7 +8,9 @@
 #ifndef _PLAYER_H
 #define	_PLAYER_H
 
-class Player {
+#include "Character.h"
+
+class Player : public Character {
 public:
     Player();
     void move();
