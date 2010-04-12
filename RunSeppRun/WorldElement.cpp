@@ -10,9 +10,3 @@
 WorldElement::WorldElement() {
 }
 
-WorldElement::WorldElement(const WorldElement& orig) {
-}
-
-WorldElement::~WorldElement() {
-}
-
