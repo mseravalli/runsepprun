@@ -1,5 +1,5 @@
 #include "MainWindow.h"
-
+#include <iostream>
 MainWindow::MainWindow()
 {
     createActions();
@@ -10,11 +10,11 @@ MainWindow::MainWindow()
     setMinimumSize(800, 600);
     setMaximumSize(1680, 1050);
 
-    //GraphicsView *view = new GraphicsView();
+    GraphicsView *view = new GraphicsView();
 
-    //view->setFocus();
+    view->setFocus();
 
-    //setCentralWidget(view);
+    setCentralWidget(view);
 }
 
 void MainWindow::about()
@@ -24,7 +24,7 @@ void MainWindow::about()
                        "<p>Developers:<ul>"
                        "<li>Corneliu Ilisescu</li>"
                        "<li>Manuel Piubelli</li>"
-                       "<li>Marco Seravalli</li>"
+                       "<li>Marco Serravalli</li>"
                        "<li>Patrick Clara</li></ul>"
                        "</p>");
 }
@@ -50,4 +50,15 @@ void MainWindow::createMenus()
     menuBar = new QMenuBar();
     setMenuBar(menuBar);
     menuBar->addMenu(gameMenu);
+}
+
+void MainWindow::closeEvent(QCloseEvent* event)
+{
+    QMessageBox::StandardButton choice = QMessageBox::question(this,
+                                                               "Exit", "Do you really want to exit?",
+                                                               QMessageBox::Ok | QMessageBox::Cancel,
+                                                               QMessageBox::Cancel);
+
+    if(choice == QMessageBox::Cancel)
+        event->ignore();
 }

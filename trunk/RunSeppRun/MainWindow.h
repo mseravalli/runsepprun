@@ -2,6 +2,7 @@
 #define MAINWINDOW_H_
 
 #include <QtGui>
+#include "GraphicsView.h"
 
 class MainWindow : public QMainWindow
 {
@@ -9,6 +10,9 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow();
+
+protected:
+    void closeEvent(QCloseEvent*);
 
 private slots:
     void about();
