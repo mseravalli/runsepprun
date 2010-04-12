@@ -1,9 +1,7 @@
 #ifndef MAINWINDOW_H_
 #define MAINWINDOW_H_
 
-#include <QMainWindow>
-#include <QAction>
-#include <QMenu>
+#include <QtGui>
 
 class MainWindow : public QMainWindow
 {
@@ -20,6 +18,7 @@ private:
     void createMenus();
 
     QMenu *gameMenu;
+    QMenuBar *menuBar;
 
     QAction *exitAct;
     QAction *aboutAct;

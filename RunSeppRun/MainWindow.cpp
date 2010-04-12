@@ -1,5 +1,4 @@
 #include "MainWindow.h"
-#include <QtGui>
 
 MainWindow::MainWindow()
 {
@@ -36,7 +35,7 @@ void MainWindow::createActions()
     connect(aboutAct, SIGNAL(triggered()), this, SLOT(about()));
 
     exitAct = new QAction("E&xit", this);
-    exitAct->setShortcuts(QKeySequence::Close);
+    exitAct->setShortcuts(QKeySequence::Quit);
     connect(exitAct, SIGNAL(triggered()), this, SLOT(close()));
 }
 
@@ -48,7 +47,7 @@ void MainWindow::createMenus()
     gameMenu->addAction(exitAct);
 
     // Menu Bar
-    QMenuBar *menuBar = new QMenuBar();
+    menuBar = new QMenuBar();
     setMenuBar(menuBar);
     menuBar->addMenu(gameMenu);
 }

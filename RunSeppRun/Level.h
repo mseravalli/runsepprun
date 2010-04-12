@@ -1,22 +1,16 @@
-/* 
- * File:   Level.h
- * Author: korn
- *
- * Created on 12 aprile 2010, 18.22
- */
+#ifndef LEVEL_H
+#define	LEVEL_H
 
-#ifndef _LEVEL_H
-#define	_LEVEL_H
-
-
+class Character;
 #include "Character.h"
+
 
 class Level {
 public:
     Level();
-     static bool isColliding(const Character&, int, int);
+    static bool isColliding(const Character&, int, int);
 private:
 
 };
 
-#endif	/* _LEVEL_H */
+#endif

@@ -1,21 +1,14 @@
-/* 
- * File:   WorldElement.h
- * Author: marco
- *
- * Created on April 12, 2010, 6:02 PM
- */
-
-#ifndef _WORLDELEMENT_H
-#define	_WORLDELEMENT_H
+#ifndef WORLDELEMENT_H
+#define	WORLDELEMENT_H
 
 class WorldElement {
 public:
     WorldElement();
     WorldElement(int x, int y, int w, int h);
-    virtual int getX();
-    virtual int getY();
-    virtual int getWidth();
-    virtual int getHeight();
+    virtual int getX() const;
+    virtual int getY() const;
+    virtual int getWidth() const;
+    virtual int getHeight() const;
 
 protected:
     int posX;
@@ -27,5 +20,5 @@ private:
 
 };
 
-#endif	/* _WORLDELEMENT_H */
+#endif
 

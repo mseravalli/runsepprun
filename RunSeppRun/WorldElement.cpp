@@ -1,10 +1,3 @@
-/* 
- * File:   WorldElement.cpp
- * Author: marco
- * 
- * Created on April 12, 2010, 6:02 PM
- */
-
 #include "WorldElement.h"
 
 WorldElement::WorldElement() {
@@ -17,18 +10,18 @@ WorldElement::WorldElement(int x, int y, int w, int h){
     this->height = h;
 }
 
-int WorldElement::getX(){
+int WorldElement::getX() const{
     return this->posX;
 }
 
-int WorldElement::getY(){
+int WorldElement::getY() const{
     return this->posY;
 }
 
-int WorldElement::getHeight(){
+int WorldElement::getHeight() const{
     return this->height;
 }
 
-int WorldElement::getWidth(){
+int WorldElement::getWidth() const{
     return this->width;
 }
