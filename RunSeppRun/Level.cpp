@@ -10,7 +10,57 @@
 Level::Level() {
 }
 
-bool Level::checkCollision(const Character &actor , int newX, int newY){
+bool Level::isColliding(const Character &actor , int newX, int newY){
+
+    WorldElement e;
+
+    int cornerX;
+    int cornerY;
+
+    //to apply to every object in the collections
+
+
+    //if one of the corners is is colliding with another block
+
+    
+
+    //top left corner
+    cornerX = newX;
+    cornerY = newY;
+    if (cornerX > e.getX() && cornerX < (e.getX() + e.getWidth())){
+        if(cornerY > e.getY() && cornerY < (e.getY() + e.getHeight())){
+            return true;
+        }
+    }
+    
+    //top right corner
+    cornerX = newX + actor.getWidth();
+    cornerY = newY;
+    if (cornerX > e.getX() && cornerX < (e.getX() + e.getWidth())){
+        if(cornerY > e.getY() && cornerY < (e.getY() + e.getHeight())){
+            return true;
+        }
+    }
+
+
+    //bottom left corner
+    cornerX = newX;
+    cornerY = newY + actor.getHeight();
+    if (cornerX > e.getX() && cornerX < (e.getX() + e.getWidth())){
+        if(cornerY > e.getY() && cornerY < (e.getY() + e.getHeight())){
+            return true;
+        }
+    }
+
+
+    //bottom right corner
+    cornerX = newX + actor.getWidth();
+    cornerY = newY + actor.getHeight();
+    if (cornerX > e.getX() && cornerX < (e.getX() + e.getWidth())){
+        if(cornerY > e.getY() && cornerY < (e.getY() + e.getHeight())){
+            return true;
+        }
+    }
 
     return false;
 }
