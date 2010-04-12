@@ -1,16 +1,9 @@
-/* 
- * File:   Level.cpp
- * Author: korn
- * 
- * Created on 12 aprile 2010, 18.22
- */
-
 #include "Level.h"
 
 Level::Level() {
 }
 
-bool Level::isColliding(Character &actor , int newX, int newY){
+bool Level::isColliding(const Character& actor , int newX, int newY){
 
     WorldElement e = WorldElement(50,50,50,50);
 

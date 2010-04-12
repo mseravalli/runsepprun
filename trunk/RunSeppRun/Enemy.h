@@ -1,12 +1,5 @@
-/* 
- * File:   Enemy.h
- * Author: korn
- *
- * Created on 12 aprile 2010, 18.20
- */
-
-#ifndef _ENEMY_H
-#define	_ENEMY_H
+#ifndef ENEMY_H
+#define	ENEMY_H
 
 #include "Character.h"
 
@@ -18,5 +11,5 @@ private:
 
 };
 
-#endif	/* _ENEMY_H */
+#endif
 

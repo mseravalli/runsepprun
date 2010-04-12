@@ -1,12 +1,5 @@
-/* 
- * File:   Character.h
- * Author: korn
- *
- * Created on 12 aprile 2010, 18.16
- */
-
-#ifndef _CHARACTER_H
-#define	_CHARACTER_H
+#ifndef CHARACTER_H
+#define	CHARACTER_H
 
 #include "WorldElement.h"
 #include "Level.h"
@@ -20,5 +13,5 @@ protected:
 
 };
 
-#endif	/* _CHARACTER_H */
+#endif
 
