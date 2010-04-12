@@ -1,4 +1,4 @@
-/* ciao
+/*
  * File:   main.cpp
  * Author: marco
  *
