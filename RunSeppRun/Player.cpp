@@ -18,6 +18,6 @@ void Player::launch(){
 
 }
 
-void Player::move(){
+void Player::move(int accX, int accY){
     
 }

@@ -14,7 +14,7 @@
 class Level {
 public:
     Level();
-     static bool isColliding(const Character &actor , int newX, int newY);
+     static bool isColliding(const Character&, int, int);
 private:
 
 };

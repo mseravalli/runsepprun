@@ -13,7 +13,7 @@
 class Enemy : public Character {
 public:
     Enemy();
-    void move();
+    void move(int, int);
 private:
 
 };
