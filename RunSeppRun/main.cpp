@@ -13,6 +13,8 @@ int main(int argc, char *argv[]) {
 
     QApplication app(argc, argv);
 
+
+    //caoihcsk
     //caccaculo
 
     // create and show your widgets here
