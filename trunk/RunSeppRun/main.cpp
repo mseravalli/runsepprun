@@ -6,6 +6,7 @@
  */
 
 #include <QtGui/QApplication>
+#include "Player.h"
 
 int main(int argc, char *argv[]) {
     // initialize resources, if needed

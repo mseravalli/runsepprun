@@ -6,8 +6,10 @@
  */
 
 #include "Player.h"
+#include <iostream>
 
-Player::Player() {
+Player::Player(){
+
 }
 
 Player::Player(const Player& orig) {
