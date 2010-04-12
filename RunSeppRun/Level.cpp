@@ -17,6 +17,11 @@ bool Level::isColliding(Character &actor , int newX, int newY){
     int cornerX;
     int cornerY;
 
+    //0 = TOP
+    //1 = RIGHT
+    //2 = BOTTOM
+    //3 = LEFT
+
     //to apply to every object in the collections
 
 
