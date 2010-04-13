@@ -18,7 +18,7 @@ private:
     QList<Block> environment;
 
 
-    void parseXML(std::string);
+    bool parseXML(std::string);
 
 };
 
