@@ -10,10 +10,11 @@ int Level::parseXML(std::string path)
     /*
       POSSIBLE ERRORS:
       1-Can not read file
-      2-Wrong structure
+      2-No level
+      3-No environment or enemies
     */
 
-    // ReadFile
+    // Read file
     int fileSize;
     char* buf;
 
@@ -31,22 +32,85 @@ int Level::parseXML(std::string path)
     inFile.read(buf,fileSize);
     inFile.close();
 
+    // Parse file
     QDomDocument levelDom;
-    //levelDom.setContent(QString(buf));
-    levelDom.setContent(QString("<level><environment><block type=\"concrete\"/></block></emvironment></level>"));
+    levelDom.setContent(QString(buf));
 
-    QDomElement environment = levelDom.createElement("environment");
-    //QDomElement enemies = levelDom.createElement("enemies");
+    QDomNode level;
+    QDomNode environment;
+    QDomNode enemies;
+    QDomNode tmp;
 
-    QDomNode tmp = environment.firstChild();
-
+    // Get level
+    tmp = levelDom.firstChild();
     while(!tmp.isNull())
-    {std::cout << "df";
-        if(tmp.nodeName() != QString("block"))
+    {
+        if(!tmp.isNull() && tmp.nodeName() == QString("level"))
+            level = tmp;
+        else if(!tmp.isNull())
+        {
+            tmp = tmp.nextSibling();
+            continue;
+        }
+        else if(tmp.isNull() && !level.isNull())
+        {
+            tmp = tmp.nextSibling();
+            break;
+        }
+        else if(tmp.isNull() && level.isNull())
             return 2;
 
-        QString atr = tmp.attributes().namedItem("type").nodeValue();
-        qDebug() << atr;
+        tmp = tmp.nextSibling();
+    }
+
+    // Get environment and enemies
+    tmp = level.firstChild();
+    while(1)
+    {
+        if(!tmp.isNull() && tmp.nodeName() == QString("environment"))
+            environment = tmp;
+        else if(!tmp.isNull() && tmp.nodeName() == QString("enemies"))
+            enemies = tmp;
+        else if(!tmp.isNull())
+        {
+            tmp = tmp.nextSibling();
+            continue;
+        }
+        else if(tmp.isNull() && !enemies.isNull() && !environment.isNull())
+        {
+            tmp = tmp.nextSibling();
+            break;
+        }
+        else if(tmp.isNull() && (enemies.isNull() || environment.isNull()))
+            return 3;
+
+        tmp = tmp.nextSibling();
+    }
+
+    // Parse environment subtree
+    tmp = environment.firstChild();
+    while(!tmp.isNull())
+    {
+        if(tmp.nodeName() != QString("block"))
+            continue;
+
+        // Do something
+        qDebug() << tmp.nodeName() << tmp.attributes().namedItem("type").nodeValue();
+
+
+        tmp = tmp.nextSibling();
+    }
+
+    // Parse enemies subtree
+    tmp = enemies.firstChild();
+    while(!tmp.isNull())
+    {
+        if(tmp.nodeName() != QString("enemy"))
+            continue;
+
+        // Do something
+        qDebug() << tmp.nodeName() << tmp.attributes().namedItem("type").nodeValue();
+
 
         tmp = tmp.nextSibling();
     }

@@ -1,0 +1,12 @@
+<level> 
+  <environment>
+    <block type="concrete"/>
+    <block type="wood"/>
+    <block type="marmor"/>
+    <block type="steel"/>
+    <block type="grass"/>
+  </environment>
+  <enemies>
+    <enemy type ="mostro cattivo"/>
+  </enemies>
+</level>
