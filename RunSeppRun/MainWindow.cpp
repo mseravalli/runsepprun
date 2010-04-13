@@ -32,15 +32,18 @@ void MainWindow::about()
                        "</p>");
 }
 
-//void MainWindow::aboutQt()
-//{
-  //  QMessageBox::aboutQt(this, "dfdf");
-//}
+void MainWindow::aboutQt()
+{
+    QMessageBox::aboutQt(this, "About Qt");
+}
 
 void MainWindow::createActions()
 {
     aboutAct = new QAction("&About", this);
     connect(aboutAct, SIGNAL(triggered()), this, SLOT(about()));
+
+    aboutQtAct = new QAction("AboutQt", this);
+    connect(aboutQtAct, SIGNAL(triggered()), this, SLOT(aboutQt()));
 
     exitAct = new QAction("E&xit", this);
     exitAct->setShortcuts(QKeySequence::Quit);
@@ -52,6 +55,7 @@ void MainWindow::createMenus()
     // Game Menu
     gameMenu = new QMenu("&Game");
     gameMenu->addAction(aboutAct);
+    gameMenu->addAction(aboutQtAct);
     gameMenu->addAction(exitAct);
 
     // Menu Bar
