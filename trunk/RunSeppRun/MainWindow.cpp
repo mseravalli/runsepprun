@@ -30,7 +30,6 @@ void MainWindow::about()
                        "<li>Marco Seravalli</li>"
                        "<li>Patrick Clara</li></ul>"
                        "</p>");
-    QMessageBox::aboutQt(this, "dfdf");
 }
 
 //void MainWindow::aboutQt()
