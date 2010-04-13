@@ -16,6 +16,7 @@ protected:
 
 private slots:
     void about();
+    void aboutQt();
 
 private:
     void createActions();
@@ -26,6 +27,7 @@ private:
 
     QAction *exitAct;
     QAction *aboutAct;
+    QAction *aboutQtAct;
 };
 
 #endif
