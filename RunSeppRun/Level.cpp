@@ -161,60 +161,24 @@ Level::~Level()
 
 bool Level::isColliding(const Character& actor , int newX, int newY){
 
-    WorldElement e = WorldElement(50,50,50,50);
-
-    int cornerX;
-    int cornerY;
-
-    //0 = TOP
-    //1 = RIGHT
-    //2 = BOTTOM
-    //3 = LEFT
+    int actorWidth = actor.getWidth();
+    int actorHeigth = actor.getHeight();
 
     //to apply to every object in the collections
+    WorldElement e = WorldElement(50,50,50,50);
 
+    //if the base of the actor is not over the base of the element return true
+    if((newX + actorWidth)< e.getX() || (e.getX()+e.getWidth())<newX){
+        return false;
+    } else {
 
-    //if one of the corners is is colliding with another block
-
-    
-
-    //top left corner
-    cornerX = newX;
-    cornerY = newY;
-    if (cornerX > e.getX() && cornerX < (e.getX() + e.getWidth())){
-        if(cornerY > e.getY() && cornerY < (e.getY() + e.getHeight())){
-            return true;
-        }
-    }
-    
-    //top right corner
-    cornerX = newX + actor.getWidth();
-    cornerY = newY;
-    if (cornerX > e.getX() && cornerX < (e.getX() + e.getWidth())){
-        if(cornerY > e.getY() && cornerY < (e.getY() + e.getHeight())){
+        //if the side of the actor is not at the same height of the element return true
+        if((newY + actorHeigth)<e.getY() || (e.getY()+e.getHeight()) < newY){
+            return false;
+        } else {
             return true;
         }
     }
 
 
-    //bottom left corner
-    cornerX = newX;
-    cornerY = newY + actor.getHeight();
-    if (cornerX > e.getX() && cornerX < (e.getX() + e.getWidth())){
-        if(cornerY > e.getY() && cornerY < (e.getY() + e.getHeight())){
-            return true;
-        }
-    }
-
-
-    //bottom right corner
-    cornerX = newX + actor.getWidth();
-    cornerY = newY + actor.getHeight();
-    if (cornerX > e.getX() && cornerX < (e.getX() + e.getWidth())){
-        if(cornerY > e.getY() && cornerY < (e.getY() + e.getHeight())){
-            return true;
-        }
-    }
-
-    return false;
 }
