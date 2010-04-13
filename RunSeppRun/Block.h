@@ -5,7 +5,7 @@
 
 class Block : public WorldElement {
 public:
-    Block();
+    Block(int, int, int, int);
 private:
 
 };
