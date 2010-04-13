@@ -46,7 +46,7 @@ void MainWindow::createActions()
     connect(aboutQtAct, SIGNAL(triggered()), this, SLOT(aboutQt()));
 
     exitAct = new QAction("E&xit", this);
-    exitAct->setShortcuts(QKeySequence::Close /*QKeySequence::Quit*/);
+    exitAct->setShortcuts(QKeySequence::Quit);
     connect(exitAct, SIGNAL(triggered()), this, SLOT(close()));
 }
 
