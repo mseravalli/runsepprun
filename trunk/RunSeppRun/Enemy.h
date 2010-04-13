@@ -6,6 +6,7 @@
 class Enemy : public Character {
 public:
     Enemy();
+    Enemy(int, int, int, int);
     void move(int, int);
 private:
 

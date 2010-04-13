@@ -7,6 +7,7 @@
 class Character : public WorldElement {
 public:
     Character();
+    Character::Character(int, int, int, int);
     virtual void move(int, int);
 protected:
     int life;
