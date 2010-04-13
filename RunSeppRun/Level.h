@@ -5,7 +5,6 @@ class Character;
 #include "Character.h"
 #include "Block.h"
 #include <QList>
-#include <iostream>
 #include <string>
 
 class Level {
@@ -18,7 +17,7 @@ private:
     QList<Block> environment;
 
 
-    bool parseXML(std::string);
+    int parseXML(std::string);
 
 };
 

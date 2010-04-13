@@ -1,4 +1,5 @@
 #include "MainWindow.h"
+#include "Level.h"
 
 MainWindow::MainWindow()
 {
@@ -20,6 +21,7 @@ MainWindow::MainWindow()
     view->setFocus();
 
     setCentralWidget(view);
+    new Level("level1.xml");
 }
 
 void MainWindow::about()
@@ -49,7 +51,7 @@ void MainWindow::createActions()
     connect(aboutQtAct, SIGNAL(triggered()), this, SLOT(aboutQt()));
 
     exitAct = new QAction("E&xit", this);
-    exitAct->setShortcuts(QKeySequence::Close);
+    exitAct->setShortcuts(QKeySequence::Close /*Quit*/);
     connect(exitAct, SIGNAL(triggered()), this, SLOT(close()));
 }
 

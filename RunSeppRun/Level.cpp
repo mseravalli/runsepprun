@@ -1,34 +1,65 @@
 #include "Level.h"
 #include <QtXml>
+#include <QtGui>
+#include <iostream>
+#include <fstream>
+#include <QtDebug>
 
 int Level::parseXML(std::string path)
 {
     /*
-      ERRORS:
+      POSSIBLE ERRORS:
       1-Can not read file
+      2-Wrong structure
     */
-         QDomDocument doc();
 
-         // Read File
-         QFile file(path);
-	 if (!file.open(QIODevice::ReadOnly))
-             return 1;
+    // ReadFile
+    int fileSize;
+    char* buf;
 
-         if (!doc.setContent(&file))
-         {
-	     file.close();
-             return 1;
-	 }
-	 file.close();
+    std::ifstream inFile;
+    inFile.open(path.c_str(), std::ios::in | std::ios::binary);
 
+    if(!inFile.is_open())
+        return 1;
 
+    inFile.seekg(0, std::ios::end);
+    fileSize = inFile.tellg();
+    buf = new char[ fileSize ];
+
+    inFile.seekg(0, std::ios::beg);
+    inFile.read(buf,fileSize);
+    inFile.close();
+
+    QDomDocument levelDom;
+    //levelDom.setContent(QString(buf));
+    levelDom.setContent(QString("<level><environment><block type=\"concrete\"/></block></emvironment></level>"));
+
+    QDomElement environment = levelDom.createElement("environment");
+    //QDomElement enemies = levelDom.createElement("enemies");
+
+    QDomNode tmp = environment.firstChild();
+
+    while(!tmp.isNull())
+    {std::cout << "df";
+        if(tmp.nodeName() != QString("block"))
+            return 2;
+
+        QString atr = tmp.attributes().namedItem("type").nodeValue();
+        qDebug() << atr;
+
+        tmp = tmp.nextSibling();
+    }
+
+    return 0;
 }
 
 Level::Level(std::string path) {
 
-	environment = QList<Block>();
+    environment = QList<Block>();
 
-	parseXML(path);
+    //check return!!!!!!!!!!!!!
+    std::cout << parseXML(path);
 }
 
 
