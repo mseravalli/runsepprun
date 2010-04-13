@@ -2,6 +2,8 @@
 
 MainWindow::MainWindow()
 {
+
+	//set general parameters of the class
     setWindowTitle("Run Sepp Run");
 
     setWindowIcon(QIcon(":/Icon/ico.gif"));
@@ -39,6 +41,7 @@ void MainWindow::aboutQt()
 
 void MainWindow::createActions()
 {
+
     aboutAct = new QAction("&About", this);
     connect(aboutAct, SIGNAL(triggered()), this, SLOT(about()));
 
