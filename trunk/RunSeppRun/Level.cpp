@@ -1,7 +1,32 @@
 #include "Level.h"
+#include <QDomDocument>
+#include <QFile>
 
-Level::Level() {
+void Level::parseXML(std::string path){
+
+	 QDomDocument doc("mydocument");
+	 QFile file("mydocument.xml");
+	 if (!file.open(QIODevice::ReadOnly))
+	     return;
+	 if (!doc.setContent(&file)) {
+	     file.close();
+	     return;
+	 }
+	 file.close();
+
+
 }
+
+Level::Level(std::string path) {
+
+	environment = QList<Block>();
+
+	parseXML(path);
+}
+
+
+
+
 
 bool Level::isColliding(const Character& actor , int newX, int newY){
 

@@ -3,13 +3,22 @@
 
 class Character;
 #include "Character.h"
-
+#include "Block.h"
+#include <QList>
+#include <iostream>
+#include <string>
 
 class Level {
 public:
-    Level();
+    Level(std::string);
     static bool isColliding(const Character&, int, int);
+
 private:
+
+    QList<Block> environment;
+
+
+    void parseXML(std::string);
 
 };
 
