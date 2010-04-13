@@ -118,11 +118,10 @@ int Level::parseXML(std::string path)
     return 0;
 }
 
-Level::Level(std::string path) {
-
+Level::Level(std::string path)
+{
     environment = QList<Block>();
 
-    //check return!!!!!!!!!!!!!
     std::cout << parseXML(path);
 }
 
