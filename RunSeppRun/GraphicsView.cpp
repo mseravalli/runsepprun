@@ -6,13 +6,13 @@ GraphicsView::GraphicsView(QWidget* parent) : QGraphicsView(parent)
     scene->setItemIndexMethod(QGraphicsScene::NoIndex);
     scene->setSceneRect(0,0,800,600);
 
-    this->setScene(scene);
+    setScene(scene);
 
     // Optimizations
-    this->setRenderHint(QPainter::Antialiasing);
-    this->setCacheMode(QGraphicsView::CacheBackground);
-    this->setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
-    this->setOptimizationFlags( QGraphicsView::DontSavePainterState | QGraphicsView::DontAdjustForAntialiasing);
+    setRenderHint(QPainter::Antialiasing);
+    setCacheMode(QGraphicsView::CacheBackground);
+    setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
+    setOptimizationFlags( QGraphicsView::DontSavePainterState | QGraphicsView::DontAdjustForAntialiasing);
 
     // Timer
     timer = new QTimer();
