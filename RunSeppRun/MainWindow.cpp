@@ -1,27 +1,31 @@
 #include "MainWindow.h"
 #include "Level.h"
+#include "GraphicLevel.h"
+#include <iostream>
 
 MainWindow::MainWindow()
 {
-
-	//set general parameters of the class
+    // Set window proprieties
     setWindowTitle("Run Sepp Run");
-
     setWindowIcon(QIcon(":/Icon/ico.gif"));
 
+    // Set window position and size
     setGeometry(200, 200, 0, 0);
     setMinimumSize(800, 600);
     setMaximumSize(1680, 1050);
 
-    createActions();
-    createMenus();
+    createActions(); // Create buttons inside menu
+    createMenus();  // Put menu together
 
     GraphicsView *view = new GraphicsView();
+    view->setFocus();   // Enable its keyboard listener
 
-    view->setFocus();
+    setCentralWidget(view); // Add view to the window
 
-    setCentralWidget(view);
-    new Level("level1.xml");
+    //TEMP FOR TESTING
+    Level *l1 = new Level();
+    GraphicLevel *gl1 = new GraphicLevel();
+    std::cout << Level::parseXML("level1.xml", l1, gl1);
 }
 
 void MainWindow::about()
@@ -43,13 +47,15 @@ void MainWindow::aboutQt()
 
 void MainWindow::createActions()
 {
-
+    // About action
     aboutAct = new QAction("&About", this);
     connect(aboutAct, SIGNAL(triggered()), this, SLOT(about()));
 
+    // AboutQt action
     aboutQtAct = new QAction("AboutQt", this);
     connect(aboutQtAct, SIGNAL(triggered()), this, SLOT(aboutQt()));
 
+    // Exit action
     exitAct = new QAction("E&xit", this);
     exitAct->setShortcuts(QKeySequence::Close /*Quit*/);
     connect(exitAct, SIGNAL(triggered()), this, SLOT(close()));
@@ -69,6 +75,7 @@ void MainWindow::createMenus()
     menuBar->addMenu(gameMenu);
 }
 
+// Calles whenever a QCloseEvent is catched
 void MainWindow::closeEvent(QCloseEvent* event)
 {
     QMessageBox::StandardButton choice = QMessageBox::question(this,

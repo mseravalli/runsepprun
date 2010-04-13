@@ -4,14 +4,17 @@
 #include <iostream>
 #include <fstream>
 #include <QtDebug>
+#include <cstdlib>
+#include "Block.h"
 
-int Level::parseXML(std::string path)
+int Level::parseXML(std::string path, Level* levelRet, GraphicLevel* graphicLevelRet)
 {
     /*
       POSSIBLE ERRORS:
       1-Can not read file
       2-No level
       3-No environment or enemies
+      4-Inconsistent entries
     */
 
     // Read file
@@ -95,8 +98,37 @@ int Level::parseXML(std::string path)
             continue;
 
         // Do something
-        qDebug() << tmp.nodeName() << tmp.attributes().namedItem("type").nodeValue();
+        int x, y, w, h;
+        
+        if(!tmp.attributes().namedItem("x").nodeValue().isEmpty())
+            x = tmp.attributes().namedItem("x").nodeValue().toInt();
+        else
+            return 4;
 
+        if(!tmp.attributes().namedItem("y").nodeValue().isEmpty())
+            y = tmp.attributes().namedItem("y").nodeValue().toInt();
+        else
+            return 4;
+
+        if(!tmp.attributes().namedItem("w").nodeValue().isEmpty())
+            w = tmp.attributes().namedItem("w").nodeValue().toInt();
+        else
+            return 4;
+
+        if(!tmp.attributes().namedItem("h").nodeValue().isEmpty())
+            h = tmp.attributes().namedItem("h").nodeValue().toInt();
+        else
+            return 4;
+
+        WorldElement *tmpBlock = new Block(x,y,w,h);
+        GraphicItem *tmpItem = new GraphicItem(tmpBlock,w,h);
+
+        levelRet->environment.append(tmpBlock);
+        graphicLevelRet->graphicWorld.append(tmpItem);
+
+
+        // TEMP FOR TESTING
+        qDebug() << tmp.nodeName() << tmp.attributes().namedItem("type").nodeValue();
 
         tmp = tmp.nextSibling();
     }
@@ -111,23 +143,21 @@ int Level::parseXML(std::string path)
         // Do something
         qDebug() << tmp.nodeName() << tmp.attributes().namedItem("type").nodeValue();
 
-
         tmp = tmp.nextSibling();
     }
 
     return 0;
 }
 
-Level::Level(std::string path)
+Level::Level()
 {
-    environment = QList<Block>();
-
-    std::cout << parseXML(path);
+    environment = QList<WorldElement*>();
 }
 
-
-
-
+Level::~Level()
+{
+    // distruggere tutti gli elementi nella lista
+}
 
 bool Level::isColliding(const Character& actor , int newX, int newY){
 
