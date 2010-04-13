@@ -4,7 +4,7 @@ MainWindow::MainWindow()
 {
     setWindowTitle("Run Sepp Run");
 
-    setWindowIcon(QIcon("ico.gif"));
+    setWindowIcon(QIcon(":/Icon/ico.gif"));
 
     setGeometry(200, 200, 0, 0);
     setMinimumSize(800, 600);
@@ -27,10 +27,16 @@ void MainWindow::about()
                        "<p>Developers:<ul>"
                        "<li>Corneliu Ilisescu</li>"
                        "<li>Manuel Piubelli</li>"
-                       "<li>Marco Serravalli</li>"
+                       "<li>Marco Seravalli</li>"
                        "<li>Patrick Clara</li></ul>"
                        "</p>");
+    QMessageBox::aboutQt(this, "dfdf");
 }
+
+//void MainWindow::aboutQt()
+//{
+  //  QMessageBox::aboutQt(this, "dfdf");
+//}
 
 void MainWindow::createActions()
 {
