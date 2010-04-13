@@ -1,19 +1,23 @@
 #include "Level.h"
 #include <QtXml>
 
-bool Level::parseXML(std::string path)
+int Level::parseXML(std::string path)
 {
+    /*
+      ERRORS:
+      1-Can not read file
+    */
          QDomDocument doc();
 
-         //
+         // Read File
          QFile file(path);
 	 if (!file.open(QIODevice::ReadOnly))
-	     return;
+             return 1;
 
          if (!doc.setContent(&file))
          {
 	     file.close();
-	     return;
+             return 1;
 	 }
 	 file.close();
 
