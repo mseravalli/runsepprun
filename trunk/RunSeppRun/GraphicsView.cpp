@@ -8,13 +8,14 @@
 
 GraphicsView::GraphicsView(QWidget* parent) : QGraphicsView(parent)
 {
+    // Scene
     scene = new QGraphicsScene();
     scene->setItemIndexMethod(QGraphicsScene::NoIndex);
     scene->setSceneRect(0,0,BASE_X_RESOLUTION, BASE_Y_RESOLUTION);
 
     setScene(scene);
 
-    // Optimizations
+    // Rendering optimizations
     setRenderHint(QPainter::Antialiasing);
     setCacheMode(QGraphicsView::CacheBackground);
     setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
@@ -27,12 +28,15 @@ GraphicsView::GraphicsView(QWidget* parent) : QGraphicsView(parent)
     timer->start(1000/TIMER_X_SEC);
 }
 
+// Called from timer
+// It scrolls the scene inside the GraphicsView
 void GraphicsView::scroll()
 {
     QRectF scene = sceneRect();
-    setSceneRect(scene.x() + SCENE_X_VELOCITY, scene.y() + SCENE_Y_VELOCITY, BASE_X_RESOLUTION, BASE_Y_RESOLUTION);
+    setSceneRect(scene.x() + SCENE_X_VELOCITY, scene.y() + SCENE_Y_VELOCITY, BASE_X_RESOLUTION, BASE_Y_RESOLUTION); // Visible part of the scene in the GV
 }
 
+// Called on GraphicsView (consequently also an MainWindow) resize
 void GraphicsView::resizeEvent(QResizeEvent * event)
 {
    QGraphicsView::resizeEvent(event);
