@@ -1,0 +1,109 @@
+\hypertarget{classLevel}{
+\section{Level Class Reference}
+\label{classLevel}\index{Level@{Level}}
+}
+
+
+Game level.  
+
+
+{\ttfamily \#include $<$Level.h$>$}\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classLevel_a7a696c928ca5d5354db6e50e46d0f67d}{Level} ()
+\item 
+\hyperlink{classLevel_a249eac1e8f19ff44134efa5e986feaca}{$\sim$Level} ()
+\item 
+int \hyperlink{classLevel_a53dad6c67eae24dd703343894fd4a108}{isColliding} (\hyperlink{classWorldElement}{WorldElement} \&, int, int, int $\ast$)
+\item 
+int \hyperlink{classLevel_add706d11e20076169ede9af12f4c58bc}{parseXML} (std::string)
+\item 
+\hypertarget{classLevel_afefb97073ebaf8c3376c5e681d4dfd26}{
+QList$<$ \hyperlink{classBlock}{Block} $\ast$ $>$ $\ast$ {\bfseries getEnvironment} ()}
+\label{classLevel_afefb97073ebaf8c3376c5e681d4dfd26}
+
+\item 
+\hypertarget{classLevel_a3bec1fb83c924bda95bf1573523c3aef}{
+QList$<$ \hyperlink{classEnemy}{Enemy} $\ast$ $>$ $\ast$ {\bfseries getEnemies} ()}
+\label{classLevel_a3bec1fb83c924bda95bf1573523c3aef}
+
+\item 
+\hypertarget{classLevel_ab23e28c8277d826abe504a34d2e4e41d}{
+QList$<$ \hyperlink{classCollect}{Collect} $\ast$ $>$ $\ast$ {\bfseries getCollects} ()}
+\label{classLevel_ab23e28c8277d826abe504a34d2e4e41d}
+
+\item 
+\hypertarget{classLevel_aab8deb5d1590b6299ee65c929b115f48}{
+QList$<$ \hyperlink{classBackgroundElement}{BackgroundElement} $\ast$ $>$ $\ast$ {\bfseries getBackgroundElements} ()}
+\label{classLevel_aab8deb5d1590b6299ee65c929b115f48}
+
+\item 
+\hypertarget{classLevel_ae88a52fc60f454e43b82f81d68ad88f3}{
+\hyperlink{classEgg}{Egg} $\ast$$\ast$$\ast$ {\bfseries getE} ()}
+\label{classLevel_ae88a52fc60f454e43b82f81d68ad88f3}
+
+\item 
+\hypertarget{classLevel_a98b9579253fbf55f7d631853c4cd7e9c}{
+\hyperlink{classPlayer}{Player} $\ast$ {\bfseries getPlayer} ()}
+\label{classLevel_a98b9579253fbf55f7d631853c4cd7e9c}
+
+\item 
+\hypertarget{classLevel_a7673f92a80336360694763a3511aba02}{
+\hyperlink{classBlock}{Block} $\ast$ {\bfseries getFinalBlock} ()}
+\label{classLevel_a7673f92a80336360694763a3511aba02}
+
+\item 
+\hypertarget{classLevel_af83cb8979a8c8a27a55c89cf398f06cf}{
+int {\bfseries getLevelLength} ()}
+\label{classLevel_af83cb8979a8c8a27a55c89cf398f06cf}
+
+\item 
+void \hyperlink{classLevel_af0aa91cdb9e52145003e7fcf8ed9ac25}{rechargeEggs} (int)
+\item 
+bool \hyperlink{classLevel_a02d8597c96961e7d27932fc686a5b94b}{checkEnd} (int, int)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Game level. This class is a collection of \hyperlink{classBlock}{Block} and \hyperlink{classEnemy}{Enemy} and is the logical representation of the level. This class can generate its content by parsing xml level files. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classLevel_a7a696c928ca5d5354db6e50e46d0f67d}{
+\index{Level@{Level}!Level@{Level}}
+\index{Level@{Level}!Level@{Level}}
+\subsubsection[{Level}]{\setlength{\rightskip}{0pt plus 5cm}Level::Level ()}}
+\label{classLevel_a7a696c928ca5d5354db6e50e46d0f67d}
+Creates an empty level. \hypertarget{classLevel_a249eac1e8f19ff44134efa5e986feaca}{
+\index{Level@{Level}!$\sim$Level@{$\sim$Level}}
+\index{$\sim$Level@{$\sim$Level}!Level@{Level}}
+\subsubsection[{$\sim$Level}]{\setlength{\rightskip}{0pt plus 5cm}Level::$\sim$Level ()}}
+\label{classLevel_a249eac1e8f19ff44134efa5e986feaca}
+Destroys itself and all the WorldElements contained into it. 
+
+\subsection{Member Function Documentation}
+\hypertarget{classLevel_a02d8597c96961e7d27932fc686a5b94b}{
+\index{Level@{Level}!checkEnd@{checkEnd}}
+\index{checkEnd@{checkEnd}!Level@{Level}}
+\subsubsection[{checkEnd}]{\setlength{\rightskip}{0pt plus 5cm}bool Level::checkEnd (int {\em playerX}, \/  int {\em playerY})}}
+\label{classLevel_a02d8597c96961e7d27932fc686a5b94b}
+the level checks whether the player has reached the end of the level \hypertarget{classLevel_a53dad6c67eae24dd703343894fd4a108}{
+\index{Level@{Level}!isColliding@{isColliding}}
+\index{isColliding@{isColliding}!Level@{Level}}
+\subsubsection[{isColliding}]{\setlength{\rightskip}{0pt plus 5cm}int Level::isColliding ({\bf WorldElement} \& {\em actor}, \/  int {\em newX}, \/  int {\em newY}, \/  int $\ast$ {\em index})}}
+\label{classLevel_a53dad6c67eae24dd703343894fd4a108}
+Checks whether an element is colliding with an other one. \hypertarget{classLevel_add706d11e20076169ede9af12f4c58bc}{
+\index{Level@{Level}!parseXML@{parseXML}}
+\index{parseXML@{parseXML}!Level@{Level}}
+\subsubsection[{parseXML}]{\setlength{\rightskip}{0pt plus 5cm}int Level::parseXML (std::string {\em path})}}
+\label{classLevel_add706d11e20076169ede9af12f4c58bc}
+It generates the content of a \hyperlink{classLevel}{Level} instance by parsing xml level files. \hypertarget{classLevel_af0aa91cdb9e52145003e7fcf8ed9ac25}{
+\index{Level@{Level}!rechargeEggs@{rechargeEggs}}
+\index{rechargeEggs@{rechargeEggs}!Level@{Level}}
+\subsubsection[{rechargeEggs}]{\setlength{\rightskip}{0pt plus 5cm}void Level::rechargeEggs (int {\em no})}}
+\label{classLevel_af0aa91cdb9e52145003e7fcf8ed9ac25}
+Recharges the last \char`\"{}no\char`\"{} eggs of the array 
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+Level.h\item 
+Level.cpp\end{DoxyCompactItemize}

@@ -1,0 +1,296 @@
+\hypertarget{classClient}{
+\section{Client Class Reference}
+\label{classClient}\index{Client@{Client}}
+}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classClient_ac7de52639b0eafbd02795fb3e1f28825}{
+\hyperlink{classClient_ac7de52639b0eafbd02795fb3e1f28825}{Client} (\hyperlink{classMainWindow}{MainWindow} $\ast$)}
+\label{classClient_ac7de52639b0eafbd02795fb3e1f28825}
+
+\begin{DoxyCompactList}\small\item\em Constructs a new \hyperlink{classClient}{Client} initializing all the instance variables. \item\end{DoxyCompactList}\item 
+\hypertarget{classClient_a840e519ca781888cbd54181572ebe3a7}{
+\hyperlink{classClient_a840e519ca781888cbd54181572ebe3a7}{$\sim$Client} ()}
+\label{classClient_a840e519ca781888cbd54181572ebe3a7}
+
+\begin{DoxyCompactList}\small\item\em All the instance variables are deleted and set to NULL or to a default value. \item\end{DoxyCompactList}\item 
+\hypertarget{classClient_a666800aa97272c4d07fd713526843c05}{
+void \hyperlink{classClient_a666800aa97272c4d07fd713526843c05}{setServerAddress} (QString, quint16)}
+\label{classClient_a666800aa97272c4d07fd713526843c05}
+
+\begin{DoxyCompactList}\small\item\em The server address and the server port are passed to the passed ones. \item\end{DoxyCompactList}\item 
+\hypertarget{classClient_a484b660517d6a610b6733bee7e96cb8c}{
+void \hyperlink{classClient_a484b660517d6a610b6733bee7e96cb8c}{connectToServer} ()}
+\label{classClient_a484b660517d6a610b6733bee7e96cb8c}
+
+\begin{DoxyCompactList}\small\item\em The client tries to connect to the set server. \item\end{DoxyCompactList}\item 
+\hypertarget{classClient_a43ffca98bbbceba21e56b5af97586498}{
+void \hyperlink{classClient_a43ffca98bbbceba21e56b5af97586498}{disconnectFromServer} ()}
+\label{classClient_a43ffca98bbbceba21e56b5af97586498}
+
+\begin{DoxyCompactList}\small\item\em The disconnection from the server is performed: the sockets are closed and. \item\end{DoxyCompactList}\item 
+\hypertarget{classClient_a4023c23dd6185587fa9cf7ad76451b6c}{
+QHostAddress $\ast$ {\bfseries getServerAddress} ()}
+\label{classClient_a4023c23dd6185587fa9cf7ad76451b6c}
+
+\item 
+\hypertarget{classClient_a88e1c1bff6793865413947883c656dae}{
+QUdpSocket $\ast$ {\bfseries getUDPSocket} ()}
+\label{classClient_a88e1c1bff6793865413947883c656dae}
+
+\item 
+\hypertarget{classClient_a9f58df1f1b9eb062c94655d72cc6c5a3}{
+\hyperlink{classMainWindow}{MainWindow} $\ast$ {\bfseries getWindow} ()}
+\label{classClient_a9f58df1f1b9eb062c94655d72cc6c5a3}
+
+\item 
+\hypertarget{classClient_a6148446e0ee89272c5bb16f03f4e46fc}{
+bool {\bfseries isReady} ()}
+\label{classClient_a6148446e0ee89272c5bb16f03f4e46fc}
+
+\item 
+\hypertarget{classClient_afc4d01a2bd9d975f8b53c7026476a8a2}{
+void {\bfseries setDirection} (int)}
+\label{classClient_afc4d01a2bd9d975f8b53c7026476a8a2}
+
+\item 
+\hypertarget{classClient_a7021136179c923d02747085d88f2b22a}{
+void {\bfseries setIsJumping} (bool)}
+\label{classClient_a7021136179c923d02747085d88f2b22a}
+
+\item 
+\hypertarget{classClient_a9bd58148248ba8d1948cfaa24ab81bd9}{
+void {\bfseries setIsLaunching} (bool)}
+\label{classClient_a9bd58148248ba8d1948cfaa24ab81bd9}
+
+\item 
+\hypertarget{classClient_a517acd64db1747f6d522d282aea72518}{
+void {\bfseries setLevelID} (int)}
+\label{classClient_a517acd64db1747f6d522d282aea72518}
+
+\item 
+\hypertarget{classClient_add2fe55f478137671b462bf03c1bcfc8}{
+int {\bfseries getDirection} ()}
+\label{classClient_add2fe55f478137671b462bf03c1bcfc8}
+
+\item 
+\hypertarget{classClient_a40a02d7edc873f2b8d6c3aa1c8359711}{
+bool {\bfseries isJumping} ()}
+\label{classClient_a40a02d7edc873f2b8d6c3aa1c8359711}
+
+\item 
+\hypertarget{classClient_a190f2c5c7b640550e619371f2834a338}{
+bool {\bfseries isLaunching} ()}
+\label{classClient_a190f2c5c7b640550e619371f2834a338}
+
+\item 
+\hypertarget{classClient_a4bd5f5f9f09c0667e5cf4491f7099c4a}{
+int {\bfseries getID} ()}
+\label{classClient_a4bd5f5f9f09c0667e5cf4491f7099c4a}
+
+\end{DoxyCompactItemize}
+\subsection*{Private Slots}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classClient_aaab399a5a3940a45aafede75dc77ad90}{
+void \hyperlink{classClient_aaab399a5a3940a45aafede75dc77ad90}{startDialog} ()}
+\label{classClient_aaab399a5a3940a45aafede75dc77ad90}
+
+\begin{DoxyCompactList}\small\item\em The client slimply sends to the server a hello packet. \item\end{DoxyCompactList}\item 
+void \hyperlink{classClient_a97e3cafa32f18b690d47046d0b0e5b0d}{errorHandler} (QAbstractSocket::SocketError)
+\begin{DoxyCompactList}\small\item\em The errors raised by the tcp socket are handled in this method. \item\end{DoxyCompactList}\item 
+void \hyperlink{classClient_ac7dd9cf6756896887ab8b684bea35fe8}{processDatagram} ()
+\begin{DoxyCompactList}\small\item\em This slot is called whenever a package arrives to the tcp server. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{classClient_a2194fd34125d24363c4e7074ec3923b3}{sendSetupPacket} (int)
+\begin{DoxyCompactList}\small\item\em The client sends the correct packet type. \item\end{DoxyCompactList}\item 
+void \hyperlink{classClient_a449b9867ad67d835ca9cff7cf7262b0a}{processData} (QByteArray $\ast$)
+\begin{DoxyCompactList}\small\item\em The data of the datagram is processed according to its type. \item\end{DoxyCompactList}\item 
+\hypertarget{classClient_a491e832276880ef9cc629f6ae43eca82}{
+int \hyperlink{classClient_a491e832276880ef9cc629f6ae43eca82}{bind} ()}
+\label{classClient_a491e832276880ef9cc629f6ae43eca82}
+
+\begin{DoxyCompactList}\small\item\em The UDP socket is binded to a predefined port. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classClient_af8c1c7117e5948edee1558fc438b31ac}{
+\hyperlink{classMainWindow}{MainWindow} $\ast$ {\bfseries window}}
+\label{classClient_af8c1c7117e5948edee1558fc438b31ac}
+
+\item 
+\hypertarget{classClient_a40764e2c37b627ee9e8d4e2b2c6d449d}{
+QHostAddress $\ast$ {\bfseries clientAddress}}
+\label{classClient_a40764e2c37b627ee9e8d4e2b2c6d449d}
+
+\item 
+\hypertarget{classClient_a0db6298d221397a0264785d33638d670}{
+QHostAddress $\ast$ {\bfseries serverAddress}}
+\label{classClient_a0db6298d221397a0264785d33638d670}
+
+\item 
+\hypertarget{classClient_a91b4c05e1238c122efdef05979425a95}{
+quint16 {\bfseries serverPort}}
+\label{classClient_a91b4c05e1238c122efdef05979425a95}
+
+\item 
+\hypertarget{classClient_a2eeff66d384bd435437fec1468612c22}{
+QString {\bfseries selectedLevel}}
+\label{classClient_a2eeff66d384bd435437fec1468612c22}
+
+\item 
+\hypertarget{classClient_a7041cbe73e05ecbb881c6d5cf9ddfffb}{
+QTcpSocket $\ast$ {\bfseries tcpSocket}}
+\label{classClient_a7041cbe73e05ecbb881c6d5cf9ddfffb}
+
+\item 
+\hypertarget{classClient_aa5c3d320ef8fc938387bd0b8502f3c0a}{
+QUdpSocket $\ast$ {\bfseries udpSocket}}
+\label{classClient_aa5c3d320ef8fc938387bd0b8502f3c0a}
+
+\item 
+\hypertarget{classClient_ab79ad95264939f089a2f0b8e0ca62d37}{
+int {\bfseries id}}
+\label{classClient_ab79ad95264939f089a2f0b8e0ca62d37}
+
+\item 
+\hypertarget{classClient_ae05597d2e1b9244564c21c48d6562761}{
+int {\bfseries levelID}}
+\label{classClient_ae05597d2e1b9244564c21c48d6562761}
+
+\item 
+\hypertarget{classClient_a378696f650d41b3ca9523a96c6d56128}{
+int {\bfseries playerDirX}}
+\label{classClient_a378696f650d41b3ca9523a96c6d56128}
+
+\item 
+\hypertarget{classClient_af9490f768c7de73ecd79670679fe455f}{
+bool {\bfseries playerIsJumping}}
+\label{classClient_af9490f768c7de73ecd79670679fe455f}
+
+\item 
+\hypertarget{classClient_ac4212d917f635db9b85b82c41638e7d7}{
+bool {\bfseries playerIsLaunching}}
+\label{classClient_ac4212d917f635db9b85b82c41638e7d7}
+
+\item 
+\hypertarget{classClient_aa8dfba5edb20c1525af9467122de2162}{
+bool {\bfseries ready}}
+\label{classClient_aa8dfba5edb20c1525af9467122de2162}
+
+\item 
+\hypertarget{classClient_acc3630c0a1e8252531b7afbf3e58e719}{
+bool {\bfseries levelComplete}}
+\label{classClient_acc3630c0a1e8252531b7afbf3e58e719}
+
+\item 
+\hypertarget{classClient_a0c4371e6cc3ab92e6c0d621afa6d9db1}{
+int {\bfseries levelSize}}
+\label{classClient_a0c4371e6cc3ab92e6c0d621afa6d9db1}
+
+\item 
+\hypertarget{classClient_a9b867f1ec4c4ddc68babd7f74635deab}{
+QByteArray $\ast$ {\bfseries receivedLvl}}
+\label{classClient_a9b867f1ec4c4ddc68babd7f74635deab}
+
+\item 
+\hypertarget{classClient_aa156feda3cb5f054a47c7e258b249630}{
+\hyperlink{classUDPReceiver}{UDPReceiver} $\ast$ {\bfseries receiver}}
+\label{classClient_aa156feda3cb5f054a47c7e258b249630}
+
+\item 
+\hypertarget{classClient_aac0edbbfb747fb7a7ce528354a8e43d5}{
+\hyperlink{classUDPSender}{UDPSender} $\ast$ {\bfseries sender}}
+\label{classClient_aac0edbbfb747fb7a7ce528354a8e43d5}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classClient_a97e3cafa32f18b690d47046d0b0e5b0d}{
+\index{Client@{Client}!errorHandler@{errorHandler}}
+\index{errorHandler@{errorHandler}!Client@{Client}}
+\subsubsection[{errorHandler}]{\setlength{\rightskip}{0pt plus 5cm}void Client::errorHandler (QAbstractSocket::SocketError {\em errorType})\hspace{0.3cm}{\ttfamily  \mbox{[}private, slot\mbox{]}}}}
+\label{classClient_a97e3cafa32f18b690d47046d0b0e5b0d}
+
+
+The errors raised by the tcp socket are handled in this method. 
+
+If the connection to the server is dropped an error dialog is shown to the player, the current connection is closed and the main menu is displayed again \hypertarget{classClient_a449b9867ad67d835ca9cff7cf7262b0a}{
+\index{Client@{Client}!processData@{processData}}
+\index{processData@{processData}!Client@{Client}}
+\subsubsection[{processData}]{\setlength{\rightskip}{0pt plus 5cm}void Client::processData (QByteArray $\ast$ {\em datagram})\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{classClient_a449b9867ad67d835ca9cff7cf7262b0a}
+
+
+The data of the datagram is processed according to its type. 
+
+Each type of datagram is processed in different ways:
+
+
+\begin{DoxyItemize}
+\item ID\_\-PACKET: the client id and the client rights are updated
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
+\item LEVELLIST\_\-PACKET: the datagram is translated into a QString and it is then separated, afterwards a dialog box is shown to the player, so that s/he can choose the correct level
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
+\item LEVEL\_\-PACKET: the incoming packets are added to the instance datagram until the total size of the level is downloaded, after that the level is extracted and loaded in the graphics view, afterwards the sender and the receiver are started and the ready packet is sent 
+\end{DoxyItemize}\hypertarget{classClient_ac7dd9cf6756896887ab8b684bea35fe8}{
+\index{Client@{Client}!processDatagram@{processDatagram}}
+\index{processDatagram@{processDatagram}!Client@{Client}}
+\subsubsection[{processDatagram}]{\setlength{\rightskip}{0pt plus 5cm}void Client::processDatagram ()\hspace{0.3cm}{\ttfamily  \mbox{[}private, slot\mbox{]}}}}
+\label{classClient_ac7dd9cf6756896887ab8b684bea35fe8}
+
+
+This slot is called whenever a package arrives to the tcp server. 
+
+The data contained in the packets is read and put into the datagram and afterwards is processed by the processData \hypertarget{classClient_a2194fd34125d24363c4e7074ec3923b3}{
+\index{Client@{Client}!sendSetupPacket@{sendSetupPacket}}
+\index{sendSetupPacket@{sendSetupPacket}!Client@{Client}}
+\subsubsection[{sendSetupPacket}]{\setlength{\rightskip}{0pt plus 5cm}int Client::sendSetupPacket (int {\em type})\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{classClient_a2194fd34125d24363c4e7074ec3923b3}
+
+
+The client sends the correct packet type. 
+
+For each type of packet a specific datagram is created:
+
+
+\begin{DoxyItemize}
+\item HELLO\_\-PACKET: position 0: type
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
+\item ACK\_\-PACKET: position 0: type position 1: client id
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
+\item ACK2\_\-PACKET: position 0: type position 1: client id
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
+\item LEVEL\_\-ID\_\-PACKET: position 0: type position 1: client id position 2: level id
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
+\item READY\_\-PACKET: position 0: type position 1: client id
+\end{DoxyItemize}
+
+Afterwards the package is sent 
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+Client.h\item 
+Client.cpp\end{DoxyCompactItemize}

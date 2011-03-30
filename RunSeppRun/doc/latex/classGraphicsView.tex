@@ -1,0 +1,167 @@
+\hypertarget{classGraphicsView}{
+\section{GraphicsView Class Reference}
+\label{classGraphicsView}\index{GraphicsView@{GraphicsView}}
+}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classGraphicsView_a434f91cc54ade82b589e384c6cfec165}{GraphicsView} (\hyperlink{classMainWindow}{MainWindow} $\ast$window)
+\item 
+\hyperlink{classGraphicsView_a367eed0f7fa5ab7b3cbc956f0d89d6d6}{$\sim$GraphicsView} ()
+\item 
+void \hyperlink{classGraphicsView_abe861e21e6239fca804bd7adf9bf5f3f}{loadLevel} (QString)
+\item 
+void \hyperlink{classGraphicsView_a3a2d02a72f584202daceec29afa9187e}{unloadLevel} ()
+\item 
+\hypertarget{classGraphicsView_a2b81138581782be77d7e224935148044}{
+void {\bfseries resumeGame} ()}
+\label{classGraphicsView_a2b81138581782be77d7e224935148044}
+
+\item 
+\hypertarget{classGraphicsView_a99ffbf826fe84df0280b1a4d9e3de069}{
+bool {\bfseries isLeftKeyPressed} ()}
+\label{classGraphicsView_a99ffbf826fe84df0280b1a4d9e3de069}
+
+\item 
+\hypertarget{classGraphicsView_a426a34a1e7a435e2a8f1beadf80f4cb5}{
+bool {\bfseries isRightKeyPressed} ()}
+\label{classGraphicsView_a426a34a1e7a435e2a8f1beadf80f4cb5}
+
+\item 
+\hypertarget{classGraphicsView_ab0917027a354893cf5d3104964a6c146}{
+void {\bfseries setUserIndex} (int)}
+\label{classGraphicsView_ab0917027a354893cf5d3104964a6c146}
+
+\item 
+\hypertarget{classGraphicsView_a70003d0742c00438f9f1a66df3e28d46}{
+int {\bfseries getUserIndex} ()}
+\label{classGraphicsView_a70003d0742c00438f9f1a66df3e28d46}
+
+\item 
+\hypertarget{classGraphicsView_aae3620999091a381db15118380206292}{
+\hyperlink{classGraphicLevel}{GraphicLevel} $\ast$ {\bfseries getGraphicLevel} ()}
+\label{classGraphicsView_aae3620999091a381db15118380206292}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classGraphicsView_a331b14add14bb266ce37b41305c4b6f6}{
+QTimer $\ast$ {\bfseries timer}}
+\label{classGraphicsView_a331b14add14bb266ce37b41305c4b6f6}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classGraphicsView_a67aeaac6690f80da59b7500a57d6e009}{
+void {\bfseries drawForeground} (QPainter $\ast$, const QRectF \&)}
+\label{classGraphicsView_a67aeaac6690f80da59b7500a57d6e009}
+
+\end{DoxyCompactItemize}
+\subsection*{Private Slots}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classGraphicsView_a4db1497eb472d1d3bc2cfb98d7246293}{
+void {\bfseries scroll} ()}
+\label{classGraphicsView_a4db1497eb472d1d3bc2cfb98d7246293}
+
+\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classGraphicsView_a8f6f709b0cc6cb273a22e351ee25e6f6}{
+void {\bfseries resizeEvent} (QResizeEvent $\ast$event)}
+\label{classGraphicsView_a8f6f709b0cc6cb273a22e351ee25e6f6}
+
+\item 
+\hypertarget{classGraphicsView_a6fab10657f5a7a0875cf7f399ae49b6e}{
+void {\bfseries keyPressEvent} (QKeyEvent $\ast$event)}
+\label{classGraphicsView_a6fab10657f5a7a0875cf7f399ae49b6e}
+
+\item 
+\hypertarget{classGraphicsView_afa70df9353346637663598337be73c47}{
+void {\bfseries keyReleaseEvent} (QKeyEvent $\ast$event)}
+\label{classGraphicsView_afa70df9353346637663598337be73c47}
+
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classGraphicsView_a02a8420b6ddbbc1577e755b743bf9837}{
+bool {\bfseries keyLeft}}
+\label{classGraphicsView_a02a8420b6ddbbc1577e755b743bf9837}
+
+\item 
+\hypertarget{classGraphicsView_a72d2966b231c597d600bdbe7ce8c1c7d}{
+bool {\bfseries keyRight}}
+\label{classGraphicsView_a72d2966b231c597d600bdbe7ce8c1c7d}
+
+\item 
+\hypertarget{classGraphicsView_a1e80a406d35c3459dd70d33efab270e3}{
+bool {\bfseries keyJump}}
+\label{classGraphicsView_a1e80a406d35c3459dd70d33efab270e3}
+
+\item 
+\hypertarget{classGraphicsView_a0fe6993d845686a7952c5192573554a7}{
+bool {\bfseries keyLaunch}}
+\label{classGraphicsView_a0fe6993d845686a7952c5192573554a7}
+
+\item 
+\hypertarget{classGraphicsView_ac71281a47cb0b850b36b0a2f11d82f03}{
+\hyperlink{classGraphicsScene}{GraphicsScene} $\ast$ {\bfseries actualScene}}
+\label{classGraphicsView_ac71281a47cb0b850b36b0a2f11d82f03}
+
+\item 
+\hypertarget{classGraphicsView_a4b80ca9a56096c052a334fced9c2190d}{
+\hyperlink{classGraphicLevel}{GraphicLevel} $\ast$ {\bfseries graphicLevel}}
+\label{classGraphicsView_a4b80ca9a56096c052a334fced9c2190d}
+
+\item 
+\hypertarget{classGraphicsView_a0af6c6657750ed68044c5cfa68b1396d}{
+\hyperlink{classMainWindow}{MainWindow} $\ast$ {\bfseries window}}
+\label{classGraphicsView_a0af6c6657750ed68044c5cfa68b1396d}
+
+\item 
+\hypertarget{classGraphicsView_a1716a8df20ebce42d60134ae7b47e824}{
+QFont $\ast$ {\bfseries font}}
+\label{classGraphicsView_a1716a8df20ebce42d60134ae7b47e824}
+
+\item 
+\hypertarget{classGraphicsView_a7190bcd02235bcefb95ed8fe1d0387df}{
+int {\bfseries userIndex}}
+\label{classGraphicsView_a7190bcd02235bcefb95ed8fe1d0387df}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classGraphicsView_a434f91cc54ade82b589e384c6cfec165}{
+\index{GraphicsView@{GraphicsView}!GraphicsView@{GraphicsView}}
+\index{GraphicsView@{GraphicsView}!GraphicsView@{GraphicsView}}
+\subsubsection[{GraphicsView}]{\setlength{\rightskip}{0pt plus 5cm}GraphicsView::GraphicsView ({\bf MainWindow} $\ast$ {\em window})}}
+\label{classGraphicsView_a434f91cc54ade82b589e384c6cfec165}
+Creates a new instance of \hyperlink{classGraphicsView}{GraphicsView}. It sets some optimizations for the rendering performance and sets the \hyperlink{classMainMenu}{MainMenu}. \hypertarget{classGraphicsView_a367eed0f7fa5ab7b3cbc956f0d89d6d6}{
+\index{GraphicsView@{GraphicsView}!$\sim$GraphicsView@{$\sim$GraphicsView}}
+\index{$\sim$GraphicsView@{$\sim$GraphicsView}!GraphicsView@{GraphicsView}}
+\subsubsection[{$\sim$GraphicsView}]{\setlength{\rightskip}{0pt plus 5cm}GraphicsView::$\sim$GraphicsView ()}}
+\label{classGraphicsView_a367eed0f7fa5ab7b3cbc956f0d89d6d6}
+the pointers are deleted and set to null 
+
+\subsection{Member Function Documentation}
+\hypertarget{classGraphicsView_abe861e21e6239fca804bd7adf9bf5f3f}{
+\index{GraphicsView@{GraphicsView}!loadLevel@{loadLevel}}
+\index{loadLevel@{loadLevel}!GraphicsView@{GraphicsView}}
+\subsubsection[{loadLevel}]{\setlength{\rightskip}{0pt plus 5cm}void GraphicsView::loadLevel (QString {\em levelPath})}}
+\label{classGraphicsView_abe861e21e6239fca804bd7adf9bf5f3f}
+the level is loaded from a given level path, firstly it is parsed and the grahpich world is created afterwards the graphic level is imported in the graphic scene, the parameters are set to the correct value, the graphics view is initialized the focus is put on it \hypertarget{classGraphicsView_a3a2d02a72f584202daceec29afa9187e}{
+\index{GraphicsView@{GraphicsView}!unloadLevel@{unloadLevel}}
+\index{unloadLevel@{unloadLevel}!GraphicsView@{GraphicsView}}
+\subsubsection[{unloadLevel}]{\setlength{\rightskip}{0pt plus 5cm}void GraphicsView::unloadLevel ()}}
+\label{classGraphicsView_a3a2d02a72f584202daceec29afa9187e}
+the level is onloaded and the variables are freed 
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+GraphicsView.h\item 
+GraphicsView.cpp\end{DoxyCompactItemize}

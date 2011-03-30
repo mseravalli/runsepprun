@@ -1,0 +1,166 @@
+\hypertarget{classGraphicLevel}{
+\section{GraphicLevel Class Reference}
+\label{classGraphicLevel}\index{GraphicLevel@{GraphicLevel}}
+}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classGraphicLevel_a4606d4095ca81e939494e806c0cf3d56}{GraphicLevel} (\hyperlink{classMainWindow}{MainWindow} $\ast$)
+\item 
+\hyperlink{classGraphicLevel_a6d8b5d675010d96d22c1393a926e9e9c}{$\sim$GraphicLevel} ()
+\item 
+int \hyperlink{classGraphicLevel_a27843328a2fdd52b52221b4d7c28c42e}{parseLevel} (QString \&)
+\item 
+\hypertarget{classGraphicLevel_a80409793a1937c3858f3e22fd5dd2ed4}{
+QList$<$ \hyperlink{classGraphicItem}{GraphicItem} $\ast$ $>$ $\ast$ {\bfseries getGraphicWorld} ()}
+\label{classGraphicLevel_a80409793a1937c3858f3e22fd5dd2ed4}
+
+\item 
+int \hyperlink{classGraphicLevel_abf207017c0a09c37c9011668b5407359}{checkCorrectness} (QDomElement \&)
+\item 
+int \hyperlink{classGraphicLevel_a143b52659bfeb1bf00747ecc6b693dd7}{loadWEType} (QDomElement \&, QString $\ast$, QString $\ast$)
+\item 
+\hypertarget{classGraphicLevel_a3772b549376fe21a8b8096bcf7384d05}{
+int {\bfseries getIndexPlayer} ()}
+\label{classGraphicLevel_a3772b549376fe21a8b8096bcf7384d05}
+
+\item 
+void \hyperlink{classGraphicLevel_a369384369a71c03e16b5a7fbcf11083d}{updateItems} (QByteArray $\ast$)
+\item 
+\hypertarget{classGraphicLevel_a63eaecd35130dea7c7e0a3054509ecde}{
+int {\bfseries getLevelLength} ()}
+\label{classGraphicLevel_a63eaecd35130dea7c7e0a3054509ecde}
+
+\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classGraphicLevel_a38f05c45d2e3818ba737ceb4cdac11a2}{addPlayer} (int)
+\item 
+void \hyperlink{classGraphicLevel_a2727bfe10c94494b7dddd4413d99cbff}{removeAllPlayers} ()
+\item 
+\hypertarget{classGraphicLevel_ac08e2fd16ccb3abaabe81cf4a6d441a3}{
+void {\bfseries addEgg} ()}
+\label{classGraphicLevel_ac08e2fd16ccb3abaabe81cf4a6d441a3}
+
+\item 
+\hypertarget{classGraphicLevel_a3d996481f164fb06bce8a994b1eafb4d}{
+void {\bfseries removeEggs} (int)}
+\label{classGraphicLevel_a3d996481f164fb06bce8a994b1eafb4d}
+
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classGraphicLevel_af0e866c894dec93c0661631961922885}{
+\hyperlink{classMainWindow}{MainWindow} $\ast$ {\bfseries window}}
+\label{classGraphicLevel_af0e866c894dec93c0661631961922885}
+
+\item 
+\hypertarget{classGraphicLevel_a243af91dbaae226d179131dc0bf62df3}{
+QList$<$ \hyperlink{classGraphicItem}{GraphicItem} $\ast$ $>$ {\bfseries graphicWorld}}
+\label{classGraphicLevel_a243af91dbaae226d179131dc0bf62df3}
+
+\item 
+\hypertarget{classGraphicLevel_a4695b54ff0f0fe7e5ba79bef27e149a8}{
+int {\bfseries numberOfBlocks}}
+\label{classGraphicLevel_a4695b54ff0f0fe7e5ba79bef27e149a8}
+
+\item 
+\hypertarget{classGraphicLevel_af60543104fa2f887a9e6c8476780c349}{
+int {\bfseries levelLength}}
+\label{classGraphicLevel_af60543104fa2f887a9e6c8476780c349}
+
+\item 
+\hypertarget{classGraphicLevel_a7555c7687fa4a2e029f472b164bded8e}{
+int {\bfseries indexBackground}}
+\label{classGraphicLevel_a7555c7687fa4a2e029f472b164bded8e}
+
+\item 
+\hypertarget{classGraphicLevel_affde9c6ba7bcf4f20ee11a946746e802}{
+int {\bfseries indexCollect}}
+\label{classGraphicLevel_affde9c6ba7bcf4f20ee11a946746e802}
+
+\item 
+\hypertarget{classGraphicLevel_a8a4777d75aea9a6ecbafa669eefaa9ac}{
+int {\bfseries indexEnemy}}
+\label{classGraphicLevel_a8a4777d75aea9a6ecbafa669eefaa9ac}
+
+\item 
+\hypertarget{classGraphicLevel_a268ee810b9d2dadcbc04ae4b56e3427c}{
+int {\bfseries indexPlayer}}
+\label{classGraphicLevel_a268ee810b9d2dadcbc04ae4b56e3427c}
+
+\item 
+\hypertarget{classGraphicLevel_a3eb8ae4fa006931f5de8869300a9588e}{
+int {\bfseries indexBlock}}
+\label{classGraphicLevel_a3eb8ae4fa006931f5de8869300a9588e}
+
+\item 
+\hypertarget{classGraphicLevel_a947d5825dcf3ad776f0cec2495ea0621}{
+int {\bfseries indexEgg}}
+\label{classGraphicLevel_a947d5825dcf3ad776f0cec2495ea0621}
+
+\item 
+\hypertarget{classGraphicLevel_ade28284496fb8615f9b899ade7cff239}{
+int {\bfseries connectedPlayers}}
+\label{classGraphicLevel_ade28284496fb8615f9b899ade7cff239}
+
+\item 
+\hypertarget{classGraphicLevel_a7eeaaa951edb463f9603e7c21492ce66}{
+int {\bfseries currentEggs}}
+\label{classGraphicLevel_a7eeaaa951edb463f9603e7c21492ce66}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classGraphicLevel_a4606d4095ca81e939494e806c0cf3d56}{
+\index{GraphicLevel@{GraphicLevel}!GraphicLevel@{GraphicLevel}}
+\index{GraphicLevel@{GraphicLevel}!GraphicLevel@{GraphicLevel}}
+\subsubsection[{GraphicLevel}]{\setlength{\rightskip}{0pt plus 5cm}GraphicLevel::GraphicLevel ({\bf MainWindow} $\ast$ {\em window})}}
+\label{classGraphicLevel_a4606d4095ca81e939494e806c0cf3d56}
+Creates an empty \hyperlink{classGraphicLevel}{GraphicLevel}. \hypertarget{classGraphicLevel_a6d8b5d675010d96d22c1393a926e9e9c}{
+\index{GraphicLevel@{GraphicLevel}!$\sim$GraphicLevel@{$\sim$GraphicLevel}}
+\index{$\sim$GraphicLevel@{$\sim$GraphicLevel}!GraphicLevel@{GraphicLevel}}
+\subsubsection[{$\sim$GraphicLevel}]{\setlength{\rightskip}{0pt plus 5cm}GraphicLevel::$\sim$GraphicLevel ()}}
+\label{classGraphicLevel_a6d8b5d675010d96d22c1393a926e9e9c}
+Destroys an instance of \hyperlink{classGraphicLevel}{GraphicLevel} and all elements inside this collection. 
+
+\subsection{Member Function Documentation}
+\hypertarget{classGraphicLevel_a38f05c45d2e3818ba737ceb4cdac11a2}{
+\index{GraphicLevel@{GraphicLevel}!addPlayer@{addPlayer}}
+\index{addPlayer@{addPlayer}!GraphicLevel@{GraphicLevel}}
+\subsubsection[{addPlayer}]{\setlength{\rightskip}{0pt plus 5cm}void GraphicLevel::addPlayer (int {\em playerId})\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{classGraphicLevel_a38f05c45d2e3818ba737ceb4cdac11a2}
+Adds a player and stores its index \hypertarget{classGraphicLevel_abf207017c0a09c37c9011668b5407359}{
+\index{GraphicLevel@{GraphicLevel}!checkCorrectness@{checkCorrectness}}
+\index{checkCorrectness@{checkCorrectness}!GraphicLevel@{GraphicLevel}}
+\subsubsection[{checkCorrectness}]{\setlength{\rightskip}{0pt plus 5cm}int GraphicLevel::checkCorrectness (QDomElement \& {\em level})}}
+\label{classGraphicLevel_abf207017c0a09c37c9011668b5407359}
+If some tags are not present in the .xml file an error code is returned \hypertarget{classGraphicLevel_a143b52659bfeb1bf00747ecc6b693dd7}{
+\index{GraphicLevel@{GraphicLevel}!loadWEType@{loadWEType}}
+\index{loadWEType@{loadWEType}!GraphicLevel@{GraphicLevel}}
+\subsubsection[{loadWEType}]{\setlength{\rightskip}{0pt plus 5cm}int GraphicLevel::loadWEType (QDomElement \& {\em level}, \/  QString $\ast$ {\em category}, \/  QString $\ast$ {\em kind})}}
+\label{classGraphicLevel_a143b52659bfeb1bf00747ecc6b693dd7}
+A world element is loaded from the level \hypertarget{classGraphicLevel_a27843328a2fdd52b52221b4d7c28c42e}{
+\index{GraphicLevel@{GraphicLevel}!parseLevel@{parseLevel}}
+\index{parseLevel@{parseLevel}!GraphicLevel@{GraphicLevel}}
+\subsubsection[{parseLevel}]{\setlength{\rightskip}{0pt plus 5cm}int GraphicLevel::parseLevel (QString \& {\em path})}}
+\label{classGraphicLevel_a27843328a2fdd52b52221b4d7c28c42e}
+Given the Level path, it creates the \hyperlink{classGraphicItem}{GraphicItem} elements for it and adds them to itself. the method will return different values if the level is loaded correctly or not: 0 if the level is loaded correctly 1 if the file is not found 2 if some tag is missing 4 if the values in the tags are not consistent or they are missing \hypertarget{classGraphicLevel_a2727bfe10c94494b7dddd4413d99cbff}{
+\index{GraphicLevel@{GraphicLevel}!removeAllPlayers@{removeAllPlayers}}
+\index{removeAllPlayers@{removeAllPlayers}!GraphicLevel@{GraphicLevel}}
+\subsubsection[{removeAllPlayers}]{\setlength{\rightskip}{0pt plus 5cm}void GraphicLevel::removeAllPlayers ()\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{classGraphicLevel_a2727bfe10c94494b7dddd4413d99cbff}
+Deletes all players \hypertarget{classGraphicLevel_a369384369a71c03e16b5a7fbcf11083d}{
+\index{GraphicLevel@{GraphicLevel}!updateItems@{updateItems}}
+\index{updateItems@{updateItems}!GraphicLevel@{GraphicLevel}}
+\subsubsection[{updateItems}]{\setlength{\rightskip}{0pt plus 5cm}void GraphicLevel::updateItems (QByteArray $\ast$ {\em datagram})}}
+\label{classGraphicLevel_a369384369a71c03e16b5a7fbcf11083d}
+The items in the graphic world are updated accordingly to the received packets 
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+GraphicLevel.h\item 
+GraphicLevel.cpp\end{DoxyCompactItemize}
