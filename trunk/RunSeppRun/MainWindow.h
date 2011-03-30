@@ -1,33 +1,31 @@
-#ifndef MAINWINDOW_H_
-#define MAINWINDOW_H_
+#ifndef MAINWINDOW_H
+#define MAINWINDOW_H
 
 #include <QtGui>
-#include "GraphicsView.h"
+class MainMenu;
+class Client;
+class GraphicsView;
 
-class MainWindow : public QMainWindow
-{
+class MainWindow : public QMainWindow {
+
     Q_OBJECT
 
 public:
     MainWindow();
+    ~MainWindow();
 
-protected:
-    void closeEvent(QCloseEvent*);
+    MainMenu* menu;
+    GraphicsView* view;
 
-private slots:
-    void about();
-    void aboutQt();
+    Client* getClient();
 
 private:
-    void createActions();
-    void createMenus();
+    QHBoxLayout *centralLayout;
+    QWidget *centralWid;
 
-    QMenu *gameMenu;
-    QMenuBar *menuBar;
+    Client* client;
 
-    QAction *exitAct;
-    QAction *aboutAct;
-    QAction *aboutQtAct;
 };
 
-#endif
+
+#endif // MAINWINDOW_H

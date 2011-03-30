@@ -2,26 +2,58 @@
 #define GRAPHICSVIEW_H
 
 #include <QtGui>
+#include "MainWindow.h"
+#include "GraphicsScene.h"
+#include "GraphicLevel.h"
 
-class GraphicsView : public QGraphicsView
-{
+class GraphicsView : public QGraphicsView {
+
     Q_OBJECT
 
 public:
-    GraphicsView(QWidget* parent = 0);
+    GraphicsView(MainWindow *window);
+    ~GraphicsView();
+
+    void loadLevel(QString);
+    void unloadLevel();
+
+    void resumeGame();
+
+    bool isLeftKeyPressed();
+    bool isRightKeyPressed();
+
+    void setUserIndex(int);
+    int getUserIndex();
+
+    GraphicLevel* getGraphicLevel();
+
+    QTimer *timer;
 
 protected:
-    void keyPressEvent(QKeyEvent *event);
-    void keyReleaseEvent(QKeyEvent *event);
-    void resizeEvent(QResizeEvent * event);
+    void drawForeground(QPainter *, const QRectF&);
 
 private slots:
     void scroll();
 
 private:
-    QTimer *timer;
-    QGraphicsScene *scene;
 
+    bool keyLeft;
+    bool keyRight;
+    bool keyJump;
+    bool keyLaunch;
+
+    GraphicsScene *actualScene;
+    GraphicLevel *graphicLevel;
+    MainWindow *window;
+
+    QFont* font;
+
+    void resizeEvent(QResizeEvent * event);
+    void keyPressEvent(QKeyEvent *event);
+    void keyReleaseEvent(QKeyEvent *event);
+
+    int userIndex;
 };
 
-#endif
+#endif // GRAPHICSVIEW_H
+
