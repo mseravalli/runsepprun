@@ -1,0 +1,235 @@
+        -:    0:Source:/usr/include/qt4/QtCore/qbasicatomic.h
+        -:    0:Graph:debug/main.gcno
+        -:    0:Data:debug/main.gcda
+        -:    0:Runs:2
+        -:    0:Programs:1
+        -:    1:/****************************************************************************
+        -:    2:**
+        -:    3:** Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies).
+        -:    4:** All rights reserved.
+        -:    5:** Contact: Nokia Corporation (qt-info@nokia.com)
+        -:    6:**
+        -:    7:** This file is part of the QtCore module of the Qt Toolkit.
+        -:    8:**
+        -:    9:** $QT_BEGIN_LICENSE:LGPL$
+        -:   10:** Commercial Usage
+        -:   11:** Licensees holding valid Qt Commercial licenses may use this file in
+        -:   12:** accordance with the Qt Commercial License Agreement provided with the
+        -:   13:** Software or, alternatively, in accordance with the terms contained in
+        -:   14:** a written agreement between you and Nokia.
+        -:   15:**
+        -:   16:** GNU Lesser General Public License Usage
+        -:   17:** Alternatively, this file may be used under the terms of the GNU Lesser
+        -:   18:** General Public License version 2.1 as published by the Free Software
+        -:   19:** Foundation and appearing in the file LICENSE.LGPL included in the
+        -:   20:** packaging of this file.  Please review the following information to
+        -:   21:** ensure the GNU Lesser General Public License version 2.1 requirements
+        -:   22:** will be met: http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+        -:   23:**
+        -:   24:** In addition, as a special exception, Nokia gives you certain additional
+        -:   25:** rights.  These rights are described in the Nokia Qt LGPL Exception
+        -:   26:** version 1.1, included in the file LGPL_EXCEPTION.txt in this package.
+        -:   27:**
+        -:   28:** GNU General Public License Usage
+        -:   29:** Alternatively, this file may be used under the terms of the GNU
+        -:   30:** General Public License version 3.0 as published by the Free Software
+        -:   31:** Foundation and appearing in the file LICENSE.GPL included in the
+        -:   32:** packaging of this file.  Please review the following information to
+        -:   33:** ensure the GNU General Public License version 3.0 requirements will be
+        -:   34:** met: http://www.gnu.org/copyleft/gpl.html.
+        -:   35:**
+        -:   36:** If you have questions regarding the use of this file, please contact
+        -:   37:** Nokia at qt-info@nokia.com.
+        -:   38:** $QT_END_LICENSE$
+        -:   39:**
+        -:   40:****************************************************************************/
+        -:   41:
+        -:   42:#ifndef QBASICATOMIC_H
+        -:   43:#define QBASICATOMIC_H
+        -:   44:
+        -:   45:#include <QtCore/qglobal.h>
+        -:   46:
+        -:   47:QT_BEGIN_HEADER
+        -:   48:
+        -:   49:QT_BEGIN_NAMESPACE
+        -:   50:
+        -:   51:QT_MODULE(Core)
+        -:   52:
+        -:   53:class Q_CORE_EXPORT QBasicAtomicInt
+        -:   54:{
+        -:   55:public:
+        -:   56:#ifdef QT_ARCH_PARISC
+        -:   57:    int _q_lock[4];
+        -:   58:#endif
+        -:   59:#if defined(QT_ARCH_WINDOWS) || defined(QT_ARCH_WINDOWSCE)
+        -:   60:    union { // needed for Q_BASIC_ATOMIC_INITIALIZER
+        -:   61:        volatile long _q_value;
+        -:   62:    };
+        -:   63:#else
+        -:   64:    volatile int _q_value;
+        -:   65:#endif
+        -:   66:
+        -:   67:    // Non-atomic API
+        -:   68:    inline bool operator==(int value) const
+        -:   69:    {
+        -:   70:        return _q_value == value;
+        -:   71:    }
+        -:   72:
+    #####:   73:    inline bool operator!=(int value) const
+        -:   74:    {
+    #####:   75:        return _q_value != value;
+        -:   76:    }
+        -:   77:
+        -:   78:    inline bool operator!() const
+        -:   79:    {
+        -:   80:        return _q_value == 0;
+        -:   81:    }
+        -:   82:
+        -:   83:    inline operator int() const
+        -:   84:    {
+        -:   85:        return _q_value;
+        -:   86:    }
+        -:   87:
+        -:   88:    inline QBasicAtomicInt &operator=(int value)
+        -:   89:    {
+        -:   90:#ifdef QT_ARCH_PARISC
+        -:   91:        this->_q_lock[0] = this->_q_lock[1] = this->_q_lock[2] = this->_q_lock[3] = -1;
+        -:   92:#endif
+        -:   93:        _q_value = value;
+        -:   94:        return *this;
+        -:   95:    }
+        -:   96:
+        -:   97:    // Atomic API, implemented in qatomic_XXX.h
+        -:   98:
+        -:   99:    static bool isReferenceCountingNative();
+        -:  100:    static bool isReferenceCountingWaitFree();
+        -:  101:
+        -:  102:    bool ref();
+        -:  103:    bool deref();
+        -:  104:
+        -:  105:    static bool isTestAndSetNative();
+        -:  106:    static bool isTestAndSetWaitFree();
+        -:  107:
+        -:  108:    bool testAndSetRelaxed(int expectedValue, int newValue);
+        -:  109:    bool testAndSetAcquire(int expectedValue, int newValue);
+        -:  110:    bool testAndSetRelease(int expectedValue, int newValue);
+        -:  111:    bool testAndSetOrdered(int expectedValue, int newValue);
+        -:  112:
+        -:  113:    static bool isFetchAndStoreNative();
+        -:  114:    static bool isFetchAndStoreWaitFree();
+        -:  115:
+        -:  116:    int fetchAndStoreRelaxed(int newValue);
+        -:  117:    int fetchAndStoreAcquire(int newValue);
+        -:  118:    int fetchAndStoreRelease(int newValue);
+        -:  119:    int fetchAndStoreOrdered(int newValue);
+        -:  120:
+        -:  121:    static bool isFetchAndAddNative();
+        -:  122:    static bool isFetchAndAddWaitFree();
+        -:  123:
+        -:  124:    int fetchAndAddRelaxed(int valueToAdd);
+        -:  125:    int fetchAndAddAcquire(int valueToAdd);
+        -:  126:    int fetchAndAddRelease(int valueToAdd);
+        -:  127:    int fetchAndAddOrdered(int valueToAdd);
+        -:  128:};
+        -:  129:
+        -:  130:template <typename T>
+        -:  131:class QBasicAtomicPointer
+        -:  132:{
+        -:  133:public:
+        -:  134:#ifdef QT_ARCH_PARISC
+        -:  135:    int _q_lock[4];
+        -:  136:#endif
+        -:  137:#if defined(QT_ARCH_WINDOWS) || defined(QT_ARCH_WINDOWSCE)
+        -:  138:    union {
+        -:  139:        T * volatile _q_value;
+        -:  140:#  if !defined(Q_OS_WINCE) && !defined(__i386__) && !defined(_M_IX86)
+        -:  141:        qint64
+        -:  142:#  else
+        -:  143:        long
+        -:  144:#  endif
+        -:  145:        volatile _q_value_integral;
+        -:  146:    };
+        -:  147:#else
+        -:  148:    T * volatile _q_value;
+        -:  149:#endif
+        -:  150:
+        -:  151:    // Non-atomic API
+        -:  152:    inline bool operator==(T *value) const
+        -:  153:    {
+        -:  154:        return _q_value == value;
+        -:  155:    }
+        -:  156:
+        -:  157:    inline bool operator!=(T *value) const
+        -:  158:    {
+        -:  159:        return !operator==(value);
+        -:  160:    }
+        -:  161:
+        -:  162:    inline bool operator!() const
+        -:  163:    {
+        -:  164:        return operator==(0);
+        -:  165:    }
+        -:  166:
+        -:  167:    inline operator T *() const
+        -:  168:    {
+        -:  169:        return _q_value;
+        -:  170:    }
+        -:  171:
+        -:  172:    inline T *operator->() const
+        -:  173:    {
+        -:  174:        return _q_value;
+        -:  175:    }
+        -:  176:
+        -:  177:    inline QBasicAtomicPointer<T> &operator=(T *value)
+        -:  178:    {
+        -:  179:#ifdef QT_ARCH_PARISC
+        -:  180:        this->_q_lock[0] = this->_q_lock[1] = this->_q_lock[2] = this->_q_lock[3] = -1;
+        -:  181:#endif
+        -:  182:        _q_value = value;
+        -:  183:        return *this;
+        -:  184:    }
+        -:  185:
+        -:  186:    // Atomic API, implemented in qatomic_XXX.h
+        -:  187:
+        -:  188:    static bool isTestAndSetNative();
+        -:  189:    static bool isTestAndSetWaitFree();
+        -:  190:
+        -:  191:    bool testAndSetRelaxed(T *expectedValue, T *newValue);
+        -:  192:    bool testAndSetAcquire(T *expectedValue, T *newValue);
+        -:  193:    bool testAndSetRelease(T *expectedValue, T *newValue);
+        -:  194:    bool testAndSetOrdered(T *expectedValue, T *newValue);
+        -:  195:
+        -:  196:    static bool isFetchAndStoreNative();
+        -:  197:    static bool isFetchAndStoreWaitFree();
+        -:  198:
+        -:  199:    T *fetchAndStoreRelaxed(T *newValue);
+        -:  200:    T *fetchAndStoreAcquire(T *newValue);
+        -:  201:    T *fetchAndStoreRelease(T *newValue);
+        -:  202:    T *fetchAndStoreOrdered(T *newValue);
+        -:  203:
+        -:  204:    static bool isFetchAndAddNative();
+        -:  205:    static bool isFetchAndAddWaitFree();
+        -:  206:
+        -:  207:    T *fetchAndAddRelaxed(qptrdiff valueToAdd);
+        -:  208:    T *fetchAndAddAcquire(qptrdiff valueToAdd);
+        -:  209:    T *fetchAndAddRelease(qptrdiff valueToAdd);
+        -:  210:    T *fetchAndAddOrdered(qptrdiff valueToAdd);
+        -:  211:};
+        -:  212:
+        -:  213:#ifdef QT_ARCH_PARISC
+        -:  214:#  define Q_BASIC_ATOMIC_INITIALIZER(a) {{-1,-1,-1,-1},(a)}
+        -:  215:#elif defined(QT_ARCH_WINDOWS) || defined(QT_ARCH_WINDOWSCE)
+        -:  216:#  define Q_BASIC_ATOMIC_INITIALIZER(a) { {(a)} }
+        -:  217:#else
+        -:  218:#  define Q_BASIC_ATOMIC_INITIALIZER(a) { (a) }
+        -:  219:#endif
+        -:  220:
+        -:  221:QT_END_NAMESPACE
+        -:  222:QT_END_HEADER
+        -:  223:
+        -:  224:#if defined(QT_MOC) || defined(QT_BUILD_QMAKE) || defined(QT_RCC) || defined(QT_UIC) || defined(QT_BOOTSTRAPPED)
+        -:  225:#  include <QtCore/qatomic_bootstrap.h>
+        -:  226:#else
+        -:  227:#  include <QtCore/qatomic_arch.h>
+        -:  228:#endif
+        -:  229:
+        -:  230:#endif // QBASIC_ATOMIC

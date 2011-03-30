@@ -1,0 +1,24 @@
+        -:    0:Source:TestEgg.h
+        -:    0:Graph:debug/main.gcno
+        -:    0:Data:-
+        -:    0:Runs:0
+        -:    0:Programs:0
+        -:    1:#ifndef TESTEGG_H_
+        -:    2:#define TESTEGG_H_
+        -:    3:
+        -:    4:#include <QtTest/QtTest>
+        -:    5:#include <QObject>
+        -:    6:
+    #####:    7:class TestEgg: public QObject{
+        -:    8:
+        -:    9:        Q_OBJECT
+        -:   10:
+        -:   11:private slots:
+        -:   12:
+        -:   13:        void testAdvance();
+        -:   14:        void testKill();
+        -:   15:        void testSmash();
+        -:   16:
+        -:   17:};
+        -:   18:
+        -:   19:#endif /* TESTEGG_H_ */

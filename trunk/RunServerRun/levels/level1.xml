@@ -1,0 +1,176 @@
+<level levelNumber="1" levelLength="6750">
+    <environment>
+    
+	<block type="paintImage" x="800" y="450" w="50" h="50" image="grass.svg"/>
+        <block type="paintRect" x="800" y="500" w="51" h="50" color="#7fff2a"/>
+        
+	<block type="paintImage" x="460" y="250" w="50" h="50" image="grass.svg"/>
+        <block type="paintImage" x="0" y="300" w="510" h="50" image="grass.svg"/>
+        <block type="paintImage" x="0" y="450" w="90" h="50" image="grass.svg"/>
+        <block type="paintRect" x="0" y="500" w="91" h="50" color="#7fff2a"/>
+        <block type="paintImage" x="0" y="550" w="1050" h="50" image="grass.svg"/>
+        <block type="paintImage" x="650" y="200" w="69" h="50" image="grass.svg"/>
+        <block type="paintRect" x="650" y="250" w="70" h="245" color="#7fff2a"/>
+        <block type="paintImage" x="200" y="450" w="520" h="45" image="grass.svg"/>
+        
+        
+        <block type="paintImage" x="900" y="100" w="240" h="50" image="grass.svg"/>
+        <block type="paintImage" x="1200" y="550" w="50" h="30" image="grass.svg"/>
+        <block type="paintImage" x="1400" y="550" w="50" h="30" image="grass.svg"/>
+        <block type="paintImage" x="1600" y="550" w="50" h="30" image="grass.svg"/>
+        
+        <block type="paintImage" x="1150" y="300" w="95" h="50" image="grass.svg"/>
+        <block type="paintImage" x="1350" y="400" w="150" h="50" image="grass.svg"/>
+        <block type="paintImage" x="1750" y="450" w="199" h="50" image="grass.svg"/>
+        <block type="paintRect" x="1900" y="500" w="50" h="50" color="#7fff2a"/>
+        <block type="paintImage" x="2700" y="300" w="150" h="50" image="grass.svg"/>
+        
+        <block type="paintImage" x="2600" y="350" w="150" h="50" image="grass.svg"/>
+        <block type="paintImage" x="2500" y="400" w="200" h="50" image="grass.svg"/>
+        <block type="paintImage" x="2450" y="450" w="99" h="50" image="grass.svg"/>
+        <block type="paintRect" x="2450" y="500" w="100" h="50" color="#7fff2a"/>
+        <block type="paintImage" x="1900" y="550" w="650" h="50" image="grass.svg"/>
+        <block type="paintImage" x="3100" y="100" w="199" h="50" image="grass.svg"/>
+        <block type="paintRect" x="3100" y="150" w="200" h="50" color="#7fff2a"/>
+        
+        
+        <block type="paintImage" x="3200" y="300" w="75" h="50" image="grass.svg"/>
+        
+        <block type="paintImage" x="3100" y="450" w="300" h="50" image="grass.svg"/>
+        <block type="paintImage" x="2550" y="550" w="320" h="50" image="grass.svg"/>
+        <block type="paintImage" x="3450" y="250" w="300" h="50" image="grass.svg"/>
+        
+        
+        
+        <block type="paintRect" x="4260" y="500" w="50" h="50" color="#7fff2a"/>
+        <block type="paintImage" x="4260" y="450" w="50" h="50" image="grass.svg"/>
+        <block type="paintRect" x="4310" y="400" w="50" h="150" color="#7fff2a"/>
+        <block type="paintImage" x="4310" y="350" w="49" h="50" image="grass.svg"/>
+        
+        <block type="paintImage" x="4000" y="550" w="359" h="50" image="grass.svg"/>
+        
+        <block type="paintImage" x="4550" y="200" w="150" h="50" image="grass.svg"/>
+        <block type="paintRect" x="4850" y="150" w="51" h="50" color="#7fff2a"/>
+        <block type="paintRect" x="5300" y="150" w="51" h="50" color="#7fff2a"/>
+        <block type="paintImage" x="4850" y="100" w="50" h="50" image="grass.svg"/>
+        <block type="paintImage" x="5300" y="100" w="50" h="50" image="grass.svg"/>
+        <block type="paintImage" x="4850" y="200" w="500" h="50" image="grass.svg"/>
+        <block type="paintImage" x="5550" y="250" w="50" h="50" image="grass.svg"/>
+        
+        <block type="paintRect" x="5800" y="350" w="51" h="200" color="#7fff2a"/>
+        <block type="paintRect" x="6400" y="150" w="51" h="450" color="#7fff2a"/>
+        <block type="paintImage" x="5800" y="300" w="50" h="50" image="grass.svg"/>
+        <block type="paintImage" x="6400" y="100" w="50" h="50" image="grass.svg"/>
+        <block type="paintImage" x="5800" y="550" w="650" h="50" image="grass.svg"/>
+        
+        <block type="paintImage" x="6250" y="400" w="90" h="50" image="grass.svg"/>
+        <block type="paintImage" x="6150" y="250" w="90" h="50" image="grass.svg"/>
+        <block type="paintImage" x="6250" y="100" w="90" h="50" image="grass.svg"/>
+        
+        <block type="paintRect" x="6600" y="250" w="51" h="240" color="#7fff2a"/>
+        <block type="paintImage" x="6450" y="550" w="350" h="50" image="grass.svg"/>
+        <block type="paintImage" x="6500" y="200" w="150" h="50" image="grass.svg"/>
+        
+        
+        
+        
+        
+    </environment>
+    <enemies>
+        <enemy type ="paintSheep" x="350" y="525" w="30" h="25" color="red" start="right"/>
+        <enemy type ="paintSheep" x="450" y="525" w="30" h="25" color="red" start="right"/>
+        <enemy type ="paintSheep" x="650" y="525" w="30" h="25" color="red" start="left"/>
+        <enemy type ="paintSheep" x="700" y="525" w="30" h="25" color="red" start="right"/>
+        <enemy type ="paintSheep" x="750" y="525" w="30" h="25" color="red" start="left"/>
+        
+        <enemy type ="paintSheep" x="2200" y="525" w="30" h="25" color="red" start="right"/>
+        <enemy type ="paintSheep" x="2250" y="525" w="30" h="25" color="red" start="right"/>
+        <enemy type ="paintSheep" x="2300" y="525" w="30" h="25" color="red" start="left"/>
+        <enemy type ="paintSheep" x="2350" y="525" w="30" h="25" color="red" start="right"/>
+        <enemy type ="paintSheep" x="2400" y="525" w="30" h="25" color="red" start="left"/>
+        
+        <enemy type ="paintSheep" x="3850" y="450" w="30" h="25" color="red" start="right"/>
+        <enemy type ="paintSheep" x="3900" y="450" w="30" h="25" color="red" start="right"/>
+        <enemy type ="paintSheep" x="3950" y="450" w="30" h="25" color="red" start="right"/>
+        
+        <enemy type ="paintSheep" x="5000" y="150" w="30" h="25" color="red" start="right"/>
+        <enemy type ="paintSheep" x="5050" y="150" w="30" h="25" color="red" start="right"/>
+        <enemy type ="paintSheep" x="5100" y="150" w="30" h="25" color="red" start="left"/>
+        <enemy type ="paintSheep" x="5150" y="150" w="30" h="25" color="red" start="right"/>
+        <enemy type ="paintSheep" x="5200" y="150" w="30" h="25" color="red" start="left"/>
+	
+        <enemy type ="paintSheep" x="6000" y="500" w="30" h="25" color="red" start="right"/>
+        <enemy type ="paintSheep" x="6050" y="500" w="30" h="25" color="red" start="right"/>
+        <enemy type ="paintSheep" x="6100" y="500" w="30" h="25" color="red" start="left"/>
+        <enemy type ="paintSheep" x="6150" y="500" w="30" h="25" color="red" start="right"/>
+        <enemy type ="paintSheep" x="6200" y="500" w="30" h="25" color="red" start="left"/>
+    
+    </enemies>
+    <backgrounds>
+        <background type="paintRect" x="0" y="0" w="6850" h="600" color="lightblue"/>
+        <background type="paintImage" x="400" y="30" w="180" h="80" image="cloud.svg"/>
+        <background type="paintImage" x="5" y="200" w="82" h="100" image="tree.svg"/>
+        
+        <background type="paintImage" x="5000" y="100" w="82" h="100" image="tree.svg"/>
+        <background type="paintImage" x="1050" y="550" w="850" h="50" image="water.svg"/>
+        <background type="paintImage" x="2870" y="550" w="1150" h="50" image="water.svg"/>
+        <background type="paintImage" x="4360" y="400" w="1450" h="50" image="water.svg"/>
+        <background type="paintRect" x="4360" y="450" w="1450" h="151" color="#0000ff"/>
+        <background type="paintImage" x="1800" y="350" w="82" h="100" image="tree.svg"/>
+        <background type="paintImage" x="2250" y="450" w="82" h="100" image="tree.svg"/>
+        <background type="paintImage" x="3500" y="150" w="82" h="100" image="tree.svg"/>
+        <background type="paintImage" x="1400" y="30" w="180" h="80" image="cloud.svg"/>
+        <background type="paintImage" x="2100" y="30" w="180" h="80" image="cloud.svg"/>
+        <background type="paintImage" x="2600" y="30" w="180" h="80" image="cloud.svg"/>
+        <background type="paintImage" x="3800" y="30" w="180" h="80" image="cloud.svg"/>
+    
+    
+    </backgrounds>
+    <collects>
+        <collect type="paintImage" x="975" y="80" w="10" h="10" value="50" image="coin.svg"/>
+        <collect type="paintImage" x="1000" y="80" w="10" h="10" value="50" image="coin.svg"/>
+        <collect type="paintImage" x="1025" y="80" w="10" h="10" value="50" image="coin.svg"/>
+        <collect type="paintImage" x="4620" y="170" w="10" h="10" value="50" image="coin.svg"/>
+        <collect type="paintImage" x="4640" y="170" w="10" h="10" value="50" image="coin.svg"/>
+        <collect type="paintImage" x="4660" y="170" w="10" h="10" value="50" image="coin.svg"/>
+        <collect type="paintImage" x="5560" y="230" w="10" h="10" value="50" image="coin.svg"/>
+        <collect type="paintImage" x="5580" y="230" w="10" h="10" value="50" image="coin.svg"/>
+        
+        <collect type="paintImage" x="6410" y="80" w="10" h="10" value="50" image="coin.svg"/>
+        <collect type="paintImage" x="6430" y="80" w="10" h="10" value="50" image="coin.svg"/>
+        
+        <collect type="paintImage" x="1810" y="380" w="10" h="10" value="-3" image="collectEgg.svg"/>
+        <collect type="paintImage" x="1830" y="380" w="10" h="10" value="-3" image="collectEgg.svg"/>
+        <collect type="paintImage" x="1850" y="380" w="10" h="10" value="-1" image="collectEgg.svg"/>
+        <collect type="paintImage" x="4860" y="80" w="10" h="10" value="-3" image="collectEgg.svg"/>
+        <collect type="paintImage" x="4880" y="80" w="10" h="10" value="-1" image="collectEgg.svg"/>
+        
+        <collect type="paintImage" x="2265" y="480" w="10" h="10" value="-3" image="collectEgg.svg"/>
+        <collect type="paintImage" x="2288" y="480" w="10" h="10" value="-3" image="collectEgg.svg"/>
+        <collect type="paintImage" x="2310" y="480" w="10" h="10" value="-1" image="collectEgg.svg"/>
+        
+        <collect type="paintImage" x="900" y="125" w="10" h="10" value="50" image="coin.svg"/>
+        <collect type="paintImage" x="920" y="125" w="10" h="10" value="50" image="coin.svg"/>
+        <collect type="paintImage" x="940" y="125" w="10" h="10" value="50" image="coin.svg"/>
+        <collect type="paintImage" x="960" y="125" w="10" h="10" value="50" image="coin.svg"/>
+        <collect type="paintImage" x="1190" y="275" w="10" h="10" value="50" image="coin.svg"/>
+        <collect type="paintImage" x="1210" y="275" w="10" h="10" value="50" image="coin.svg"/>
+        <collect type="paintImage" x="1750" y="425" w="10" h="10" value="50" image="coin.svg"/>
+        <collect type="paintImage" x="1800" y="425" w="10" h="10" value="50" image="coin.svg"/>
+        <collect type="paintImage" x="1850" y="425" w="10" h="10" value="50" image="coin.svg"/>
+        <collect type="paintImage" x="1900" y="425" w="10" h="10" value="50" image="coin.svg"/>
+        <collect type="paintImage" x="2620" y="525" w="10" h="10" value="50" image="coin.svg"/>
+        <collect type="paintImage" x="2640" y="525" w="10" h="10" value="50" image="coin.svg"/>
+        <collect type="paintImage" x="2660" y="525" w="10" h="10" value="50" image="coin.svg"/>
+        <collect type="paintImage" x="2680" y="525" w="10" h="10" value="50" image="coin.svg"/>
+        <collect type="paintImage" x="2700" y="525" w="10" h="10" value="50" image="coin.svg"/>
+        <collect type="paintImage" x="3660" y="225" w="10" h="10" value="50" image="coin.svg"/>
+        <collect type="paintImage" x="3720" y="75" w="10" h="10" value="50" image="coin.svg"/>
+        <collect type="paintImage" x="3740" y="75" w="10" h="10" value="50" image="coin.svg"/>
+        <collect type="paintImage" x="3760" y="75" w="10" h="10" value="50" image="coin.svg"/>
+        <collect type="paintImage" x="3780" y="75" w="10" h="10" value="50" image="coin.svg"/>
+    </collects>
+    <finalBlocks>
+        <finalBlock type="paintImage" x="6500" y="500" w="50" h="50" image="flag.svg"/>
+    </finalBlocks>
+</level>

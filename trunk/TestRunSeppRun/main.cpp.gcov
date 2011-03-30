@@ -1,0 +1,21 @@
+        -:    0:Source:main.cpp
+        -:    0:Graph:debug/main.gcno
+        -:    0:Data:debug/main.gcda
+        -:    0:Runs:2
+        -:    0:Programs:1
+        -:    1:#include <QtCore>
+        -:    2:#include <QCoreApplication>
+        -:    3:#include <QtTest/QtTest>
+        -:    4:
+        -:    5:#include "TestClient.h"
+        -:    6:
+        2:    7:int main(int argc, char *argv[])
+        -:    8:{
+        -:    9:
+        2:   10:	QCoreApplication a(argc, argv);
+        -:   11:
+        2:   12:	TestClient* testClient = new TestClient();
+        -:   13:
+        2:   14:	QTest::qExec(testClient, argc, argv);
+        2:   15:    return 0;
+        -:   16:}

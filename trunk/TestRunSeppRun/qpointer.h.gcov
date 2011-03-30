@@ -1,0 +1,173 @@
+        -:    0:Source:/usr/include/qt4/QtCore/qpointer.h
+        -:    0:Graph:debug/main.gcno
+        -:    0:Data:debug/main.gcda
+        -:    0:Runs:2
+        -:    0:Programs:1
+        -:    1:/****************************************************************************
+        -:    2:**
+        -:    3:** Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies).
+        -:    4:** All rights reserved.
+        -:    5:** Contact: Nokia Corporation (qt-info@nokia.com)
+        -:    6:**
+        -:    7:** This file is part of the QtCore module of the Qt Toolkit.
+        -:    8:**
+        -:    9:** $QT_BEGIN_LICENSE:LGPL$
+        -:   10:** Commercial Usage
+        -:   11:** Licensees holding valid Qt Commercial licenses may use this file in
+        -:   12:** accordance with the Qt Commercial License Agreement provided with the
+        -:   13:** Software or, alternatively, in accordance with the terms contained in
+        -:   14:** a written agreement between you and Nokia.
+        -:   15:**
+        -:   16:** GNU Lesser General Public License Usage
+        -:   17:** Alternatively, this file may be used under the terms of the GNU Lesser
+        -:   18:** General Public License version 2.1 as published by the Free Software
+        -:   19:** Foundation and appearing in the file LICENSE.LGPL included in the
+        -:   20:** packaging of this file.  Please review the following information to
+        -:   21:** ensure the GNU Lesser General Public License version 2.1 requirements
+        -:   22:** will be met: http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+        -:   23:**
+        -:   24:** In addition, as a special exception, Nokia gives you certain additional
+        -:   25:** rights.  These rights are described in the Nokia Qt LGPL Exception
+        -:   26:** version 1.1, included in the file LGPL_EXCEPTION.txt in this package.
+        -:   27:**
+        -:   28:** GNU General Public License Usage
+        -:   29:** Alternatively, this file may be used under the terms of the GNU
+        -:   30:** General Public License version 3.0 as published by the Free Software
+        -:   31:** Foundation and appearing in the file LICENSE.GPL included in the
+        -:   32:** packaging of this file.  Please review the following information to
+        -:   33:** ensure the GNU General Public License version 3.0 requirements will be
+        -:   34:** met: http://www.gnu.org/copyleft/gpl.html.
+        -:   35:**
+        -:   36:** If you have questions regarding the use of this file, please contact
+        -:   37:** Nokia at qt-info@nokia.com.
+        -:   38:** $QT_END_LICENSE$
+        -:   39:**
+        -:   40:****************************************************************************/
+        -:   41:
+        -:   42:#ifndef QPOINTER_H
+        -:   43:#define QPOINTER_H
+        -:   44:
+        -:   45:#include <QtCore/qobject.h>
+        -:   46:
+        -:   47:QT_BEGIN_HEADER
+        -:   48:
+        -:   49:QT_BEGIN_NAMESPACE
+        -:   50:
+        -:   51:QT_MODULE(Core)
+        -:   52:
+        -:   53:template <class T>
+        -:   54:class QPointer
+        -:   55:{
+        -:   56:    QObject *o;
+        -:   57:public:
+        -:   58:    inline QPointer() : o(0) {}
+    #####:   59:    inline QPointer(T *p) : o(p)
+    #####:   60:        { QMetaObject::addGuard(&o); }
+        -:   61:    inline QPointer(const QPointer<T> &p) : o(p.o)
+        -:   62:        { QMetaObject::addGuard(&o); }
+    #####:   63:    inline ~QPointer()
+    #####:   64:        { QMetaObject::removeGuard(&o); }
+        -:   65:    inline QPointer<T> &operator=(const QPointer<T> &p)
+        -:   66:        { if (this != &p) QMetaObject::changeGuard(&o, p.o); return *this; }
+        -:   67:    inline QPointer<T> &operator=(T* p)
+        -:   68:        { if (o != p) QMetaObject::changeGuard(&o, p); return *this; }
+        -:   69:
+        -:   70:    inline bool isNull() const
+        -:   71:        { return !o; }
+        -:   72:
+        -:   73:    inline T* operator->() const
+        -:   74:        { return static_cast<T*>(const_cast<QObject*>(o)); }
+        -:   75:    inline T& operator*() const
+        -:   76:        { return *static_cast<T*>(const_cast<QObject*>(o)); }
+    #####:   77:    inline operator T*() const
+    #####:   78:        { return static_cast<T*>(const_cast<QObject*>(o)); }
+        -:   79:    inline T* data() const
+        -:   80:        { return static_cast<T*>(const_cast<QObject*>(o)); }
+        -:   81:};
+        -:   82:
+        -:   83:
+        -:   84:#if (!defined(Q_CC_SUN) || (__SUNPRO_CC >= 0x580)) // ambiguity between const T * and T *
+        -:   85:
+        -:   86:template <class T>
+        -:   87:inline bool operator==(const T *o, const QPointer<T> &p)
+        -:   88:{ return o == p.operator->(); }
+        -:   89:
+        -:   90:template<class T>
+        -:   91:inline bool operator==(const QPointer<T> &p, const T *o)
+        -:   92:{ return p.operator->() == o; }
+        -:   93:
+        -:   94:#else
+        -:   95:
+        -:   96:template<class T>
+        -:   97:inline bool operator==(const void *o, const QPointer<T> &p)
+        -:   98:{ return o == p.operator->(); }
+        -:   99:
+        -:  100:template<class T>
+        -:  101:inline bool operator==(const QPointer<T> &p, const void *o)
+        -:  102:{ return p.operator->() == o; }
+        -:  103:
+        -:  104:#endif
+        -:  105:
+        -:  106:template <class T>
+        -:  107:inline bool operator==(T *o, const QPointer<T> &p)
+        -:  108:{ return o == p.operator->(); }
+        -:  109:
+        -:  110:template<class T>
+        -:  111:inline bool operator==(const QPointer<T> &p, T *o)
+        -:  112:{ return p.operator->() == o; }
+        -:  113:
+        -:  114:template<class T>
+        -:  115:inline bool operator==(const QPointer<T> &p1, const QPointer<T> &p2)
+        -:  116:{ return p1.operator->() == p2.operator->(); }
+        -:  117:
+        -:  118:
+        -:  119:#if (!defined(Q_CC_SUN) || (__SUNPRO_CC >= 0x580)) // ambiguity between const T * and T *
+        -:  120:
+        -:  121:template <class T>
+        -:  122:inline bool operator!=(const T *o, const QPointer<T> &p)
+        -:  123:{ return o != p.operator->(); }
+        -:  124:
+        -:  125:template<class T>
+        -:  126:inline bool operator!= (const QPointer<T> &p, const T *o)
+        -:  127:{ return p.operator->() != o; }
+        -:  128:
+        -:  129:#else
+        -:  130:
+        -:  131:template<class T>
+        -:  132:inline bool operator!= (const void *o, const QPointer<T> &p)
+        -:  133:{ return o != p.operator->(); }
+        -:  134:
+        -:  135:template<class T>
+        -:  136:inline bool operator!= (const QPointer<T> &p, const void *o)
+        -:  137:{ return p.operator->() != o; }
+        -:  138:
+        -:  139:#endif
+        -:  140:
+        -:  141:template <class T>
+        -:  142:inline bool operator!=(T *o, const QPointer<T> &p)
+        -:  143:{ return o != p.operator->(); }
+        -:  144:
+        -:  145:template<class T>
+        -:  146:inline bool operator!= (const QPointer<T> &p, T *o)
+        -:  147:{ return p.operator->() != o; }
+        -:  148:
+        -:  149:template<class T>
+        -:  150:inline bool operator!= (const QPointer<T> &p1, const QPointer<T> &p2)
+        -:  151:{ return p1.operator->() != p2.operator->() ; }
+        -:  152:
+        -:  153:// Make MSVC < 1400 (2005) handle "if (NULL == p)" syntax
+        -:  154:#if defined(Q_CC_MSVC) && (_MSC_VER < 1400)
+        -:  155:template<class T>
+        -:  156:inline bool operator== (int i, const QPointer<T> &p)
+        -:  157:{ Q_ASSERT(i == 0); return !i && p.isNull(); }
+        -:  158:
+        -:  159:template<class T>
+        -:  160:inline bool operator!= (int i, const QPointer<T> &p)
+        -:  161:{ Q_ASSERT(i == 0); return !i && !p.isNull(); }
+        -:  162:#endif
+        -:  163:
+        -:  164:QT_END_NAMESPACE
+        -:  165:
+        -:  166:QT_END_HEADER
+        -:  167:
+        -:  168:#endif // QPOINTER_H

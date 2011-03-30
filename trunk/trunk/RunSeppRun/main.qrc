@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>menu.png</file>
+        <file>ico.gif</file>
+    </qresource>
+</RCC>

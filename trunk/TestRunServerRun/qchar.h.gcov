@@ -1,0 +1,402 @@
+        -:    0:Source:/usr/include/qt4/QtCore/qchar.h
+        -:    0:Graph:debug/main.gcno
+        -:    0:Data:-
+        -:    0:Runs:0
+        -:    0:Programs:0
+        -:    1:/****************************************************************************
+        -:    2:**
+        -:    3:** Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies).
+        -:    4:** All rights reserved.
+        -:    5:** Contact: Nokia Corporation (qt-info@nokia.com)
+        -:    6:**
+        -:    7:** This file is part of the QtCore module of the Qt Toolkit.
+        -:    8:**
+        -:    9:** $QT_BEGIN_LICENSE:LGPL$
+        -:   10:** Commercial Usage
+        -:   11:** Licensees holding valid Qt Commercial licenses may use this file in
+        -:   12:** accordance with the Qt Commercial License Agreement provided with the
+        -:   13:** Software or, alternatively, in accordance with the terms contained in
+        -:   14:** a written agreement between you and Nokia.
+        -:   15:**
+        -:   16:** GNU Lesser General Public License Usage
+        -:   17:** Alternatively, this file may be used under the terms of the GNU Lesser
+        -:   18:** General Public License version 2.1 as published by the Free Software
+        -:   19:** Foundation and appearing in the file LICENSE.LGPL included in the
+        -:   20:** packaging of this file.  Please review the following information to
+        -:   21:** ensure the GNU Lesser General Public License version 2.1 requirements
+        -:   22:** will be met: http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+        -:   23:**
+        -:   24:** In addition, as a special exception, Nokia gives you certain additional
+        -:   25:** rights.  These rights are described in the Nokia Qt LGPL Exception
+        -:   26:** version 1.1, included in the file LGPL_EXCEPTION.txt in this package.
+        -:   27:**
+        -:   28:** GNU General Public License Usage
+        -:   29:** Alternatively, this file may be used under the terms of the GNU
+        -:   30:** General Public License version 3.0 as published by the Free Software
+        -:   31:** Foundation and appearing in the file LICENSE.GPL included in the
+        -:   32:** packaging of this file.  Please review the following information to
+        -:   33:** ensure the GNU General Public License version 3.0 requirements will be
+        -:   34:** met: http://www.gnu.org/copyleft/gpl.html.
+        -:   35:**
+        -:   36:** If you have questions regarding the use of this file, please contact
+        -:   37:** Nokia at qt-info@nokia.com.
+        -:   38:** $QT_END_LICENSE$
+        -:   39:**
+        -:   40:****************************************************************************/
+        -:   41:
+        -:   42:#ifndef QCHAR_H
+        -:   43:#define QCHAR_H
+        -:   44:
+        -:   45:#include <QtCore/qglobal.h>
+        -:   46:
+        -:   47:QT_BEGIN_HEADER
+        -:   48:
+        -:   49:QT_BEGIN_NAMESPACE
+        -:   50:
+        -:   51:QT_MODULE(Core)
+        -:   52:
+        -:   53:class QString;
+        -:   54:
+        -:   55:struct QLatin1Char
+        -:   56:{
+        -:   57:public:
+    #####:   58:    inline explicit QLatin1Char(char c) : ch(c) {}
+        -:   59:#ifdef Q_COMPILER_MANGLES_RETURN_TYPE
+        -:   60:    inline const char toLatin1() const { return ch; }
+        -:   61:    inline const ushort unicode() const { return ushort(uchar(ch)); }
+        -:   62:#else
+        -:   63:    inline char toLatin1() const { return ch; }
+    #####:   64:    inline ushort unicode() const { return ushort(uchar(ch)); }
+        -:   65:#endif
+        -:   66:
+        -:   67:private:
+        -:   68:    char ch;
+        -:   69:};
+        -:   70:
+        -:   71:
+        -:   72:class Q_CORE_EXPORT QChar {
+        -:   73:public:
+        -:   74:    QChar();
+        -:   75:#ifndef QT_NO_CAST_FROM_ASCII
+        -:   76:    QT_ASCII_CAST_WARN_CONSTRUCTOR QChar(char c);
+        -:   77:    QT_ASCII_CAST_WARN_CONSTRUCTOR QChar(uchar c);
+        -:   78:#endif
+        -:   79:    QChar(QLatin1Char ch);
+        -:   80:    QChar(uchar c, uchar r);
+    #####:   81:    inline QChar(ushort rc) : ucs(rc){}
+        -:   82:    QChar(short rc);
+        -:   83:    QChar(uint rc);
+        -:   84:    QChar(int rc);
+        -:   85:    enum SpecialCharacter {
+        -:   86:        Null = 0x0000,
+        -:   87:        Nbsp = 0x00a0,
+        -:   88:        ReplacementCharacter = 0xfffd,
+        -:   89:        ObjectReplacementCharacter = 0xfffc,
+        -:   90:        ByteOrderMark = 0xfeff,
+        -:   91:        ByteOrderSwapped = 0xfffe,
+        -:   92:#ifdef QT3_SUPPORT
+        -:   93:        null = Null,
+        -:   94:        replacement = ReplacementCharacter,
+        -:   95:        byteOrderMark = ByteOrderMark,
+        -:   96:        byteOrderSwapped = ByteOrderSwapped,
+        -:   97:        nbsp = Nbsp,
+        -:   98:#endif
+        -:   99:        ParagraphSeparator = 0x2029,
+        -:  100:        LineSeparator = 0x2028
+        -:  101:    };
+        -:  102:    QChar(SpecialCharacter sc);
+        -:  103:
+        -:  104:    // Unicode information
+        -:  105:
+        -:  106:    enum Category
+        -:  107:    {
+        -:  108:        NoCategory,
+        -:  109:
+        -:  110:        Mark_NonSpacing,          //   Mn
+        -:  111:        Mark_SpacingCombining,    //   Mc
+        -:  112:        Mark_Enclosing,           //   Me
+        -:  113:
+        -:  114:        Number_DecimalDigit,      //   Nd
+        -:  115:        Number_Letter,            //   Nl
+        -:  116:        Number_Other,             //   No
+        -:  117:
+        -:  118:        Separator_Space,          //   Zs
+        -:  119:        Separator_Line,           //   Zl
+        -:  120:        Separator_Paragraph,      //   Zp
+        -:  121:
+        -:  122:        Other_Control,            //   Cc
+        -:  123:        Other_Format,             //   Cf
+        -:  124:        Other_Surrogate,          //   Cs
+        -:  125:        Other_PrivateUse,         //   Co
+        -:  126:        Other_NotAssigned,        //   Cn
+        -:  127:
+        -:  128:        Letter_Uppercase,         //   Lu
+        -:  129:        Letter_Lowercase,         //   Ll
+        -:  130:        Letter_Titlecase,         //   Lt
+        -:  131:        Letter_Modifier,          //   Lm
+        -:  132:        Letter_Other,             //   Lo
+        -:  133:
+        -:  134:        Punctuation_Connector,    //   Pc
+        -:  135:        Punctuation_Dash,         //   Pd
+        -:  136:        Punctuation_Open,         //   Ps
+        -:  137:        Punctuation_Close,        //   Pe
+        -:  138:        Punctuation_InitialQuote, //   Pi
+        -:  139:        Punctuation_FinalQuote,   //   Pf
+        -:  140:        Punctuation_Other,        //   Po
+        -:  141:
+        -:  142:        Symbol_Math,              //   Sm
+        -:  143:        Symbol_Currency,          //   Sc
+        -:  144:        Symbol_Modifier,          //   Sk
+        -:  145:        Symbol_Other,             //   So
+        -:  146:
+        -:  147:        Punctuation_Dask = Punctuation_Dash // oops
+        -:  148:    };
+        -:  149:
+        -:  150:    enum Direction
+        -:  151:    {
+        -:  152:        DirL, DirR, DirEN, DirES, DirET, DirAN, DirCS, DirB, DirS, DirWS, DirON,
+        -:  153:        DirLRE, DirLRO, DirAL, DirRLE, DirRLO, DirPDF, DirNSM, DirBN
+        -:  154:    };
+        -:  155:
+        -:  156:    enum Decomposition
+        -:  157:    {
+        -:  158:        NoDecomposition,
+        -:  159:        Canonical,
+        -:  160:        Font,
+        -:  161:        NoBreak,
+        -:  162:        Initial,
+        -:  163:        Medial,
+        -:  164:        Final,
+        -:  165:        Isolated,
+        -:  166:        Circle,
+        -:  167:        Super,
+        -:  168:        Sub,
+        -:  169:        Vertical,
+        -:  170:        Wide,
+        -:  171:        Narrow,
+        -:  172:        Small,
+        -:  173:        Square,
+        -:  174:        Compat,
+        -:  175:        Fraction
+        -:  176:
+        -:  177:#ifdef QT3_SUPPORT
+        -:  178:        , Single = NoDecomposition
+        -:  179:#endif
+        -:  180:    };
+        -:  181:
+        -:  182:    enum Joining
+        -:  183:    {
+        -:  184:        OtherJoining, Dual, Right, Center
+        -:  185:    };
+        -:  186:
+        -:  187:    enum CombiningClass
+        -:  188:    {
+        -:  189:        Combining_BelowLeftAttached       = 200,
+        -:  190:        Combining_BelowAttached           = 202,
+        -:  191:        Combining_BelowRightAttached      = 204,
+        -:  192:        Combining_LeftAttached            = 208,
+        -:  193:        Combining_RightAttached           = 210,
+        -:  194:        Combining_AboveLeftAttached       = 212,
+        -:  195:        Combining_AboveAttached           = 214,
+        -:  196:        Combining_AboveRightAttached      = 216,
+        -:  197:
+        -:  198:        Combining_BelowLeft               = 218,
+        -:  199:        Combining_Below                   = 220,
+        -:  200:        Combining_BelowRight              = 222,
+        -:  201:        Combining_Left                    = 224,
+        -:  202:        Combining_Right                   = 226,
+        -:  203:        Combining_AboveLeft               = 228,
+        -:  204:        Combining_Above                   = 230,
+        -:  205:        Combining_AboveRight              = 232,
+        -:  206:
+        -:  207:        Combining_DoubleBelow             = 233,
+        -:  208:        Combining_DoubleAbove             = 234,
+        -:  209:        Combining_IotaSubscript           = 240
+        -:  210:    };
+        -:  211:
+        -:  212:    enum UnicodeVersion {
+        -:  213:        Unicode_Unassigned,
+        -:  214:        Unicode_1_1,
+        -:  215:        Unicode_2_0,
+        -:  216:        Unicode_2_1_2,
+        -:  217:        Unicode_3_0,
+        -:  218:        Unicode_3_1,
+        -:  219:        Unicode_3_2,
+        -:  220:        Unicode_4_0,
+        -:  221:        Unicode_4_1,
+        -:  222:        Unicode_5_0
+        -:  223:    };
+        -:  224:    // ****** WHEN ADDING FUNCTIONS, CONSIDER ADDING TO QCharRef TOO
+        -:  225:
+        -:  226:    Category category() const;
+        -:  227:    Direction direction() const;
+        -:  228:    Joining joining() const;
+        -:  229:    bool hasMirrored() const;
+        -:  230:    unsigned char combiningClass() const;
+        -:  231:
+        -:  232:    QChar mirroredChar() const;
+        -:  233:    QString decomposition() const;
+        -:  234:    Decomposition decompositionTag() const;
+        -:  235:
+        -:  236:    int digitValue() const;
+        -:  237:    QChar toLower() const;
+        -:  238:    QChar toUpper() const;
+        -:  239:    QChar toTitleCase() const;
+        -:  240:    QChar toCaseFolded() const;
+        -:  241:
+        -:  242:    UnicodeVersion unicodeVersion() const;
+        -:  243:
+        -:  244:#ifdef Q_COMPILER_MANGLES_RETURN_TYPE
+        -:  245:    const char toAscii() const;
+        -:  246:    inline const char toLatin1() const;
+        -:  247:    inline const ushort unicode() const { return ucs; }
+        -:  248:#else
+        -:  249:    char toAscii() const;
+        -:  250:    inline char toLatin1() const;
+        -:  251:    inline ushort unicode() const { return ucs; }
+        -:  252:#endif
+        -:  253:#ifdef Q_NO_PACKED_REFERENCE
+        -:  254:    inline ushort &unicode() { return const_cast<ushort&>(ucs); }
+        -:  255:#else
+        -:  256:    inline ushort &unicode() { return ucs; }
+        -:  257:#endif
+        -:  258:
+        -:  259:    static QChar fromAscii(char c);
+        -:  260:    static QChar fromLatin1(char c);
+        -:  261:
+        -:  262:    inline bool isNull() const { return ucs == 0; }
+        -:  263:    bool isPrint() const;
+        -:  264:    bool isPunct() const;
+        -:  265:    bool isSpace() const;
+        -:  266:    bool isMark() const;
+        -:  267:    bool isLetter() const;
+        -:  268:    bool isNumber() const;
+        -:  269:    bool isLetterOrNumber() const;
+        -:  270:    bool isDigit() const;
+        -:  271:    bool isSymbol() const;
+        -:  272:    inline bool isLower() const { return category() == Letter_Lowercase; }
+        -:  273:    inline bool isUpper() const { return category() == Letter_Uppercase; }
+        -:  274:    inline bool isTitleCase() const { return category() == Letter_Titlecase; }
+        -:  275:
+        -:  276:    inline bool isHighSurrogate() const {
+        -:  277:        return ((ucs & 0xfc00) == 0xd800);
+        -:  278:    }
+        -:  279:    inline bool isLowSurrogate() const {
+        -:  280:        return ((ucs & 0xfc00) == 0xdc00);
+        -:  281:    }
+        -:  282:
+        -:  283:    inline uchar cell() const { return uchar(ucs & 0xff); }
+        -:  284:    inline uchar row() const { return uchar((ucs>>8)&0xff); }
+        -:  285:    inline void setCell(uchar cell);
+        -:  286:    inline void setRow(uchar row);
+        -:  287:
+        -:  288:    static inline uint surrogateToUcs4(ushort high, ushort low) {
+        -:  289:        return (uint(high)<<10) + low - 0x35fdc00;
+        -:  290:    }
+        -:  291:    static inline uint surrogateToUcs4(QChar high, QChar low) {
+        -:  292:        return (uint(high.ucs)<<10) + low.ucs - 0x35fdc00;
+        -:  293:    }
+        -:  294:    static inline ushort highSurrogate(uint ucs4) {
+        -:  295:        return ushort((ucs4>>10) + 0xd7c0);
+        -:  296:    }
+        -:  297:    static inline ushort lowSurrogate(uint ucs4) {
+        -:  298:        return ushort(ucs4%0x400 + 0xdc00);
+        -:  299:    }
+        -:  300:
+        -:  301:    static Category QT_FASTCALL category(uint ucs4);
+        -:  302:    static Category QT_FASTCALL category(ushort ucs2);
+        -:  303:    static Direction QT_FASTCALL direction(uint ucs4);
+        -:  304:    static Direction QT_FASTCALL direction(ushort ucs2);
+        -:  305:    static Joining QT_FASTCALL joining(uint ucs4);
+        -:  306:    static Joining QT_FASTCALL joining(ushort ucs2);
+        -:  307:    static unsigned char QT_FASTCALL combiningClass(uint ucs4);
+        -:  308:    static unsigned char QT_FASTCALL combiningClass(ushort ucs2);
+        -:  309:
+        -:  310:    static uint QT_FASTCALL mirroredChar(uint ucs4);
+        -:  311:    static ushort QT_FASTCALL mirroredChar(ushort ucs2);
+        -:  312:    static Decomposition QT_FASTCALL decompositionTag(uint ucs4);
+        -:  313:
+        -:  314:    static int QT_FASTCALL digitValue(uint ucs4);
+        -:  315:    static int QT_FASTCALL digitValue(ushort ucs2);
+        -:  316:    static uint QT_FASTCALL toLower(uint ucs4);
+        -:  317:    static ushort QT_FASTCALL toLower(ushort ucs2);
+        -:  318:    static uint QT_FASTCALL toUpper(uint ucs4);
+        -:  319:    static ushort QT_FASTCALL toUpper(ushort ucs2);
+        -:  320:    static uint QT_FASTCALL toTitleCase(uint ucs4);
+        -:  321:    static ushort QT_FASTCALL toTitleCase(ushort ucs2);
+        -:  322:    static uint QT_FASTCALL toCaseFolded(uint ucs4);
+        -:  323:    static ushort QT_FASTCALL toCaseFolded(ushort ucs2);
+        -:  324:
+        -:  325:    static UnicodeVersion QT_FASTCALL unicodeVersion(uint ucs4);
+        -:  326:    static UnicodeVersion QT_FASTCALL unicodeVersion(ushort ucs2);
+        -:  327:
+        -:  328:    static QString QT_FASTCALL decomposition(uint ucs4);
+        -:  329:
+        -:  330:#ifdef QT3_SUPPORT
+        -:  331:    inline QT3_SUPPORT bool mirrored() const { return hasMirrored(); }
+        -:  332:    inline QT3_SUPPORT QChar lower() const { return toLower(); }
+        -:  333:    inline QT3_SUPPORT QChar upper() const { return toUpper(); }
+        -:  334:    static inline QT3_SUPPORT bool networkOrdered() {
+        -:  335:        return QSysInfo::ByteOrder == QSysInfo::BigEndian;
+        -:  336:    }
+        -:  337:#ifdef Q_COMPILER_MANGLES_RETURN_TYPE
+        -:  338:    inline QT3_SUPPORT const char latin1() const { return toLatin1(); }
+        -:  339:    inline QT3_SUPPORT const char ascii() const { return toAscii(); }
+        -:  340:#else
+        -:  341:    inline QT3_SUPPORT char latin1() const { return toLatin1(); }
+        -:  342:    inline QT3_SUPPORT char ascii() const { return toAscii(); }
+        -:  343:#endif
+        -:  344:#endif
+        -:  345:
+        -:  346:private:
+        -:  347:#ifdef QT_NO_CAST_FROM_ASCII
+        -:  348:    QChar(char c);
+        -:  349:    QChar(uchar c);
+        -:  350:#endif
+        -:  351:    ushort ucs;
+        -:  352:}
+        -:  353:#if (defined(__arm__) || defined(__ARMEL__))
+        -:  354:    Q_PACKED
+        -:  355:#endif
+        -:  356:    ;
+        -:  357:
+        -:  358:Q_DECLARE_TYPEINFO(QChar, Q_MOVABLE_TYPE);
+        -:  359:
+        -:  360:inline QChar::QChar() : ucs(0) {}
+        -:  361:
+        -:  362:#ifdef Q_COMPILER_MANGLES_RETURN_TYPE
+        -:  363:inline const char QChar::toLatin1() const { return ucs > 0xff ? '\0' : char(ucs); }
+        -:  364:#else
+        -:  365:inline char QChar::toLatin1() const { return ucs > 0xff ? '\0' : char(ucs); }
+        -:  366:#endif
+    #####:  367:inline QChar QChar::fromLatin1(char c) { return QChar(ushort(uchar(c))); }
+        -:  368:
+        -:  369:inline QChar::QChar(uchar c, uchar r) : ucs(ushort((r << 8) | c)){}
+        -:  370:inline QChar::QChar(short rc) : ucs(ushort(rc)){}
+        -:  371:inline QChar::QChar(uint rc) : ucs(ushort(rc & 0xffff)){}
+        -:  372:inline QChar::QChar(int rc) : ucs(ushort(rc & 0xffff)){}
+        -:  373:inline QChar::QChar(SpecialCharacter s) : ucs(ushort(s)) {}
+    #####:  374:inline QChar::QChar(QLatin1Char ch) : ucs(ch.unicode()) {}
+        -:  375:
+        -:  376:inline void QChar::setCell(uchar acell)
+        -:  377:{ ucs = ushort((ucs & 0xff00) + acell); }
+        -:  378:inline void QChar::setRow(uchar arow)
+        -:  379:{ ucs = ushort((ushort(arow)<<8) + (ucs&0xff)); }
+        -:  380:
+        -:  381:inline bool operator==(QChar c1, QChar c2) { return c1.unicode() == c2.unicode(); }
+        -:  382:inline bool operator!=(QChar c1, QChar c2) { return c1.unicode() != c2.unicode(); }
+        -:  383:inline bool operator<=(QChar c1, QChar c2) { return c1.unicode() <= c2.unicode(); }
+        -:  384:inline bool operator>=(QChar c1, QChar c2) { return c1.unicode() >= c2.unicode(); }
+        -:  385:inline bool operator<(QChar c1, QChar c2) { return c1.unicode() < c2.unicode(); }
+        -:  386:inline bool operator>(QChar c1, QChar c2) { return c1.unicode() > c2.unicode(); }
+        -:  387:
+        -:  388:#ifndef QT_NO_DATASTREAM
+        -:  389:Q_CORE_EXPORT QDataStream &operator<<(QDataStream &, const QChar &);
+        -:  390:Q_CORE_EXPORT QDataStream &operator>>(QDataStream &, QChar &);
+        -:  391:#endif
+        -:  392:
+        -:  393:QT_END_NAMESPACE
+        -:  394:
+        -:  395:QT_END_HEADER
+        -:  396:
+        -:  397:#endif // QCHAR_H

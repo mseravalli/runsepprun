@@ -1,0 +1,123 @@
+        -:    0:Source:/usr/include/qt4/QtTest/qtestspontaneevent.h
+        -:    0:Graph:debug/main.gcno
+        -:    0:Data:debug/main.gcda
+        -:    0:Runs:2
+        -:    0:Programs:1
+        -:    1:/****************************************************************************
+        -:    2:**
+        -:    3:** Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies).
+        -:    4:** All rights reserved.
+        -:    5:** Contact: Nokia Corporation (qt-info@nokia.com)
+        -:    6:**
+        -:    7:** This file is part of the QtTest module of the Qt Toolkit.
+        -:    8:**
+        -:    9:** $QT_BEGIN_LICENSE:LGPL$
+        -:   10:** Commercial Usage
+        -:   11:** Licensees holding valid Qt Commercial licenses may use this file in
+        -:   12:** accordance with the Qt Commercial License Agreement provided with the
+        -:   13:** Software or, alternatively, in accordance with the terms contained in
+        -:   14:** a written agreement between you and Nokia.
+        -:   15:**
+        -:   16:** GNU Lesser General Public License Usage
+        -:   17:** Alternatively, this file may be used under the terms of the GNU Lesser
+        -:   18:** General Public License version 2.1 as published by the Free Software
+        -:   19:** Foundation and appearing in the file LICENSE.LGPL included in the
+        -:   20:** packaging of this file.  Please review the following information to
+        -:   21:** ensure the GNU Lesser General Public License version 2.1 requirements
+        -:   22:** will be met: http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+        -:   23:**
+        -:   24:** In addition, as a special exception, Nokia gives you certain additional
+        -:   25:** rights.  These rights are described in the Nokia Qt LGPL Exception
+        -:   26:** version 1.1, included in the file LGPL_EXCEPTION.txt in this package.
+        -:   27:**
+        -:   28:** GNU General Public License Usage
+        -:   29:** Alternatively, this file may be used under the terms of the GNU
+        -:   30:** General Public License version 3.0 as published by the Free Software
+        -:   31:** Foundation and appearing in the file LICENSE.GPL included in the
+        -:   32:** packaging of this file.  Please review the following information to
+        -:   33:** ensure the GNU General Public License version 3.0 requirements will be
+        -:   34:** met: http://www.gnu.org/copyleft/gpl.html.
+        -:   35:**
+        -:   36:** If you have questions regarding the use of this file, please contact
+        -:   37:** Nokia at qt-info@nokia.com.
+        -:   38:** $QT_END_LICENSE$
+        -:   39:**
+        -:   40:****************************************************************************/
+        -:   41:
+        -:   42:#ifndef QTESTSPONTANEEVENT_H
+        -:   43:#define QTESTSPONTANEEVENT_H
+        -:   44:
+        -:   45:#include <QtCore/qcoreevent.h>
+        -:   46:
+        -:   47:#if 0
+        -:   48:// inform syncqt
+        -:   49:#pragma qt_no_master_include
+        -:   50:#endif
+        -:   51:
+        -:   52:QT_BEGIN_HEADER
+        -:   53:
+        -:   54:QT_BEGIN_NAMESPACE
+        -:   55:
+        -:   56:QT_MODULE(Test)
+        -:   57:
+        -:   58:#ifndef QTEST_NO_SIZEOF_CHECK
+        -:   59:template <int>
+        -:   60:class QEventSizeOfChecker
+        -:   61:{
+        -:   62:private:
+        -:   63:    QEventSizeOfChecker() {}
+        -:   64:};
+        -:   65:
+        -:   66:template <>
+        -:   67:class QEventSizeOfChecker<sizeof(QEvent)>
+        -:   68:{
+        -:   69:public:
+        -:   70:    QEventSizeOfChecker() {}
+        -:   71:};
+        -:   72:#endif
+        -:   73:
+        -:   74:class QSpontaneKeyEvent
+        -:   75:{
+        -:   76:public:
+    #####:   77:    void setSpontaneous() { spont = 1; }
+        -:   78:    bool spontaneous() { return spont; }
+        -:   79:    virtual void dummyFunc() {}
+        -:   80:    virtual ~QSpontaneKeyEvent() {}
+        -:   81:
+        -:   82:#ifndef QTEST_NO_SIZEOF_CHECK
+        -:   83:    inline void ifYouGetCompileErrorHereYouUseWrongQt()
+        -:   84:    {
+        -:   85:        // this is a static assert in case QEvent changed in Qt
+        -:   86:        QEventSizeOfChecker<sizeof(QSpontaneKeyEvent)> dummy;
+        -:   87:    }
+        -:   88:#endif
+        -:   89:
+    #####:   90:    static inline void setSpontaneous(QEvent *ev)
+        -:   91:    {
+        -:   92:        // use a union instead of a reinterpret_cast to prevent alignment warnings
+        -:   93:        union
+        -:   94:        {
+        -:   95:            QSpontaneKeyEvent *skePtr;
+        -:   96:            QEvent *evPtr;
+        -:   97:        } helper;
+        -:   98:
+    #####:   99:        helper.evPtr = ev;
+    #####:  100:        helper.skePtr->setSpontaneous();
+    #####:  101:    }
+        -:  102:
+        -:  103:protected:
+        -:  104:    void *d;
+        -:  105:    ushort t;
+        -:  106:
+        -:  107:private:
+        -:  108:    ushort posted : 1;
+        -:  109:    ushort spont : 1;
+        -:  110:    ushort m_accept : 1;
+        -:  111:    ushort reserved : 13;
+        -:  112:};
+        -:  113:
+        -:  114:QT_END_NAMESPACE
+        -:  115:
+        -:  116:QT_END_HEADER
+        -:  117:
+        -:  118:#endif

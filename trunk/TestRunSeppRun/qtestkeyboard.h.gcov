@@ -1,0 +1,199 @@
+        -:    0:Source:/usr/include/qt4/QtTest/qtestkeyboard.h
+        -:    0:Graph:debug/main.gcno
+        -:    0:Data:debug/main.gcda
+        -:    0:Runs:2
+        -:    0:Programs:1
+        -:    1:/****************************************************************************
+        -:    2:**
+        -:    3:** Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies).
+        -:    4:** All rights reserved.
+        -:    5:** Contact: Nokia Corporation (qt-info@nokia.com)
+        -:    6:**
+        -:    7:** This file is part of the QtTest module of the Qt Toolkit.
+        -:    8:**
+        -:    9:** $QT_BEGIN_LICENSE:LGPL$
+        -:   10:** Commercial Usage
+        -:   11:** Licensees holding valid Qt Commercial licenses may use this file in
+        -:   12:** accordance with the Qt Commercial License Agreement provided with the
+        -:   13:** Software or, alternatively, in accordance with the terms contained in
+        -:   14:** a written agreement between you and Nokia.
+        -:   15:**
+        -:   16:** GNU Lesser General Public License Usage
+        -:   17:** Alternatively, this file may be used under the terms of the GNU Lesser
+        -:   18:** General Public License version 2.1 as published by the Free Software
+        -:   19:** Foundation and appearing in the file LICENSE.LGPL included in the
+        -:   20:** packaging of this file.  Please review the following information to
+        -:   21:** ensure the GNU Lesser General Public License version 2.1 requirements
+        -:   22:** will be met: http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+        -:   23:**
+        -:   24:** In addition, as a special exception, Nokia gives you certain additional
+        -:   25:** rights.  These rights are described in the Nokia Qt LGPL Exception
+        -:   26:** version 1.1, included in the file LGPL_EXCEPTION.txt in this package.
+        -:   27:**
+        -:   28:** GNU General Public License Usage
+        -:   29:** Alternatively, this file may be used under the terms of the GNU
+        -:   30:** General Public License version 3.0 as published by the Free Software
+        -:   31:** Foundation and appearing in the file LICENSE.GPL included in the
+        -:   32:** packaging of this file.  Please review the following information to
+        -:   33:** ensure the GNU General Public License version 3.0 requirements will be
+        -:   34:** met: http://www.gnu.org/copyleft/gpl.html.
+        -:   35:**
+        -:   36:** If you have questions regarding the use of this file, please contact
+        -:   37:** Nokia at qt-info@nokia.com.
+        -:   38:** $QT_END_LICENSE$
+        -:   39:**
+        -:   40:****************************************************************************/
+        -:   41:
+        -:   42:#if !defined(QTESTKEYBOARD_H)
+        -:   43:#define QTESTKEYBOARD_H
+        -:   44:
+        -:   45:#if 0
+        -:   46:// inform syncqt
+        -:   47:#pragma qt_no_master_include
+        -:   48:#endif
+        -:   49:
+        -:   50:#include <QtTest/qtestassert.h>
+        -:   51:#include <QtTest/qtest_global.h>
+        -:   52:#include <QtTest/qtestsystem.h>
+        -:   53:#include <QtTest/qtestspontaneevent.h>
+        -:   54:
+        -:   55:#include <QtCore/qpointer.h>
+        -:   56:#include <QtGui/qapplication.h>
+        -:   57:#include <QtGui/qevent.h>
+        -:   58:#include <QtGui/qwidget.h>
+        -:   59:
+        -:   60:QT_BEGIN_HEADER
+        -:   61:
+        -:   62:QT_BEGIN_NAMESPACE
+        -:   63:
+        -:   64:QT_MODULE(Test)
+        -:   65:
+        -:   66:namespace QTest
+        -:   67:{
+        -:   68:    enum KeyAction { Press, Release, Click };
+        -:   69:
+    #####:   70:    static void simulateEvent(QWidget *widget, bool press, int code,
+        -:   71:                              Qt::KeyboardModifiers modifier, QString text, bool repeat, int delay=-1)
+        -:   72:    {
+    #####:   73:        QTEST_ASSERT(widget);
+        -:   74:        extern int Q_TESTLIB_EXPORT defaultKeyDelay();
+        -:   75:
+    #####:   76:        if (delay == -1 || delay < defaultKeyDelay())
+    #####:   77:            delay = defaultKeyDelay();
+    #####:   78:        if(delay > 0)
+    #####:   79:            QTest::qWait(delay);
+        -:   80:
+    #####:   81:        QKeyEvent a(press ? QEvent::KeyPress : QEvent::KeyRelease, code, modifier, text, repeat);
+    #####:   82:        QSpontaneKeyEvent::setSpontaneous(&a);
+    #####:   83:        if (!qApp->notify(widget, &a))
+    #####:   84:            QTest::qWarn("Keyboard event not accepted by receiving widget");
+    #####:   85:    }
+        -:   86:
+    #####:   87:    static void sendKeyEvent(KeyAction action, QWidget *widget, Qt::Key code,
+        -:   88:                             QString text, Qt::KeyboardModifiers modifier, int delay=-1)
+        -:   89:    {
+    #####:   90:        QTEST_ASSERT(qApp);
+        -:   91:
+    #####:   92:        if (!widget)
+    #####:   93:            widget = QWidget::keyboardGrabber();
+    #####:   94:        if (!widget) {
+    #####:   95:            if (QWidget *apw = QApplication::activePopupWidget())
+    #####:   96:                widget = apw->focusWidget() ? apw->focusWidget() : apw;
+        -:   97:            else
+    #####:   98:                widget = QApplication::focusWidget();
+        -:   99:        }
+    #####:  100:        if (!widget)
+    #####:  101:            widget = QApplication::activeWindow();
+        -:  102:
+    #####:  103:        QTEST_ASSERT(widget);
+        -:  104:
+    #####:  105:        if (action == Click) {
+    #####:  106:            QPointer<QWidget> ptr(widget);
+    #####:  107:            sendKeyEvent(Press, widget, code, text, modifier, delay);
+    #####:  108:            if (!ptr) {
+        -:  109:                // if we send key-events to embedded widgets, they might be destroyed
+        -:  110:                // when the user presses Return
+        -:  111:                return;
+        -:  112:            }
+    #####:  113:            sendKeyEvent(Release, widget, code, text, modifier, delay);
+    #####:  114:            return;
+        -:  115:        }
+        -:  116:
+    #####:  117:        bool repeat = false;
+        -:  118:
+    #####:  119:        if (action == Press) {
+    #####:  120:            if (modifier & Qt::ShiftModifier)
+    #####:  121:                simulateEvent(widget, true, Qt::Key_Shift, 0, QString(), false, delay);
+        -:  122:
+    #####:  123:            if (modifier & Qt::ControlModifier)
+    #####:  124:                simulateEvent(widget, true, Qt::Key_Control, modifier & Qt::ShiftModifier, QString(), false, delay);
+        -:  125:
+    #####:  126:            if (modifier & Qt::AltModifier)
+        -:  127:                simulateEvent(widget, true, Qt::Key_Alt,
+    #####:  128:                              modifier & (Qt::ShiftModifier | Qt::ControlModifier), QString(), false, delay);
+    #####:  129:            if (modifier & Qt::MetaModifier)
+        -:  130:                simulateEvent(widget, true, Qt::Key_Meta, modifier & (Qt::ShiftModifier
+    #####:  131:                                                                      | Qt::ControlModifier | Qt::AltModifier), QString(), false, delay);
+    #####:  132:            simulateEvent(widget, true, code, modifier, text, repeat, delay);
+    #####:  133:        } else if (action == Release) {
+    #####:  134:            simulateEvent(widget, false, code, modifier, text, repeat, delay);
+        -:  135:
+    #####:  136:            if (modifier & Qt::MetaModifier)
+    #####:  137:                simulateEvent(widget, false, Qt::Key_Meta, modifier, QString(), false, delay);
+    #####:  138:            if (modifier & Qt::AltModifier)
+        -:  139:                simulateEvent(widget, false, Qt::Key_Alt, modifier &
+    #####:  140:                              (Qt::ShiftModifier | Qt::ControlModifier | Qt::AltModifier), QString(), false, delay);
+        -:  141:
+    #####:  142:            if (modifier & Qt::ControlModifier)
+        -:  143:                simulateEvent(widget, false, Qt::Key_Control,
+    #####:  144:                              modifier & (Qt::ShiftModifier | Qt::ControlModifier), QString(), false, delay);
+        -:  145:
+    #####:  146:            if (modifier & Qt::ShiftModifier)
+    #####:  147:                simulateEvent(widget, false, Qt::Key_Shift, modifier & Qt::ShiftModifier, QString(), false, delay);
+        -:  148:        }
+        -:  149:    }
+        -:  150:
+        -:  151:    // Convenience function
+    #####:  152:    static void sendKeyEvent(KeyAction action, QWidget *widget, Qt::Key code,
+        -:  153:                             char ascii, Qt::KeyboardModifiers modifier, int delay=-1)
+        -:  154:    {
+    #####:  155:        QString text;
+    #####:  156:        if (ascii)
+    #####:  157:            text = QString(QChar::fromLatin1(ascii));
+    #####:  158:        sendKeyEvent(action, widget, code, text, modifier, delay);
+    #####:  159:    }
+        -:  160:
+        -:  161:    inline static void keyEvent(KeyAction action, QWidget *widget, char ascii,
+        -:  162:                                Qt::KeyboardModifiers modifier = Qt::NoModifier, int delay=-1)
+        -:  163:    { sendKeyEvent(action, widget, asciiToKey(ascii), ascii, modifier, delay); }
+        -:  164:    inline static void keyEvent(KeyAction action, QWidget *widget, Qt::Key key,
+        -:  165:                                Qt::KeyboardModifiers modifier = Qt::NoModifier, int delay=-1)
+        -:  166:    { sendKeyEvent(action, widget, key, keyToAscii(key), modifier, delay); }
+        -:  167:
+        -:  168:    inline static void keyClicks(QWidget *widget, const QString &sequence,
+        -:  169:                                 Qt::KeyboardModifiers modifier = Qt::NoModifier, int delay=-1)
+        -:  170:    {
+        -:  171:        for (int i=0; i < sequence.length(); i++)
+        -:  172:            keyEvent(Click, widget, sequence.at(i).toLatin1(), modifier, delay);
+        -:  173:    }
+        -:  174:
+        -:  175:    inline static void keyPress(QWidget *widget, char key, Qt::KeyboardModifiers modifier = Qt::NoModifier, int delay=-1)
+        -:  176:    { keyEvent(Press, widget, key, modifier, delay); }
+        -:  177:    inline static void keyRelease(QWidget *widget, char key, Qt::KeyboardModifiers modifier = Qt::NoModifier, int delay=-1)
+        -:  178:    { keyEvent(Release, widget, key, modifier, delay); }
+        -:  179:    inline static void keyClick(QWidget *widget, char key, Qt::KeyboardModifiers modifier = Qt::NoModifier, int delay=-1)
+        -:  180:    { keyEvent(Click, widget, key, modifier, delay); }
+        -:  181:    inline static void keyPress(QWidget *widget, Qt::Key key, Qt::KeyboardModifiers modifier = Qt::NoModifier, int delay=-1)
+        -:  182:    { keyEvent(Press, widget, key, modifier, delay); }
+        -:  183:    inline static void keyRelease(QWidget *widget, Qt::Key key, Qt::KeyboardModifiers modifier = Qt::NoModifier, int delay=-1)
+        -:  184:    { keyEvent(Release, widget, key, modifier, delay); }
+        -:  185:    inline static void keyClick(QWidget *widget, Qt::Key key, Qt::KeyboardModifiers modifier = Qt::NoModifier, int delay=-1)
+        -:  186:    { keyEvent(Click, widget, key, modifier, delay); }
+        -:  187:
+        -:  188:}
+        -:  189:
+        -:  190:QT_END_NAMESPACE
+        -:  191:
+        -:  192:QT_END_HEADER
+        -:  193:
+        -:  194:#endif // QTESTKEYBOARD_H

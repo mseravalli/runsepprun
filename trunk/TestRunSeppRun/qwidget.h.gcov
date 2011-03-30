@@ -1,0 +1,1079 @@
+        -:    0:Source:/usr/include/qt4/QtGui/qwidget.h
+        -:    0:Graph:debug/main.gcno
+        -:    0:Data:debug/main.gcda
+        -:    0:Runs:2
+        -:    0:Programs:1
+        -:    1:/****************************************************************************
+        -:    2:**
+        -:    3:** Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies).
+        -:    4:** All rights reserved.
+        -:    5:** Contact: Nokia Corporation (qt-info@nokia.com)
+        -:    6:**
+        -:    7:** This file is part of the QtGui module of the Qt Toolkit.
+        -:    8:**
+        -:    9:** $QT_BEGIN_LICENSE:LGPL$
+        -:   10:** Commercial Usage
+        -:   11:** Licensees holding valid Qt Commercial licenses may use this file in
+        -:   12:** accordance with the Qt Commercial License Agreement provided with the
+        -:   13:** Software or, alternatively, in accordance with the terms contained in
+        -:   14:** a written agreement between you and Nokia.
+        -:   15:**
+        -:   16:** GNU Lesser General Public License Usage
+        -:   17:** Alternatively, this file may be used under the terms of the GNU Lesser
+        -:   18:** General Public License version 2.1 as published by the Free Software
+        -:   19:** Foundation and appearing in the file LICENSE.LGPL included in the
+        -:   20:** packaging of this file.  Please review the following information to
+        -:   21:** ensure the GNU Lesser General Public License version 2.1 requirements
+        -:   22:** will be met: http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+        -:   23:**
+        -:   24:** In addition, as a special exception, Nokia gives you certain additional
+        -:   25:** rights.  These rights are described in the Nokia Qt LGPL Exception
+        -:   26:** version 1.1, included in the file LGPL_EXCEPTION.txt in this package.
+        -:   27:**
+        -:   28:** GNU General Public License Usage
+        -:   29:** Alternatively, this file may be used under the terms of the GNU
+        -:   30:** General Public License version 3.0 as published by the Free Software
+        -:   31:** Foundation and appearing in the file LICENSE.GPL included in the
+        -:   32:** packaging of this file.  Please review the following information to
+        -:   33:** ensure the GNU General Public License version 3.0 requirements will be
+        -:   34:** met: http://www.gnu.org/copyleft/gpl.html.
+        -:   35:**
+        -:   36:** If you have questions regarding the use of this file, please contact
+        -:   37:** Nokia at qt-info@nokia.com.
+        -:   38:** $QT_END_LICENSE$
+        -:   39:**
+        -:   40:****************************************************************************/
+        -:   41:
+        -:   42:#ifndef QWIDGET_H
+        -:   43:#define QWIDGET_H
+        -:   44:
+        -:   45:#include <QtGui/qwindowdefs.h>
+        -:   46:#include <QtCore/qobject.h>
+        -:   47:#include <QtCore/qmargins.h>
+        -:   48:#include <QtGui/qpaintdevice.h>
+        -:   49:#include <QtGui/qpalette.h>
+        -:   50:#include <QtGui/qfont.h>
+        -:   51:#include <QtGui/qfontmetrics.h>
+        -:   52:#include <QtGui/qfontinfo.h>
+        -:   53:#include <QtGui/qsizepolicy.h>
+        -:   54:#include <QtGui/qregion.h>
+        -:   55:#include <QtGui/qbrush.h>
+        -:   56:#include <QtGui/qcursor.h>
+        -:   57:#include <QtGui/qkeysequence.h>
+        -:   58:
+        -:   59:#ifdef QT_INCLUDE_COMPAT
+        -:   60:#include <QtGui/qevent.h>
+        -:   61:#endif
+        -:   62:
+        -:   63:QT_BEGIN_HEADER
+        -:   64:
+        -:   65:QT_BEGIN_NAMESPACE
+        -:   66:
+        -:   67:QT_MODULE(Gui)
+        -:   68:
+        -:   69:class QLayout;
+        -:   70:class QWSRegionManager;
+        -:   71:class QStyle;
+        -:   72:class QAction;
+        -:   73:class QVariant;
+        -:   74:
+        -:   75:class QActionEvent;
+        -:   76:class QMouseEvent;
+        -:   77:class QWheelEvent;
+        -:   78:class QHoverEvent;
+        -:   79:class QKeyEvent;
+        -:   80:class QFocusEvent;
+        -:   81:class QPaintEvent;
+        -:   82:class QMoveEvent;
+        -:   83:class QResizeEvent;
+        -:   84:class QCloseEvent;
+        -:   85:class QContextMenuEvent;
+        -:   86:class QInputMethodEvent;
+        -:   87:class QTabletEvent;
+        -:   88:class QDragEnterEvent;
+        -:   89:class QDragMoveEvent;
+        -:   90:class QDragLeaveEvent;
+        -:   91:class QDropEvent;
+        -:   92:class QShowEvent;
+        -:   93:class QHideEvent;
+        -:   94:class QInputContext;
+        -:   95:class QIcon;
+        -:   96:class QWindowSurface;
+        -:   97:class QLocale;
+        -:   98:class QGraphicsProxyWidget;
+        -:   99:class QGraphicsEffect;
+        -:  100:#if defined(Q_WS_X11)
+        -:  101:class QX11Info;
+        -:  102:#endif
+        -:  103:
+        -:  104:class QWidgetData
+        -:  105:{
+        -:  106:public:
+        -:  107:    WId winid;
+        -:  108:    uint widget_attributes;
+        -:  109:    Qt::WindowFlags window_flags;
+        -:  110:    uint window_state : 4;
+        -:  111:    uint focus_policy : 4;
+        -:  112:    uint sizehint_forced :1;
+        -:  113:    uint is_closing :1;
+        -:  114:    uint in_show : 1;
+        -:  115:    uint in_set_window_state : 1;
+        -:  116:    mutable uint fstrut_dirty : 1;
+        -:  117:    uint context_menu_policy : 3;
+        -:  118:    uint window_modality : 2;
+        -:  119:    uint in_destructor : 1;
+        -:  120:    uint unused : 13;
+        -:  121:    QRect crect;
+        -:  122:    mutable QPalette pal;
+        -:  123:    QFont fnt;
+        -:  124:#if defined(Q_WS_QWS)
+        -:  125://    QRegion req_region;                 // Requested region
+        -:  126://     mutable QRegion paintable_region;   // Paintable region
+        -:  127://     mutable bool paintable_region_dirty;// needs to be recalculated
+        -:  128://     mutable QRegion alloc_region;       // Allocated region
+        -:  129://     mutable bool alloc_region_dirty;    // needs to be recalculated
+        -:  130://     mutable int overlapping_children;   // Handle overlapping children
+        -:  131:
+        -:  132:    int alloc_region_index;
+        -:  133://    int alloc_region_revision;
+        -:  134:#endif
+        -:  135:    QRect wrect;
+        -:  136:};
+        -:  137:
+        -:  138:class QWidgetPrivate;
+        -:  139:
+        -:  140:class Q_GUI_EXPORT QWidget : public QObject, public QPaintDevice
+        -:  141:{
+        -:  142:    Q_OBJECT
+        -:  143:    Q_DECLARE_PRIVATE(QWidget)
+        -:  144:
+        -:  145:    Q_PROPERTY(bool modal READ isModal)
+        -:  146:    Q_PROPERTY(Qt::WindowModality windowModality READ windowModality WRITE setWindowModality)
+        -:  147:    Q_PROPERTY(bool enabled READ isEnabled WRITE setEnabled)
+        -:  148:    Q_PROPERTY(QRect geometry READ geometry WRITE setGeometry)
+        -:  149:    Q_PROPERTY(QRect frameGeometry READ frameGeometry)
+        -:  150:    Q_PROPERTY(QRect normalGeometry READ normalGeometry)
+        -:  151:    Q_PROPERTY(int x READ x)
+        -:  152:    Q_PROPERTY(int y READ y)
+        -:  153:    Q_PROPERTY(QPoint pos READ pos WRITE move DESIGNABLE false STORED false)
+        -:  154:    Q_PROPERTY(QSize frameSize READ frameSize)
+        -:  155:    Q_PROPERTY(QSize size READ size WRITE resize DESIGNABLE false STORED false)
+        -:  156:    Q_PROPERTY(int width READ width)
+        -:  157:    Q_PROPERTY(int height READ height)
+        -:  158:    Q_PROPERTY(QRect rect READ rect)
+        -:  159:    Q_PROPERTY(QRect childrenRect READ childrenRect)
+        -:  160:    Q_PROPERTY(QRegion childrenRegion READ childrenRegion)
+        -:  161:    Q_PROPERTY(QSizePolicy sizePolicy READ sizePolicy WRITE setSizePolicy)
+        -:  162:    Q_PROPERTY(QSize minimumSize READ minimumSize WRITE setMinimumSize)
+        -:  163:    Q_PROPERTY(QSize maximumSize READ maximumSize WRITE setMaximumSize)
+        -:  164:    Q_PROPERTY(int minimumWidth READ minimumWidth WRITE setMinimumWidth STORED false DESIGNABLE false)
+        -:  165:    Q_PROPERTY(int minimumHeight READ minimumHeight WRITE setMinimumHeight STORED false DESIGNABLE false)
+        -:  166:    Q_PROPERTY(int maximumWidth READ maximumWidth WRITE setMaximumWidth STORED false DESIGNABLE false)
+        -:  167:    Q_PROPERTY(int maximumHeight READ maximumHeight WRITE setMaximumHeight STORED false DESIGNABLE false)
+        -:  168:    Q_PROPERTY(QSize sizeIncrement READ sizeIncrement WRITE setSizeIncrement)
+        -:  169:    Q_PROPERTY(QSize baseSize READ baseSize WRITE setBaseSize)
+        -:  170:    Q_PROPERTY(QPalette palette READ palette WRITE setPalette)
+        -:  171:    Q_PROPERTY(QFont font READ font WRITE setFont)
+        -:  172:#ifndef QT_NO_CURSOR
+        -:  173:    Q_PROPERTY(QCursor cursor READ cursor WRITE setCursor RESET unsetCursor)
+        -:  174:#endif
+        -:  175:    Q_PROPERTY(bool mouseTracking READ hasMouseTracking WRITE setMouseTracking)
+        -:  176:    Q_PROPERTY(bool isActiveWindow READ isActiveWindow)
+        -:  177:    Q_PROPERTY(Qt::FocusPolicy focusPolicy READ focusPolicy WRITE setFocusPolicy)
+        -:  178:    Q_PROPERTY(bool focus READ hasFocus)
+        -:  179:    Q_PROPERTY(Qt::ContextMenuPolicy contextMenuPolicy READ contextMenuPolicy WRITE setContextMenuPolicy)
+        -:  180:    Q_PROPERTY(bool updatesEnabled READ updatesEnabled WRITE setUpdatesEnabled DESIGNABLE false)
+        -:  181:    Q_PROPERTY(bool visible READ isVisible WRITE setVisible DESIGNABLE false)
+        -:  182:    Q_PROPERTY(bool minimized READ isMinimized)
+        -:  183:    Q_PROPERTY(bool maximized READ isMaximized)
+        -:  184:    Q_PROPERTY(bool fullScreen READ isFullScreen)
+        -:  185:    Q_PROPERTY(QSize sizeHint READ sizeHint)
+        -:  186:    Q_PROPERTY(QSize minimumSizeHint READ minimumSizeHint)
+        -:  187:    Q_PROPERTY(bool acceptDrops READ acceptDrops WRITE setAcceptDrops)
+        -:  188:    Q_PROPERTY(QString windowTitle READ windowTitle WRITE setWindowTitle DESIGNABLE isWindow)
+        -:  189:    Q_PROPERTY(QIcon windowIcon READ windowIcon WRITE setWindowIcon DESIGNABLE isWindow)
+        -:  190:    Q_PROPERTY(QString windowIconText READ windowIconText WRITE setWindowIconText DESIGNABLE isWindow)
+        -:  191:    Q_PROPERTY(double windowOpacity READ windowOpacity WRITE setWindowOpacity DESIGNABLE isWindow)
+        -:  192:    Q_PROPERTY(bool windowModified READ isWindowModified WRITE setWindowModified DESIGNABLE isWindow)
+        -:  193:#ifndef QT_NO_TOOLTIP
+        -:  194:    Q_PROPERTY(QString toolTip READ toolTip WRITE setToolTip)
+        -:  195:#endif
+        -:  196:#ifndef QT_NO_STATUSTIP
+        -:  197:    Q_PROPERTY(QString statusTip READ statusTip WRITE setStatusTip)
+        -:  198:#endif
+        -:  199:#ifndef QT_NO_WHATSTHIS
+        -:  200:    Q_PROPERTY(QString whatsThis READ whatsThis WRITE setWhatsThis)
+        -:  201:#endif
+        -:  202:#ifndef QT_NO_ACCESSIBILITY
+        -:  203:    Q_PROPERTY(QString accessibleName READ accessibleName WRITE setAccessibleName)
+        -:  204:    Q_PROPERTY(QString accessibleDescription READ accessibleDescription WRITE setAccessibleDescription)
+        -:  205:#endif
+        -:  206:    Q_PROPERTY(Qt::LayoutDirection layoutDirection READ layoutDirection WRITE setLayoutDirection RESET unsetLayoutDirection)
+        -:  207:    QDOC_PROPERTY(Qt::WindowFlags windowFlags READ windowFlags WRITE setWindowFlags)
+        -:  208:    Q_PROPERTY(bool autoFillBackground READ autoFillBackground WRITE setAutoFillBackground)
+        -:  209:#ifndef QT_NO_STYLE_STYLESHEET
+        -:  210:    Q_PROPERTY(QString styleSheet READ styleSheet WRITE setStyleSheet)
+        -:  211:#endif
+        -:  212:    Q_PROPERTY(QLocale locale READ locale WRITE setLocale RESET unsetLocale)
+        -:  213:    Q_PROPERTY(QString windowFilePath READ windowFilePath WRITE setWindowFilePath DESIGNABLE isWindow)
+        -:  214:    Q_PROPERTY(Qt::InputMethodHints inputMethodHints READ inputMethodHints WRITE setInputMethodHints)
+        -:  215:
+        -:  216:public:
+        -:  217:    enum RenderFlag {
+        -:  218:        DrawWindowBackground = 0x1,
+        -:  219:        DrawChildren = 0x2,
+        -:  220:        IgnoreMask = 0x4
+        -:  221:    };
+        -:  222:    Q_DECLARE_FLAGS(RenderFlags, RenderFlag)
+        -:  223:
+        -:  224:    explicit QWidget(QWidget* parent = 0, Qt::WindowFlags f = 0);
+        -:  225:#ifdef QT3_SUPPORT
+        -:  226:    QT3_SUPPORT_CONSTRUCTOR QWidget(QWidget* parent, const char *name, Qt::WindowFlags f = 0);
+        -:  227:#endif
+        -:  228:    ~QWidget();
+        -:  229:
+        -:  230:    int devType() const;
+        -:  231:
+        -:  232:    WId winId() const;
+        -:  233:    void createWinId(); // internal, going away
+        -:  234:    inline WId internalWinId() const { return data->winid; }
+        -:  235:    WId effectiveWinId() const;
+        -:  236:
+        -:  237:    // GUI style setting
+        -:  238:    QStyle *style() const;
+        -:  239:    void setStyle(QStyle *);
+        -:  240:    // Widget types and states
+        -:  241:
+        -:  242:    bool isTopLevel() const;
+        -:  243:    bool isWindow() const;
+        -:  244:
+        -:  245:    bool isModal() const;
+        -:  246:    Qt::WindowModality windowModality() const;
+        -:  247:    void setWindowModality(Qt::WindowModality windowModality);
+        -:  248:
+        -:  249:    bool isEnabled() const;
+        -:  250:    bool isEnabledTo(QWidget*) const;
+        -:  251:    bool isEnabledToTLW() const;
+        -:  252:
+        -:  253:public Q_SLOTS:
+        -:  254:    void setEnabled(bool);
+        -:  255:    void setDisabled(bool);
+        -:  256:    void setWindowModified(bool);
+        -:  257:
+        -:  258:    // Widget coordinates
+        -:  259:
+        -:  260:public:
+        -:  261:    QRect frameGeometry() const;
+        -:  262:    const QRect &geometry() const;
+        -:  263:    QRect normalGeometry() const;
+        -:  264:
+        -:  265:    int x() const;
+        -:  266:    int y() const;
+        -:  267:    QPoint pos() const;
+        -:  268:    QSize frameSize() const;
+        -:  269:    QSize size() const;
+        -:  270:    inline int width() const;
+        -:  271:    inline int height() const;
+        -:  272:    inline QRect rect() const;
+        -:  273:    QRect childrenRect() const;
+        -:  274:    QRegion childrenRegion() const;
+        -:  275:
+        -:  276:    QSize minimumSize() const;
+        -:  277:    QSize maximumSize() const;
+        -:  278:    int minimumWidth() const;
+        -:  279:    int minimumHeight() const;
+        -:  280:    int maximumWidth() const;
+        -:  281:    int maximumHeight() const;
+        -:  282:    void setMinimumSize(const QSize &);
+        -:  283:    void setMinimumSize(int minw, int minh);
+        -:  284:    void setMaximumSize(const QSize &);
+        -:  285:    void setMaximumSize(int maxw, int maxh);
+        -:  286:    void setMinimumWidth(int minw);
+        -:  287:    void setMinimumHeight(int minh);
+        -:  288:    void setMaximumWidth(int maxw);
+        -:  289:    void setMaximumHeight(int maxh);
+        -:  290:
+        -:  291:#ifdef Q_QDOC
+        -:  292:    void setupUi(QWidget *widget);
+        -:  293:#endif
+        -:  294:
+        -:  295:    QSize sizeIncrement() const;
+        -:  296:    void setSizeIncrement(const QSize &);
+        -:  297:    void setSizeIncrement(int w, int h);
+        -:  298:    QSize baseSize() const;
+        -:  299:    void setBaseSize(const QSize &);
+        -:  300:    void setBaseSize(int basew, int baseh);
+        -:  301:
+        -:  302:    void setFixedSize(const QSize &);
+        -:  303:    void setFixedSize(int w, int h);
+        -:  304:    void setFixedWidth(int w);
+        -:  305:    void setFixedHeight(int h);
+        -:  306:
+        -:  307:    // Widget coordinate mapping
+        -:  308:
+        -:  309:    QPoint mapToGlobal(const QPoint &) const;
+        -:  310:    QPoint mapFromGlobal(const QPoint &) const;
+        -:  311:    QPoint mapToParent(const QPoint &) const;
+        -:  312:    QPoint mapFromParent(const QPoint &) const;
+        -:  313:    QPoint mapTo(QWidget *, const QPoint &) const;
+        -:  314:    QPoint mapFrom(QWidget *, const QPoint &) const;
+        -:  315:
+        -:  316:    QWidget *window() const;
+        -:  317:    QWidget *nativeParentWidget() const;
+        -:  318:    inline QWidget *topLevelWidget() const { return window(); }
+        -:  319:
+        -:  320:    // Widget appearance functions
+        -:  321:    const QPalette &palette() const;
+        -:  322:    void setPalette(const QPalette &);
+        -:  323:
+        -:  324:    void setBackgroundRole(QPalette::ColorRole);
+        -:  325:    QPalette::ColorRole backgroundRole() const;
+        -:  326:
+        -:  327:    void setForegroundRole(QPalette::ColorRole);
+        -:  328:    QPalette::ColorRole foregroundRole() const;
+        -:  329:
+        -:  330:    const QFont &font() const;
+        -:  331:    void setFont(const QFont &);
+        -:  332:    QFontMetrics fontMetrics() const;
+        -:  333:    QFontInfo fontInfo() const;
+        -:  334:
+        -:  335:#ifndef QT_NO_CURSOR
+        -:  336:    QCursor cursor() const;
+        -:  337:    void setCursor(const QCursor &);
+        -:  338:    void unsetCursor();
+        -:  339:#endif
+        -:  340:
+        -:  341:    void setMouseTracking(bool enable);
+        -:  342:    bool hasMouseTracking() const;
+        -:  343:    bool underMouse() const;
+        -:  344:
+        -:  345:    void setMask(const QBitmap &);
+        -:  346:    void setMask(const QRegion &);
+        -:  347:    QRegion mask() const;
+        -:  348:    void clearMask();
+        -:  349:
+        -:  350:    void render(QPaintDevice *target, const QPoint &targetOffset = QPoint(),
+        -:  351:                const QRegion &sourceRegion = QRegion(),
+        -:  352:                RenderFlags renderFlags = RenderFlags(DrawWindowBackground | DrawChildren));
+        -:  353:
+        -:  354:    void render(QPainter *painter, const QPoint &targetOffset = QPoint(),
+        -:  355:                const QRegion &sourceRegion = QRegion(),
+        -:  356:                RenderFlags renderFlags = RenderFlags(DrawWindowBackground | DrawChildren));
+        -:  357:
+        -:  358:#ifndef QT_NO_GRAPHICSEFFECT
+        -:  359:    QGraphicsEffect *graphicsEffect() const;
+        -:  360:    void setGraphicsEffect(QGraphicsEffect *effect);
+        -:  361:#endif //QT_NO_GRAPHICSEFFECT
+        -:  362:
+        -:  363:    void grabGesture(Qt::GestureType type, Qt::GestureFlags flags = Qt::GestureFlags());
+        -:  364:    void ungrabGesture(Qt::GestureType type);
+        -:  365:
+        -:  366:public Q_SLOTS:
+        -:  367:    void setWindowTitle(const QString &);
+        -:  368:#ifndef QT_NO_STYLE_STYLESHEET
+        -:  369:    void setStyleSheet(const QString& styleSheet);
+        -:  370:#endif
+        -:  371:public:
+        -:  372:#ifndef QT_NO_STYLE_STYLESHEET
+        -:  373:    QString styleSheet() const;
+        -:  374:#endif
+        -:  375:    QString windowTitle() const;
+        -:  376:    void setWindowIcon(const QIcon &icon);
+        -:  377:    QIcon windowIcon() const;
+        -:  378:    void setWindowIconText(const QString &);
+        -:  379:    QString windowIconText() const;
+        -:  380:    void setWindowRole(const QString &);
+        -:  381:    QString windowRole() const;
+        -:  382:    void setWindowFilePath(const QString &filePath);
+        -:  383:    QString windowFilePath() const;
+        -:  384:
+        -:  385:    void setWindowOpacity(qreal level);
+        -:  386:    qreal windowOpacity() const;
+        -:  387:
+        -:  388:    bool isWindowModified() const;
+        -:  389:#ifndef QT_NO_TOOLTIP
+        -:  390:    void setToolTip(const QString &);
+        -:  391:    QString toolTip() const;
+        -:  392:#endif
+        -:  393:#ifndef QT_NO_STATUSTIP
+        -:  394:    void setStatusTip(const QString &);
+        -:  395:    QString statusTip() const;
+        -:  396:#endif
+        -:  397:#ifndef QT_NO_WHATSTHIS
+        -:  398:    void setWhatsThis(const QString &);
+        -:  399:    QString whatsThis() const;
+        -:  400:#endif
+        -:  401:#ifndef QT_NO_ACCESSIBILITY
+        -:  402:    QString accessibleName() const;
+        -:  403:    void setAccessibleName(const QString &name);
+        -:  404:    QString accessibleDescription() const;
+        -:  405:    void setAccessibleDescription(const QString &description);
+        -:  406:#endif
+        -:  407:
+        -:  408:    void setLayoutDirection(Qt::LayoutDirection direction);
+        -:  409:    Qt::LayoutDirection layoutDirection() const;
+        -:  410:    void unsetLayoutDirection();
+        -:  411:
+        -:  412:    void setLocale(const QLocale &locale);
+        -:  413:    QLocale locale() const;
+        -:  414:    void unsetLocale();
+        -:  415:
+        -:  416:    inline bool isRightToLeft() const { return layoutDirection() == Qt::RightToLeft; }
+        -:  417:    inline bool isLeftToRight() const { return layoutDirection() == Qt::LeftToRight; }
+        -:  418:
+        -:  419:public Q_SLOTS:
+        -:  420:    inline void setFocus() { setFocus(Qt::OtherFocusReason); }
+        -:  421:
+        -:  422:public:
+        -:  423:    bool isActiveWindow() const;
+        -:  424:    void activateWindow();
+        -:  425:    void clearFocus();
+        -:  426:
+        -:  427:    void setFocus(Qt::FocusReason reason);
+        -:  428:    Qt::FocusPolicy focusPolicy() const;
+        -:  429:    void setFocusPolicy(Qt::FocusPolicy policy);
+        -:  430:    bool hasFocus() const;
+        -:  431:    static void setTabOrder(QWidget *, QWidget *);
+        -:  432:    void setFocusProxy(QWidget *);
+        -:  433:    QWidget *focusProxy() const;
+        -:  434:    Qt::ContextMenuPolicy contextMenuPolicy() const;
+        -:  435:    void setContextMenuPolicy(Qt::ContextMenuPolicy policy);
+        -:  436:
+        -:  437:    // Grab functions
+        -:  438:    void grabMouse();
+        -:  439:#ifndef QT_NO_CURSOR
+        -:  440:    void grabMouse(const QCursor &);
+        -:  441:#endif
+        -:  442:    void releaseMouse();
+        -:  443:    void grabKeyboard();
+        -:  444:    void releaseKeyboard();
+        -:  445:#ifndef QT_NO_SHORTCUT
+        -:  446:    int grabShortcut(const QKeySequence &key, Qt::ShortcutContext context = Qt::WindowShortcut);
+        -:  447:    void releaseShortcut(int id);
+        -:  448:    void setShortcutEnabled(int id, bool enable = true);
+        -:  449:    void setShortcutAutoRepeat(int id, bool enable = true);
+        -:  450:#endif
+        -:  451:    static QWidget *mouseGrabber();
+        -:  452:    static QWidget *keyboardGrabber();
+        -:  453:
+        -:  454:    // Update/refresh functions
+        -:  455:    inline bool updatesEnabled() const;
+        -:  456:    void setUpdatesEnabled(bool enable);
+        -:  457:
+        -:  458:#if 0 //def Q_WS_QWS
+        -:  459:    void repaintUnclipped(const QRegion &, bool erase = true);
+        -:  460:#endif
+        -:  461:
+        -:  462:#ifndef QT_NO_GRAPHICSVIEW
+        -:  463:    QGraphicsProxyWidget *graphicsProxyWidget() const;
+        -:  464:#endif
+        -:  465:
+        -:  466:public Q_SLOTS:
+        -:  467:    void update();
+        -:  468:    void repaint();
+        -:  469:
+        -:  470:public:
+        -:  471:    inline void update(int x, int y, int w, int h);
+        -:  472:    void update(const QRect&);
+        -:  473:    void update(const QRegion&);
+        -:  474:
+        -:  475:    void repaint(int x, int y, int w, int h);
+        -:  476:    void repaint(const QRect &);
+        -:  477:    void repaint(const QRegion &);
+        -:  478:
+        -:  479:public Q_SLOTS:
+        -:  480:    // Widget management functions
+        -:  481:
+        -:  482:    virtual void setVisible(bool visible);
+        -:  483:    inline void setHidden(bool hidden) { setVisible(!hidden); }
+        -:  484:#ifndef Q_WS_WINCE
+        -:  485:    inline void show() { setVisible(true); }
+        -:  486:#else
+        -:  487:    void show();
+        -:  488:#endif
+        -:  489:    inline void hide() { setVisible(false); }
+        -:  490:    inline QT_MOC_COMPAT void setShown(bool shown) { setVisible(shown); }
+        -:  491:
+        -:  492:    void showMinimized();
+        -:  493:    void showMaximized();
+        -:  494:    void showFullScreen();
+        -:  495:    void showNormal();
+        -:  496:
+        -:  497:    bool close();
+        -:  498:    void raise();
+        -:  499:    void lower();
+        -:  500:
+        -:  501:public:
+        -:  502:    void stackUnder(QWidget*);
+        -:  503:    void move(int x, int y);
+        -:  504:    void move(const QPoint &);
+        -:  505:    void resize(int w, int h);
+        -:  506:    void resize(const QSize &);
+        -:  507:    inline void setGeometry(int x, int y, int w, int h);
+        -:  508:    void setGeometry(const QRect &);
+        -:  509:    QByteArray saveGeometry() const;
+        -:  510:    bool restoreGeometry(const QByteArray &geometry);
+        -:  511:    void adjustSize();
+        -:  512:    bool isVisible() const;
+        -:  513:    bool isVisibleTo(QWidget*) const;
+        -:  514:    // ### Qt 5: bool isVisibleTo(_const_ QWidget *) const
+        -:  515:    inline bool isHidden() const;
+        -:  516:
+        -:  517:    bool isMinimized() const;
+        -:  518:    bool isMaximized() const;
+        -:  519:    bool isFullScreen() const;
+        -:  520:
+        -:  521:    Qt::WindowStates windowState() const;
+        -:  522:    void setWindowState(Qt::WindowStates state);
+        -:  523:    void overrideWindowState(Qt::WindowStates state);
+        -:  524:
+        -:  525:    virtual QSize sizeHint() const;
+        -:  526:    virtual QSize minimumSizeHint() const;
+        -:  527:
+        -:  528:    QSizePolicy sizePolicy() const;
+        -:  529:    void setSizePolicy(QSizePolicy);
+        -:  530:    inline void setSizePolicy(QSizePolicy::Policy horizontal, QSizePolicy::Policy vertical);
+        -:  531:    virtual int heightForWidth(int) const;
+        -:  532:
+        -:  533:    QRegion visibleRegion() const;
+        -:  534:
+        -:  535:    void setContentsMargins(int left, int top, int right, int bottom);
+        -:  536:    void setContentsMargins(const QMargins &margins);
+        -:  537:    void getContentsMargins(int *left, int *top, int *right, int *bottom) const;
+        -:  538:    QMargins contentsMargins() const;
+        -:  539:
+        -:  540:    QRect contentsRect() const;
+        -:  541:
+        -:  542:public:
+        -:  543:    QLayout *layout() const;
+        -:  544:    void setLayout(QLayout *);
+        -:  545:    void updateGeometry();
+        -:  546:
+        -:  547:    void setParent(QWidget *parent);
+        -:  548:    void setParent(QWidget *parent, Qt::WindowFlags f);
+        -:  549:
+        -:  550:    void scroll(int dx, int dy);
+        -:  551:    void scroll(int dx, int dy, const QRect&);
+        -:  552:
+        -:  553:    // Misc. functions
+        -:  554:
+        -:  555:    QWidget *focusWidget() const;
+        -:  556:    QWidget *nextInFocusChain() const;
+        -:  557:    QWidget *previousInFocusChain() const;
+        -:  558:
+        -:  559:    // drag and drop
+        -:  560:    bool acceptDrops() const;
+        -:  561:    void setAcceptDrops(bool on);
+        -:  562:
+        -:  563:#ifndef QT_NO_ACTION
+        -:  564:    //actions
+        -:  565:    void addAction(QAction *action);
+        -:  566:    void addActions(QList<QAction*> actions);
+        -:  567:    void insertAction(QAction *before, QAction *action);
+        -:  568:    void insertActions(QAction *before, QList<QAction*> actions);
+        -:  569:    void removeAction(QAction *action);
+        -:  570:    QList<QAction*> actions() const;
+        -:  571:#endif
+        -:  572:
+        -:  573:    QWidget *parentWidget() const;
+        -:  574:
+        -:  575:    void setWindowFlags(Qt::WindowFlags type);
+        -:  576:    inline Qt::WindowFlags windowFlags() const;
+        -:  577:    void overrideWindowFlags(Qt::WindowFlags type);
+        -:  578:
+        -:  579:    inline Qt::WindowType windowType() const;
+        -:  580:
+        -:  581:    static QWidget *find(WId);
+        -:  582:#ifdef QT3_SUPPORT
+        -:  583:    static QT3_SUPPORT QWidgetMapper *wmapper();
+        -:  584:#endif
+        -:  585:    inline QWidget *childAt(int x, int y) const;
+        -:  586:    QWidget *childAt(const QPoint &p) const;
+        -:  587:
+        -:  588:#if defined(Q_WS_X11)
+        -:  589:    const QX11Info &x11Info() const;
+        -:  590:    Qt::HANDLE x11PictureHandle() const;
+        -:  591:#endif
+        -:  592:
+        -:  593:#if defined(Q_WS_MAC)
+        -:  594:    Qt::HANDLE macQDHandle() const;
+        -:  595:    Qt::HANDLE macCGHandle() const;
+        -:  596:#endif
+        -:  597:
+        -:  598:#if defined(Q_WS_WIN)
+        -:  599:    HDC getDC() const;
+        -:  600:    void releaseDC(HDC) const;
+        -:  601:#else
+        -:  602:    Qt::HANDLE handle() const;
+        -:  603:#endif
+        -:  604:
+        -:  605:    void setAttribute(Qt::WidgetAttribute, bool on = true);
+        -:  606:    inline bool testAttribute(Qt::WidgetAttribute) const;
+        -:  607:
+        -:  608:    QPaintEngine *paintEngine() const;
+        -:  609:
+        -:  610:    void ensurePolished() const;
+        -:  611:
+        -:  612:    QInputContext *inputContext();
+        -:  613:    void setInputContext(QInputContext *);
+        -:  614:
+        -:  615:    bool isAncestorOf(const QWidget *child) const;
+        -:  616:
+        -:  617:#ifdef QT_KEYPAD_NAVIGATION
+        -:  618:    bool hasEditFocus() const;
+        -:  619:    void setEditFocus(bool on);
+        -:  620:#endif
+        -:  621:
+        -:  622:    bool autoFillBackground() const;
+        -:  623:    void setAutoFillBackground(bool enabled);
+        -:  624:
+        -:  625:    void setWindowSurface(QWindowSurface *surface);
+        -:  626:    QWindowSurface *windowSurface() const;
+        -:  627:
+        -:  628:Q_SIGNALS:
+        -:  629:    void customContextMenuRequested(const QPoint &pos);
+        -:  630:
+        -:  631:protected:
+        -:  632:    // Event handlers
+        -:  633:    bool event(QEvent *);
+        -:  634:    virtual void mousePressEvent(QMouseEvent *);
+        -:  635:    virtual void mouseReleaseEvent(QMouseEvent *);
+        -:  636:    virtual void mouseDoubleClickEvent(QMouseEvent *);
+        -:  637:    virtual void mouseMoveEvent(QMouseEvent *);
+        -:  638:#ifndef QT_NO_WHEELEVENT
+        -:  639:    virtual void wheelEvent(QWheelEvent *);
+        -:  640:#endif
+        -:  641:    virtual void keyPressEvent(QKeyEvent *);
+        -:  642:    virtual void keyReleaseEvent(QKeyEvent *);
+        -:  643:    virtual void focusInEvent(QFocusEvent *);
+        -:  644:    virtual void focusOutEvent(QFocusEvent *);
+        -:  645:    virtual void enterEvent(QEvent *);
+        -:  646:    virtual void leaveEvent(QEvent *);
+        -:  647:    virtual void paintEvent(QPaintEvent *);
+        -:  648:    virtual void moveEvent(QMoveEvent *);
+        -:  649:    virtual void resizeEvent(QResizeEvent *);
+        -:  650:    virtual void closeEvent(QCloseEvent *);
+        -:  651:#ifndef QT_NO_CONTEXTMENU
+        -:  652:    virtual void contextMenuEvent(QContextMenuEvent *);
+        -:  653:#endif
+        -:  654:#ifndef QT_NO_TABLETEVENT
+        -:  655:    virtual void tabletEvent(QTabletEvent *);
+        -:  656:#endif
+        -:  657:#ifndef QT_NO_ACTION
+        -:  658:    virtual void actionEvent(QActionEvent *);
+        -:  659:#endif
+        -:  660:
+        -:  661:#ifndef QT_NO_DRAGANDDROP
+        -:  662:    virtual void dragEnterEvent(QDragEnterEvent *);
+        -:  663:    virtual void dragMoveEvent(QDragMoveEvent *);
+        -:  664:    virtual void dragLeaveEvent(QDragLeaveEvent *);
+        -:  665:    virtual void dropEvent(QDropEvent *);
+        -:  666:#endif
+        -:  667:
+        -:  668:    virtual void showEvent(QShowEvent *);
+        -:  669:    virtual void hideEvent(QHideEvent *);
+        -:  670:
+        -:  671:#if defined(Q_WS_MAC)
+        -:  672:    virtual bool macEvent(EventHandlerCallRef, EventRef);
+        -:  673:#endif
+        -:  674:#if defined(Q_WS_WIN)
+        -:  675:    virtual bool winEvent(MSG *message, long *result);
+        -:  676:#endif
+        -:  677:#if defined(Q_WS_X11)
+        -:  678:    virtual bool x11Event(XEvent *);
+        -:  679:#endif
+        -:  680:#if defined(Q_WS_QWS)
+        -:  681:    virtual bool qwsEvent(QWSEvent *);
+        -:  682:#endif
+        -:  683:
+        -:  684:    // Misc. protected functions
+        -:  685:    virtual void changeEvent(QEvent *);
+        -:  686:
+        -:  687:    int metric(PaintDeviceMetric) const;
+        -:  688:
+        -:  689:    virtual void inputMethodEvent(QInputMethodEvent *);
+        -:  690:public:
+        -:  691:    virtual QVariant inputMethodQuery(Qt::InputMethodQuery) const;
+        -:  692:
+        -:  693:    Qt::InputMethodHints inputMethodHints() const;
+        -:  694:    void setInputMethodHints(Qt::InputMethodHints hints);
+        -:  695:
+        -:  696:protected:
+        -:  697:    void resetInputContext();
+        -:  698:protected Q_SLOTS:
+        -:  699:    void updateMicroFocus();
+        -:  700:protected:
+        -:  701:
+        -:  702:    void create(WId = 0, bool initializeWindow = true,
+        -:  703:                         bool destroyOldWindow = true);
+        -:  704:    void destroy(bool destroyWindow = true,
+        -:  705:                 bool destroySubWindows = true);
+        -:  706:
+        -:  707:    virtual bool focusNextPrevChild(bool next);
+        -:  708:    inline bool focusNextChild() { return focusNextPrevChild(true); }
+        -:  709:    inline bool focusPreviousChild() { return focusNextPrevChild(false); }
+        -:  710:
+        -:  711:protected:
+        -:  712:    QWidget(QWidgetPrivate &d, QWidget* parent, Qt::WindowFlags f);
+        -:  713:private:
+        -:  714:
+        -:  715:    bool testAttribute_helper(Qt::WidgetAttribute) const;
+        -:  716:
+        -:  717:    QLayout *takeLayout();
+        -:  718:
+        -:  719:    friend class QBackingStoreDevice;
+        -:  720:    friend class QWidgetBackingStore;
+        -:  721:    friend class QApplication;
+        -:  722:    friend class QApplicationPrivate;
+        -:  723:    friend class QBaseApplication;
+        -:  724:    friend class QPainter;
+        -:  725:    friend class QPainterPrivate;
+        -:  726:    friend class QPixmap; // for QPixmap::fill()
+        -:  727:    friend class QFontMetrics;
+        -:  728:    friend class QFontInfo;
+        -:  729:    friend class QETWidget;
+        -:  730:    friend class QLayout;
+        -:  731:    friend class QWidgetItem;
+        -:  732:    friend class QWidgetItemV2;
+        -:  733:    friend class QGLContext;
+        -:  734:    friend class QGLWidget;
+        -:  735:    friend class QGLWindowSurface;
+        -:  736:    friend class QX11PaintEngine;
+        -:  737:    friend class QWin32PaintEngine;
+        -:  738:    friend class QShortcutPrivate;
+        -:  739:    friend class QShortcutMap;
+        -:  740:    friend class QWindowSurface;
+        -:  741:    friend class QGraphicsProxyWidget;
+        -:  742:    friend class QGraphicsProxyWidgetPrivate;
+        -:  743:    friend class QStyleSheetStyle;
+        -:  744:    friend struct QWidgetExceptionCleaner;
+        -:  745:    friend class QGestureManager;
+        -:  746:    friend class QWinNativePanGestureRecognizer;
+        -:  747:    friend class QWidgetEffectSourcePrivate;
+        -:  748:
+        -:  749:#ifdef Q_WS_MAC
+        -:  750:    friend class QCoreGraphicsPaintEnginePrivate;
+        -:  751:    friend QPoint qt_mac_posInWindow(const QWidget *w);
+        -:  752:    friend OSWindowRef qt_mac_window_for(const QWidget *w);
+        -:  753:    friend bool qt_mac_is_metal(const QWidget *w);
+        -:  754:    friend OSViewRef qt_mac_nativeview_for(const QWidget *w);
+        -:  755:    friend void qt_event_request_window_change(QWidget *widget);
+        -:  756:    friend bool qt_mac_sendMacEventToWidget(QWidget *widget, EventRef ref);
+        -:  757:#endif
+        -:  758:#ifdef Q_WS_QWS
+        -:  759:    friend class QWSBackingStore;
+        -:  760:    friend class QWSManager;
+        -:  761:    friend class QWSManagerPrivate;
+        -:  762:    friend class QDecoration;
+        -:  763:    friend class QWSWindowSurface;
+        -:  764:    friend class QScreen;
+        -:  765:    friend class QVNCScreen;
+        -:  766:    friend bool isWidgetOpaque(const QWidget *);
+        -:  767:    friend class QGLWidgetPrivate;
+        -:  768:#endif
+        -:  769:#ifdef Q_OS_SYMBIAN
+        -:  770:    friend class QSymbianControl;
+        -:  771:    friend class QS60WindowSurface;
+        -:  772:#endif
+        -:  773:#ifdef Q_WS_X11
+        -:  774:    friend void qt_net_update_user_time(QWidget *tlw, unsigned long timestamp);
+        -:  775:    friend void qt_net_remove_user_time(QWidget *tlw);
+        -:  776:#endif
+        -:  777:
+        -:  778:    friend Q_GUI_EXPORT QWidgetData *qt_qwidget_data(QWidget *widget);
+        -:  779:    friend Q_GUI_EXPORT QWidgetPrivate *qt_widget_private(QWidget *widget);
+        -:  780:
+        -:  781:private:
+        -:  782:    Q_DISABLE_COPY(QWidget)
+        -:  783:    Q_PRIVATE_SLOT(d_func(), void _q_showIfNotHidden())
+        -:  784:#ifdef Q_OS_SYMBIAN
+        -:  785:    Q_PRIVATE_SLOT(d_func(), void _q_delayedDestroy(WId winId))
+        -:  786:#endif
+        -:  787:
+        -:  788:    QWidgetData *data;
+        -:  789:
+        -:  790:#ifdef QT3_SUPPORT
+        -:  791:public:
+        -:  792:    inline QT3_SUPPORT bool isUpdatesEnabled() const { return updatesEnabled(); }
+        -:  793:    QT3_SUPPORT QStyle *setStyle(const QString&);
+        -:  794:    inline QT3_SUPPORT bool isVisibleToTLW() const;
+        -:  795:    QT3_SUPPORT QRect visibleRect() const;
+        -:  796:    inline QT3_SUPPORT void iconify() { showMinimized(); }
+        -:  797:    inline QT3_SUPPORT void constPolish() const { ensurePolished(); }
+        -:  798:    inline QT3_SUPPORT void polish() { ensurePolished(); }
+        -:  799:    inline QT3_SUPPORT void reparent(QWidget *parent, Qt::WindowFlags f, const QPoint &p, bool showIt=false)
+        -:  800:    { setParent(parent, f); setGeometry(p.x(),p.y(),width(),height()); if (showIt) show(); }
+        -:  801:    inline QT3_SUPPORT void reparent(QWidget *parent, const QPoint &p, bool showIt=false)
+        -:  802:    { setParent(parent, windowFlags() & ~Qt::WindowType_Mask); setGeometry(p.x(),p.y(),width(),height()); if (showIt) show(); }
+        -:  803:    inline QT3_SUPPORT void recreate(QWidget *parent, Qt::WindowFlags f, const QPoint & p, bool showIt=false)
+        -:  804:    { setParent(parent, f); setGeometry(p.x(),p.y(),width(),height()); if (showIt) show(); }
+        -:  805:    inline QT3_SUPPORT void setSizePolicy(QSizePolicy::Policy hor, QSizePolicy::Policy ver, bool hfw)
+        -:  806:    { QSizePolicy sp(hor, ver); sp.setHeightForWidth(hfw); setSizePolicy(sp);}
+        -:  807:    inline QT3_SUPPORT bool hasMouse() const { return testAttribute(Qt::WA_UnderMouse); }
+        -:  808:#ifndef QT_NO_CURSOR
+        -:  809:    inline QT3_SUPPORT bool ownCursor() const { return testAttribute(Qt::WA_SetCursor); }
+        -:  810:#endif
+        -:  811:    inline QT3_SUPPORT bool ownFont() const { return testAttribute(Qt::WA_SetFont); }
+        -:  812:    inline QT3_SUPPORT void unsetFont() { setFont(QFont()); }
+        -:  813:    inline QT3_SUPPORT bool ownPalette() const { return testAttribute(Qt::WA_SetPalette); }
+        -:  814:    inline QT3_SUPPORT void unsetPalette() { setPalette(QPalette()); }
+        -:  815:    Qt::BackgroundMode QT3_SUPPORT backgroundMode() const;
+        -:  816:    void QT3_SUPPORT setBackgroundMode(Qt::BackgroundMode, Qt::BackgroundMode = Qt::PaletteBackground);
+        -:  817:    const QT3_SUPPORT QColor &eraseColor() const;
+        -:  818:    void QT3_SUPPORT setEraseColor(const QColor &);
+        -:  819:    const QT3_SUPPORT QColor &foregroundColor() const;
+        -:  820:    const QT3_SUPPORT QPixmap *erasePixmap() const;
+        -:  821:    void QT3_SUPPORT setErasePixmap(const QPixmap &);
+        -:  822:    const QT3_SUPPORT QColor &paletteForegroundColor() const;
+        -:  823:    void QT3_SUPPORT setPaletteForegroundColor(const QColor &);
+        -:  824:    const QT3_SUPPORT QColor &paletteBackgroundColor() const;
+        -:  825:    void QT3_SUPPORT setPaletteBackgroundColor(const QColor &);
+        -:  826:    const QT3_SUPPORT QPixmap *paletteBackgroundPixmap() const;
+        -:  827:    void QT3_SUPPORT setPaletteBackgroundPixmap(const QPixmap &);
+        -:  828:    const QT3_SUPPORT QBrush& backgroundBrush() const;
+        -:  829:    const QT3_SUPPORT QColor &backgroundColor() const;
+        -:  830:    const QT3_SUPPORT QPixmap *backgroundPixmap() const;
+        -:  831:    void QT3_SUPPORT setBackgroundPixmap(const QPixmap &);
+        -:  832:    QT3_SUPPORT void setBackgroundColor(const QColor &);
+        -:  833:    QT3_SUPPORT QColorGroup colorGroup() const;
+        -:  834:    QT3_SUPPORT QWidget *parentWidget(bool sameWindow) const;
+        -:  835:    inline QT3_SUPPORT void setKeyCompression(bool b) { setAttribute(Qt::WA_KeyCompression, b); }
+        -:  836:    inline QT3_SUPPORT void setFont(const QFont &f, bool) { setFont(f); }
+        -:  837:    inline QT3_SUPPORT void setPalette(const QPalette &p, bool) { setPalette(p); }
+        -:  838:    enum BackgroundOrigin { WidgetOrigin, ParentOrigin, WindowOrigin, AncestorOrigin };
+        -:  839:    inline QT3_SUPPORT void setBackgroundOrigin(BackgroundOrigin) {}
+        -:  840:    inline QT3_SUPPORT BackgroundOrigin backgroundOrigin() const { return WindowOrigin; }
+        -:  841:    inline QT3_SUPPORT QPoint backgroundOffset() const { return QPoint(); }
+        -:  842:    inline QT3_SUPPORT void repaint(bool) { repaint(); }
+        -:  843:    inline QT3_SUPPORT void repaint(int x, int y, int w, int h, bool) { repaint(x,y,w,h); }
+        -:  844:    inline QT3_SUPPORT void repaint(const QRect &r, bool) { repaint(r); }
+        -:  845:    inline QT3_SUPPORT void repaint(const QRegion &rgn, bool) { repaint(rgn); }
+        -:  846:    QT3_SUPPORT void erase();
+        -:  847:    inline QT3_SUPPORT void erase(int x, int y, int w, int h) { erase_helper(x, y, w, h); }
+        -:  848:    QT3_SUPPORT void erase(const QRect &);
+        -:  849:    QT3_SUPPORT void erase(const QRegion &);
+        -:  850:    QT3_SUPPORT void drawText(const QPoint &p, const QString &s)
+        -:  851:    { drawText_helper(p.x(), p.y(), s); }
+        -:  852:    inline QT3_SUPPORT void drawText(int x, int y, const QString &s)
+        -:  853:    { drawText_helper(x, y, s); }
+        -:  854:    QT3_SUPPORT bool close(bool);
+        -:  855:    inline QT3_SUPPORT QWidget *childAt(int x, int y, bool includeThis) const
+        -:  856:    {
+        -:  857:        QWidget *w = childAt(x, y);
+        -:  858:        return w ? w : ((includeThis && rect().contains(x,y))?const_cast<QWidget*>(this):0);
+        -:  859:    }
+        -:  860:    inline QT3_SUPPORT QWidget *childAt(const QPoint &p, bool includeThis) const
+        -:  861:    {
+        -:  862:        QWidget *w = childAt(p);
+        -:  863:        return w ? w : ((includeThis && rect().contains(p))?const_cast<QWidget*>(this):0);
+        -:  864:    }
+        -:  865:    inline QT3_SUPPORT void setCaption(const QString &c)   { setWindowTitle(c); }
+        -:  866:    QT3_SUPPORT void setIcon(const QPixmap &i);
+        -:  867:    inline QT3_SUPPORT void setIconText(const QString &it) { setWindowIconText(it); }
+        -:  868:    inline QT3_SUPPORT QString caption() const             { return windowTitle(); }
+        -:  869:    QT3_SUPPORT const QPixmap *icon() const;
+        -:  870:    inline QT3_SUPPORT QString iconText() const            { return windowIconText(); }
+        -:  871:    inline QT3_SUPPORT void setInputMethodEnabled(bool b) { setAttribute(Qt::WA_InputMethodEnabled, b); }
+        -:  872:    inline QT3_SUPPORT bool isInputMethodEnabled() const { return testAttribute(Qt::WA_InputMethodEnabled); }
+        -:  873:    inline QT3_SUPPORT void setActiveWindow() { activateWindow(); }
+        -:  874:    inline QT3_SUPPORT bool isShown() const { return !isHidden(); }
+        -:  875:    inline QT3_SUPPORT bool isDialog() const { return windowType() == Qt::Dialog; }
+        -:  876:    inline QT3_SUPPORT bool isPopup() const { return windowType() == Qt::Popup; }
+        -:  877:    inline QT3_SUPPORT bool isDesktop() const { return windowType() == Qt::Desktop; }
+        -:  878:
+        -:  879:
+        -:  880:private:
+        -:  881:    void drawText_helper(int x, int y, const QString &);
+        -:  882:    void erase_helper(int x, int y, int w, int h);
+        -:  883:#endif // QT3_SUPPORT
+        -:  884:
+        -:  885:protected:
+        -:  886:    virtual void styleChange(QStyle&); // compat
+        -:  887:    virtual void enabledChange(bool);  // compat
+        -:  888:    virtual void paletteChange(const QPalette &);  // compat
+        -:  889:    virtual void fontChange(const QFont &); // compat
+        -:  890:    virtual void windowActivationChange(bool);  // compat
+        -:  891:    virtual void languageChange();  // compat
+        -:  892:};
+        -:  893:
+        -:  894:Q_DECLARE_OPERATORS_FOR_FLAGS(QWidget::RenderFlags)
+        -:  895:
+        -:  896:#if defined Q_CC_MSVC && _MSC_VER < 1300
+        -:  897:template <> inline QWidget *qobject_cast_helper<QWidget*>(QObject *o, QWidget *)
+        -:  898:{
+        -:  899:    if (!o || !o->isWidgetType()) return 0;
+        -:  900:    return (QWidget*)(o);
+        -:  901:}
+        -:  902:#else
+        -:  903:template <> inline QWidget *qobject_cast<QWidget*>(QObject *o)
+        -:  904:{
+        -:  905:    if (!o || !o->isWidgetType()) return 0;
+        -:  906:    return static_cast<QWidget*>(o);
+        -:  907:}
+        -:  908:template <> inline const QWidget *qobject_cast<const QWidget*>(const QObject *o)
+        -:  909:{
+        -:  910:    if (!o || !o->isWidgetType()) return 0;
+        -:  911:    return static_cast<const QWidget*>(o);
+        -:  912:}
+        -:  913:#endif
+        -:  914:
+        -:  915:inline QWidget *QWidget::childAt(int ax, int ay) const
+        -:  916:{ return childAt(QPoint(ax, ay)); }
+        -:  917:
+        -:  918:inline Qt::WindowType QWidget::windowType() const
+        -:  919:{ return static_cast<Qt::WindowType>(int(data->window_flags & Qt::WindowType_Mask)); }
+        -:  920:inline Qt::WindowFlags QWidget::windowFlags() const
+        -:  921:{ return data->window_flags; }
+        -:  922:
+        -:  923:inline bool QWidget::isTopLevel() const
+        -:  924:{ return (windowType() & Qt::Window); }
+        -:  925:
+        -:  926:inline bool QWidget::isWindow() const
+        -:  927:{ return (windowType() & Qt::Window); }
+        -:  928:
+        -:  929:inline bool QWidget::isEnabled() const
+        -:  930:{ return !testAttribute(Qt::WA_Disabled); }
+        -:  931:
+        -:  932:inline bool QWidget::isModal() const
+        -:  933:{ return data->window_modality != Qt::NonModal; }
+        -:  934:
+        -:  935:inline bool QWidget::isEnabledToTLW() const
+        -:  936:{ return isEnabled(); }
+        -:  937:
+        -:  938:inline int QWidget::minimumWidth() const
+        -:  939:{ return minimumSize().width(); }
+        -:  940:
+        -:  941:inline int QWidget::minimumHeight() const
+        -:  942:{ return minimumSize().height(); }
+        -:  943:
+        -:  944:inline int QWidget::maximumWidth() const
+        -:  945:{ return maximumSize().width(); }
+        -:  946:
+        -:  947:inline int QWidget::maximumHeight() const
+        -:  948:{ return maximumSize().height(); }
+        -:  949:
+        -:  950:inline void QWidget::setMinimumSize(const QSize &s)
+        -:  951:{ setMinimumSize(s.width(),s.height()); }
+        -:  952:
+        -:  953:inline void QWidget::setMaximumSize(const QSize &s)
+        -:  954:{ setMaximumSize(s.width(),s.height()); }
+        -:  955:
+        -:  956:inline void QWidget::setSizeIncrement(const QSize &s)
+        -:  957:{ setSizeIncrement(s.width(),s.height()); }
+        -:  958:
+        -:  959:inline void QWidget::setBaseSize(const QSize &s)
+        -:  960:{ setBaseSize(s.width(),s.height()); }
+        -:  961:
+        -:  962:inline const QFont &QWidget::font() const
+        -:  963:{ return data->fnt; }
+        -:  964:
+        -:  965:inline QFontMetrics QWidget::fontMetrics() const
+        -:  966:{ return QFontMetrics(data->fnt); }
+        -:  967:
+        -:  968:inline QFontInfo QWidget::fontInfo() const
+        -:  969:{ return QFontInfo(data->fnt); }
+        -:  970:
+        -:  971:inline void QWidget::setMouseTracking(bool enable)
+        -:  972:{ setAttribute(Qt::WA_MouseTracking, enable); }
+        -:  973:
+        -:  974:inline bool QWidget::hasMouseTracking() const
+        -:  975:{ return testAttribute(Qt::WA_MouseTracking); }
+        -:  976:
+        -:  977:inline bool QWidget::underMouse() const
+        -:  978:{ return testAttribute(Qt::WA_UnderMouse); }
+        -:  979:
+        -:  980:inline bool QWidget::updatesEnabled() const
+        -:  981:{ return !testAttribute(Qt::WA_UpdatesDisabled); }
+        -:  982:
+        -:  983:inline void QWidget::update(int ax, int ay, int aw, int ah)
+        -:  984:{ update(QRect(ax, ay, aw, ah)); }
+        -:  985:
+        -:  986:inline bool QWidget::isVisible() const
+        -:  987:{ return testAttribute(Qt::WA_WState_Visible); }
+        -:  988:
+        -:  989:inline bool QWidget::isHidden() const
+        -:  990:{ return testAttribute(Qt::WA_WState_Hidden); }
+        -:  991:
+        -:  992:inline void QWidget::move(int ax, int ay)
+        -:  993:{ move(QPoint(ax, ay)); }
+        -:  994:
+        -:  995:inline void QWidget::resize(int w, int h)
+        -:  996:{ resize(QSize(w, h)); }
+        -:  997:
+        -:  998:inline void QWidget::setGeometry(int ax, int ay, int aw, int ah)
+        -:  999:{ setGeometry(QRect(ax, ay, aw, ah)); }
+        -: 1000:
+    #####: 1001:inline QRect QWidget::rect() const
+    #####: 1002:{ return QRect(0,0,data->crect.width(),data->crect.height()); }
+        -: 1003:
+        -: 1004:inline const QRect &QWidget::geometry() const
+        -: 1005:{ return data->crect; }
+        -: 1006:
+        -: 1007:inline QSize QWidget::size() const
+        -: 1008:{ return data->crect.size(); }
+        -: 1009:
+        -: 1010:inline int QWidget::width() const
+        -: 1011:{ return data->crect.width(); }
+        -: 1012:
+        -: 1013:inline int QWidget::height() const
+        -: 1014:{ return data->crect.height(); }
+        -: 1015:
+        -: 1016:inline QWidget *QWidget::parentWidget() const
+        -: 1017:{ return static_cast<QWidget *>(QObject::parent()); }
+        -: 1018:
+        -: 1019:inline void QWidget::setSizePolicy(QSizePolicy::Policy hor, QSizePolicy::Policy ver)
+        -: 1020:{ setSizePolicy(QSizePolicy(hor, ver)); }
+        -: 1021:
+        -: 1022:inline bool QWidget::testAttribute(Qt::WidgetAttribute attribute) const
+        -: 1023:{
+        -: 1024:    if (attribute < int(8*sizeof(uint)))
+        -: 1025:        return data->widget_attributes & (1<<attribute);
+        -: 1026:    return testAttribute_helper(attribute);
+        -: 1027:}
+        -: 1028:
+        -: 1029:#ifdef QT3_SUPPORT
+        -: 1030:inline bool QWidget::isVisibleToTLW() const
+        -: 1031:{ return isVisible(); }
+        -: 1032:inline QWidget *QWidget::parentWidget(bool sameWindow) const
+        -: 1033:{
+        -: 1034:    if (sameWindow && isWindow())
+        -: 1035:        return 0;
+        -: 1036:    return static_cast<QWidget *>(QObject::parent());
+        -: 1037:}
+        -: 1038:inline QColorGroup QWidget::colorGroup() const
+        -: 1039:{ return QColorGroup(palette()); }
+        -: 1040:inline void QWidget::setPaletteForegroundColor(const QColor &c)
+        -: 1041:{ QPalette p = palette(); p.setColor(foregroundRole(), c); setPalette(p); }
+        -: 1042:inline const QBrush& QWidget::backgroundBrush() const { return palette().brush(backgroundRole()); }
+        -: 1043:inline void QWidget::setBackgroundPixmap(const QPixmap &pm)
+        -: 1044:{ QPalette p = palette(); p.setBrush(backgroundRole(), QBrush(pm)); setPalette(p); }
+        -: 1045:inline const QPixmap *QWidget::backgroundPixmap() const { return 0; }
+        -: 1046:inline void QWidget::setBackgroundColor(const QColor &c)
+        -: 1047:{ QPalette p = palette(); p.setColor(backgroundRole(), c); setPalette(p); }
+        -: 1048:inline const QColor & QWidget::backgroundColor() const { return palette().color(backgroundRole()); }
+        -: 1049:inline const QColor &QWidget::foregroundColor() const { return palette().color(foregroundRole());}
+        -: 1050:inline const QColor &QWidget::eraseColor() const { return palette().color(backgroundRole()); }
+        -: 1051:inline void QWidget::setEraseColor(const QColor &c)
+        -: 1052:{ QPalette p = palette(); p.setColor(backgroundRole(), c); setPalette(p); }
+        -: 1053:inline const QPixmap *QWidget::erasePixmap() const { return 0; }
+        -: 1054:inline void QWidget::setErasePixmap(const QPixmap &pm)
+        -: 1055:{ QPalette p = palette(); p.setBrush(backgroundRole(), QBrush(pm)); setPalette(p); }
+        -: 1056:inline const QColor &QWidget::paletteForegroundColor() const { return palette().color(foregroundRole());}
+        -: 1057:inline const QColor &QWidget::paletteBackgroundColor() const { return palette().color(backgroundRole()); }
+        -: 1058:inline void QWidget::setPaletteBackgroundColor(const QColor &c)
+        -: 1059:{ QPalette p = palette(); p.setColor(backgroundRole(), c); setPalette(p); }
+        -: 1060:inline const QPixmap *QWidget::paletteBackgroundPixmap() const
+        -: 1061:{ return 0; }
+        -: 1062:inline void QWidget::setPaletteBackgroundPixmap(const QPixmap &pm)
+        -: 1063:{ QPalette p = palette(); p.setBrush(backgroundRole(), QBrush(pm)); setPalette(p); }
+        -: 1064:inline QT3_SUPPORT void QWidget::erase() { erase_helper(0, 0, data->crect.width(), data->crect.height()); }
+        -: 1065:inline QT3_SUPPORT void QWidget::erase(const QRect &r) { erase_helper(r.x(), r.y(), r.width(), r.height()); }
+        -: 1066:#endif
+        -: 1067:
+        -: 1068:#define QWIDGETSIZE_MAX ((1<<24)-1)
+        -: 1069:
+        -: 1070:QT_END_NAMESPACE
+        -: 1071:
+        -: 1072:QT_END_HEADER
+        -: 1073:
+        -: 1074:#endif // QWIDGET_H

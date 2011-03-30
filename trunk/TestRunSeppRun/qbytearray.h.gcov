@@ -1,0 +1,601 @@
+        -:    0:Source:/usr/include/qt4/QtCore/qbytearray.h
+        -:    0:Graph:debug/main.gcno
+        -:    0:Data:debug/main.gcda
+        -:    0:Runs:2
+        -:    0:Programs:1
+        -:    1:/****************************************************************************
+        -:    2:**
+        -:    3:** Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies).
+        -:    4:** All rights reserved.
+        -:    5:** Contact: Nokia Corporation (qt-info@nokia.com)
+        -:    6:**
+        -:    7:** This file is part of the QtCore module of the Qt Toolkit.
+        -:    8:**
+        -:    9:** $QT_BEGIN_LICENSE:LGPL$
+        -:   10:** Commercial Usage
+        -:   11:** Licensees holding valid Qt Commercial licenses may use this file in
+        -:   12:** accordance with the Qt Commercial License Agreement provided with the
+        -:   13:** Software or, alternatively, in accordance with the terms contained in
+        -:   14:** a written agreement between you and Nokia.
+        -:   15:**
+        -:   16:** GNU Lesser General Public License Usage
+        -:   17:** Alternatively, this file may be used under the terms of the GNU Lesser
+        -:   18:** General Public License version 2.1 as published by the Free Software
+        -:   19:** Foundation and appearing in the file LICENSE.LGPL included in the
+        -:   20:** packaging of this file.  Please review the following information to
+        -:   21:** ensure the GNU Lesser General Public License version 2.1 requirements
+        -:   22:** will be met: http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+        -:   23:**
+        -:   24:** In addition, as a special exception, Nokia gives you certain additional
+        -:   25:** rights.  These rights are described in the Nokia Qt LGPL Exception
+        -:   26:** version 1.1, included in the file LGPL_EXCEPTION.txt in this package.
+        -:   27:**
+        -:   28:** GNU General Public License Usage
+        -:   29:** Alternatively, this file may be used under the terms of the GNU
+        -:   30:** General Public License version 3.0 as published by the Free Software
+        -:   31:** Foundation and appearing in the file LICENSE.GPL included in the
+        -:   32:** packaging of this file.  Please review the following information to
+        -:   33:** ensure the GNU General Public License version 3.0 requirements will be
+        -:   34:** met: http://www.gnu.org/copyleft/gpl.html.
+        -:   35:**
+        -:   36:** If you have questions regarding the use of this file, please contact
+        -:   37:** Nokia at qt-info@nokia.com.
+        -:   38:** $QT_END_LICENSE$
+        -:   39:**
+        -:   40:****************************************************************************/
+        -:   41:
+        -:   42:#ifndef QBYTEARRAY_H
+        -:   43:#define QBYTEARRAY_H
+        -:   44:
+        -:   45:#include <QtCore/qatomic.h>
+        -:   46:#include <QtCore/qnamespace.h>
+        -:   47:
+        -:   48:#include <string.h>
+        -:   49:#include <stdarg.h>
+        -:   50:
+        -:   51:#ifdef truncate
+        -:   52:#error qbytearray.h must be included before any header file that defines truncate
+        -:   53:#endif
+        -:   54:
+        -:   55:QT_BEGIN_HEADER
+        -:   56:
+        -:   57:QT_BEGIN_NAMESPACE
+        -:   58:
+        -:   59:QT_MODULE(Core)
+        -:   60:
+        -:   61:/*****************************************************************************
+        -:   62:  Safe and portable C string functions; extensions to standard string.h
+        -:   63: *****************************************************************************/
+        -:   64:
+        -:   65:Q_CORE_EXPORT char *qstrdup(const char *);
+        -:   66:
+        -:   67:inline uint qstrlen(const char *str)
+        -:   68:{ return str ? uint(strlen(str)) : 0; }
+        -:   69:
+        -:   70:inline uint qstrnlen(const char *str, uint maxlen)
+        -:   71:{
+        -:   72:    uint length = 0;
+        -:   73:    if (str) {
+        -:   74:        while (length < maxlen && *str++)
+        -:   75:            length++;
+        -:   76:    }
+        -:   77:    return length;
+        -:   78:}
+        -:   79:
+        -:   80:Q_CORE_EXPORT char *qstrcpy(char *dst, const char *src);
+        -:   81:Q_CORE_EXPORT char *qstrncpy(char *dst, const char *src, uint len);
+        -:   82:
+        -:   83:Q_CORE_EXPORT int qstrcmp(const char *str1, const char *str2);
+        -:   84:Q_CORE_EXPORT int qstrcmp(const QByteArray &str1, const QByteArray &str2);
+        -:   85:Q_CORE_EXPORT int qstrcmp(const QByteArray &str1, const char *str2);
+        -:   86:static inline int qstrcmp(const char *str1, const QByteArray &str2)
+        -:   87:{ return -qstrcmp(str2, str1); }
+        -:   88:
+        -:   89:inline int qstrncmp(const char *str1, const char *str2, uint len)
+        -:   90:{
+        -:   91:    return (str1 && str2) ? strncmp(str1, str2, len)
+        -:   92:        : (str1 ? 1 : (str2 ? -1 : 0));
+        -:   93:}
+        -:   94:Q_CORE_EXPORT int qstricmp(const char *, const char *);
+        -:   95:Q_CORE_EXPORT int qstrnicmp(const char *, const char *, uint len);
+        -:   96:
+        -:   97:// implemented in qvsnprintf.cpp
+        -:   98:Q_CORE_EXPORT int qvsnprintf(char *str, size_t n, const char *fmt, va_list ap);
+        -:   99:Q_CORE_EXPORT int qsnprintf(char *str, size_t n, const char *fmt, ...);
+        -:  100:
+        -:  101:#ifdef QT3_SUPPORT
+        -:  102:inline QT3_SUPPORT void *qmemmove(void *dst, const void *src, uint len)
+        -:  103:{ return memmove(dst, src, len); }
+        -:  104:inline QT3_SUPPORT uint cstrlen(const char *str)
+        -:  105:{ return uint(strlen(str)); }
+        -:  106:inline QT3_SUPPORT char *cstrcpy(char *dst, const char *src)
+        -:  107:{ return qstrcpy(dst,src); }
+        -:  108:inline QT3_SUPPORT int cstrcmp(const char *str1, const char *str2)
+        -:  109:{ return strcmp(str1,str2); }
+        -:  110:inline QT3_SUPPORT int cstrncmp(const char *str1, const char *str2, uint len)
+        -:  111:{ return strncmp(str1,str2,len); }
+        -:  112:#endif
+        -:  113:
+        -:  114:// qChecksum: Internet checksum
+        -:  115:
+        -:  116:Q_CORE_EXPORT quint16 qChecksum(const char *s, uint len);
+        -:  117:
+        -:  118:class QByteRef;
+        -:  119:class QString;
+        -:  120:class QDataStream;
+        -:  121:template <typename T> class QList;
+        -:  122:
+        -:  123:class Q_CORE_EXPORT QByteArray
+        -:  124:{
+        -:  125:private:
+        -:  126:    struct Data {
+        -:  127:        QBasicAtomicInt ref;
+        -:  128:        int alloc, size;
+        -:  129:        // ### Qt 5.0: We need to add the missing capacity bit
+        -:  130:        // (like other tool classes have), to maintain the
+        -:  131:        // reserved memory on resize.
+        -:  132:        char *data;
+        -:  133:        char array[1];
+        -:  134:    };
+        -:  135:
+        -:  136:public:
+        -:  137:    inline QByteArray();
+        -:  138:    QByteArray(const char *);
+        -:  139:    QByteArray(const char *, int size);
+        -:  140:    QByteArray(int size, char c);
+        -:  141:    QByteArray(int size, Qt::Initialization);
+        -:  142:    inline QByteArray(const QByteArray &);
+        -:  143:    inline ~QByteArray();
+        -:  144:
+        -:  145:    QByteArray &operator=(const QByteArray &);
+        -:  146:    QByteArray &operator=(const char *str);
+        -:  147:
+        -:  148:    inline int size() const;
+        -:  149:    bool isEmpty() const;
+        -:  150:    void resize(int size);
+        -:  151:
+        -:  152:    QByteArray &fill(char c, int size = -1);
+        -:  153:
+        -:  154:    int capacity() const;
+        -:  155:    void reserve(int size);
+        -:  156:    void squeeze();
+        -:  157:
+        -:  158:#ifndef QT_NO_CAST_FROM_BYTEARRAY
+        -:  159:    operator const char *() const;
+        -:  160:    operator const void *() const;
+        -:  161:#endif
+        -:  162:    char *data();
+        -:  163:    const char *data() const;
+        -:  164:    inline const char *constData() const;
+        -:  165:    inline void detach();
+        -:  166:    bool isDetached() const;
+        -:  167:    void clear();
+        -:  168:
+        -:  169:#ifdef Q_COMPILER_MANGLES_RETURN_TYPE
+        -:  170:    const char at(int i) const;
+        -:  171:    const char operator[](int i) const;
+        -:  172:    const char operator[](uint i) const;
+        -:  173:#else
+        -:  174:    char at(int i) const;
+        -:  175:    char operator[](int i) const;
+        -:  176:    char operator[](uint i) const;
+        -:  177:#endif
+        -:  178:    QByteRef operator[](int i);
+        -:  179:    QByteRef operator[](uint i);
+        -:  180:
+        -:  181:    int indexOf(char c, int from = 0) const;
+        -:  182:    int indexOf(const char *c, int from = 0) const;
+        -:  183:    int indexOf(const QByteArray &a, int from = 0) const;
+        -:  184:    int lastIndexOf(char c, int from = -1) const;
+        -:  185:    int lastIndexOf(const char *c, int from = -1) const;
+        -:  186:    int lastIndexOf(const QByteArray &a, int from = -1) const;
+        -:  187:
+        -:  188:    QBool contains(char c) const;
+        -:  189:    QBool contains(const char *a) const;
+        -:  190:    QBool contains(const QByteArray &a) const;
+        -:  191:    int count(char c) const;
+        -:  192:    int count(const char *a) const;
+        -:  193:    int count(const QByteArray &a) const;
+        -:  194:
+        -:  195:    QByteArray left(int len) const;
+        -:  196:    QByteArray right(int len) const;
+        -:  197:    QByteArray mid(int index, int len = -1) const;
+        -:  198:
+        -:  199:    bool startsWith(const QByteArray &a) const;
+        -:  200:    bool startsWith(char c) const;
+        -:  201:    bool startsWith(const char *c) const;
+        -:  202:
+        -:  203:    bool endsWith(const QByteArray &a) const;
+        -:  204:    bool endsWith(char c) const;
+        -:  205:    bool endsWith(const char *c) const;
+        -:  206:
+        -:  207:    void truncate(int pos);
+        -:  208:    void chop(int n);
+        -:  209:
+        -:  210:    QByteArray toLower() const;
+        -:  211:    QByteArray toUpper() const;
+        -:  212:
+        -:  213:    QByteArray trimmed() const;
+        -:  214:    QByteArray simplified() const;
+        -:  215:    QByteArray leftJustified(int width, char fill = ' ', bool truncate = false) const;
+        -:  216:    QByteArray rightJustified(int width, char fill = ' ', bool truncate = false) const;
+        -:  217:
+        -:  218:#ifdef QT3_SUPPORT
+        -:  219:    inline QT3_SUPPORT QByteArray leftJustify(uint width, char aFill = ' ', bool aTruncate = false) const
+        -:  220:    { return leftJustified(int(width), aFill, aTruncate); }
+        -:  221:    inline QT3_SUPPORT QByteArray rightJustify(uint width, char aFill = ' ', bool aTruncate = false) const
+        -:  222:    { return rightJustified(int(width), aFill, aTruncate); }
+        -:  223:#endif
+        -:  224:
+        -:  225:    QByteArray &prepend(char c);
+        -:  226:    QByteArray &prepend(const char *s);
+        -:  227:    QByteArray &prepend(const char *s, int len);
+        -:  228:    QByteArray &prepend(const QByteArray &a);
+        -:  229:    QByteArray &append(char c);
+        -:  230:    QByteArray &append(const char *s);
+        -:  231:    QByteArray &append(const char *s, int len);
+        -:  232:    QByteArray &append(const QByteArray &a);
+        -:  233:    QByteArray &insert(int i, char c);
+        -:  234:    QByteArray &insert(int i, const char *s);
+        -:  235:    QByteArray &insert(int i, const char *s, int len);
+        -:  236:    QByteArray &insert(int i, const QByteArray &a);
+        -:  237:    QByteArray &remove(int index, int len);
+        -:  238:    QByteArray &replace(int index, int len, const char *s);
+        -:  239:    QByteArray &replace(int index, int len, const QByteArray &s);
+        -:  240:    QByteArray &replace(char before, const char *after);
+        -:  241:    QByteArray &replace(char before, const QByteArray &after);
+        -:  242:    QByteArray &replace(const char *before, const char *after);
+        -:  243:    QByteArray &replace(const char *before, int bsize, const char *after, int asize);
+        -:  244:    QByteArray &replace(const QByteArray &before, const QByteArray &after);
+        -:  245:    QByteArray &replace(const QByteArray &before, const char *after);
+        -:  246:    QByteArray &replace(const char *before, const QByteArray &after);
+        -:  247:    QByteArray &replace(char before, char after);
+        -:  248:    QByteArray &operator+=(char c);
+        -:  249:    QByteArray &operator+=(const char *s);
+        -:  250:    QByteArray &operator+=(const QByteArray &a);
+        -:  251:
+        -:  252:    QList<QByteArray> split(char sep) const;
+        -:  253:
+        -:  254:    QByteArray repeated(int times) const;
+        -:  255:
+        -:  256:#ifndef QT_NO_CAST_TO_ASCII
+        -:  257:    QT_ASCII_CAST_WARN QByteArray &append(const QString &s);
+        -:  258:    QT_ASCII_CAST_WARN QByteArray &insert(int i, const QString &s);
+        -:  259:    QT_ASCII_CAST_WARN QByteArray &replace(const QString &before, const char *after);
+        -:  260:    QT_ASCII_CAST_WARN QByteArray &replace(char c, const QString &after);
+        -:  261:    QT_ASCII_CAST_WARN QByteArray &replace(const QString &before, const QByteArray &after);
+        -:  262:
+        -:  263:    QT_ASCII_CAST_WARN QByteArray &operator+=(const QString &s);
+        -:  264:    QT_ASCII_CAST_WARN int indexOf(const QString &s, int from = 0) const;
+        -:  265:    QT_ASCII_CAST_WARN int lastIndexOf(const QString &s, int from = -1) const;
+        -:  266:#endif
+        -:  267:#ifndef QT_NO_CAST_FROM_ASCII
+        -:  268:    inline QT_ASCII_CAST_WARN bool operator==(const QString &s2) const;
+        -:  269:    inline QT_ASCII_CAST_WARN bool operator!=(const QString &s2) const;
+        -:  270:    inline QT_ASCII_CAST_WARN bool operator<(const QString &s2) const;
+        -:  271:    inline QT_ASCII_CAST_WARN bool operator>(const QString &s2) const;
+        -:  272:    inline QT_ASCII_CAST_WARN bool operator<=(const QString &s2) const;
+        -:  273:    inline QT_ASCII_CAST_WARN bool operator>=(const QString &s2) const;
+        -:  274:#endif
+        -:  275:
+        -:  276:    short toShort(bool *ok = 0, int base = 10) const;
+        -:  277:    ushort toUShort(bool *ok = 0, int base = 10) const;
+        -:  278:    int toInt(bool *ok = 0, int base = 10) const;
+        -:  279:    uint toUInt(bool *ok = 0, int base = 10) const;
+        -:  280:    long toLong(bool *ok = 0, int base = 10) const;
+        -:  281:    ulong toULong(bool *ok = 0, int base = 10) const;
+        -:  282:    qlonglong toLongLong(bool *ok = 0, int base = 10) const;
+        -:  283:    qulonglong toULongLong(bool *ok = 0, int base = 10) const;
+        -:  284:    float toFloat(bool *ok = 0) const;
+        -:  285:    double toDouble(bool *ok = 0) const;
+        -:  286:    QByteArray toBase64() const;
+        -:  287:    QByteArray toHex() const;
+        -:  288:    QByteArray toPercentEncoding(const QByteArray &exclude = QByteArray(),
+        -:  289:                                 const QByteArray &include = QByteArray(),
+        -:  290:                                 char percent = '%') const;
+        -:  291:
+        -:  292:    QByteArray &setNum(short, int base = 10);
+        -:  293:    QByteArray &setNum(ushort, int base = 10);
+        -:  294:    QByteArray &setNum(int, int base = 10);
+        -:  295:    QByteArray &setNum(uint, int base = 10);
+        -:  296:    QByteArray &setNum(qlonglong, int base = 10);
+        -:  297:    QByteArray &setNum(qulonglong, int base = 10);
+        -:  298:    QByteArray &setNum(float, char f = 'g', int prec = 6);
+        -:  299:    QByteArray &setNum(double, char f = 'g', int prec = 6);
+        -:  300:
+        -:  301:    static QByteArray number(int, int base = 10);
+        -:  302:    static QByteArray number(uint, int base = 10);
+        -:  303:    static QByteArray number(qlonglong, int base = 10);
+        -:  304:    static QByteArray number(qulonglong, int base = 10);
+        -:  305:    static QByteArray number(double, char f = 'g', int prec = 6);
+        -:  306:    static QByteArray fromRawData(const char *, int size);
+        -:  307:    static QByteArray fromBase64(const QByteArray &base64);
+        -:  308:    static QByteArray fromHex(const QByteArray &hexEncoded);
+        -:  309:    static QByteArray fromPercentEncoding(const QByteArray &pctEncoded, char percent = '%');
+        -:  310:
+        -:  311:
+        -:  312:    typedef char *iterator;
+        -:  313:    typedef const char *const_iterator;
+        -:  314:    typedef iterator Iterator;
+        -:  315:    typedef const_iterator ConstIterator;
+        -:  316:    iterator begin();
+        -:  317:    const_iterator begin() const;
+        -:  318:    const_iterator constBegin() const;
+        -:  319:    iterator end();
+        -:  320:    const_iterator end() const;
+        -:  321:    const_iterator constEnd() const;
+        -:  322:
+        -:  323:    // stl compatibility
+        -:  324:    typedef const char & const_reference;
+        -:  325:    typedef char & reference;
+        -:  326:    typedef char value_type;
+        -:  327:    void push_back(char c);
+        -:  328:    void push_back(const char *c);
+        -:  329:    void push_back(const QByteArray &a);
+        -:  330:    void push_front(char c);
+        -:  331:    void push_front(const char *c);
+        -:  332:    void push_front(const QByteArray &a);
+        -:  333:
+        -:  334:    inline int count() const { return d->size; }
+        -:  335:    int length() const { return d->size; }
+        -:  336:    bool isNull() const;
+        -:  337:
+        -:  338:    // compatibility
+        -:  339:#ifdef QT3_SUPPORT
+        -:  340:    QT3_SUPPORT_CONSTRUCTOR QByteArray(int size);
+        -:  341:    inline QT3_SUPPORT QByteArray& duplicate(const QByteArray& a) { *this = a; return *this; }
+        -:  342:    inline QT3_SUPPORT QByteArray& duplicate(const char *a, uint n)
+        -:  343:    { *this = QByteArray(a, n); return *this; }
+        -:  344:    inline QT3_SUPPORT QByteArray& setRawData(const char *a, uint n)
+        -:  345:    { *this = fromRawData(a, n); return *this; }
+        -:  346:    inline QT3_SUPPORT void resetRawData(const char *, uint) { clear(); }
+        -:  347:    inline QT3_SUPPORT QByteArray lower() const { return toLower(); }
+        -:  348:    inline QT3_SUPPORT QByteArray upper() const { return toUpper(); }
+        -:  349:    inline QT3_SUPPORT QByteArray stripWhiteSpace() const { return trimmed(); }
+        -:  350:    inline QT3_SUPPORT QByteArray simplifyWhiteSpace() const { return simplified(); }
+        -:  351:    inline QT3_SUPPORT int find(char c, int from = 0) const { return indexOf(c, from); }
+        -:  352:    inline QT3_SUPPORT int find(const char *c, int from = 0) const { return indexOf(c, from); }
+        -:  353:    inline QT3_SUPPORT int find(const QByteArray &ba, int from = 0) const { return indexOf(ba, from); }
+        -:  354:    inline QT3_SUPPORT int findRev(char c, int from = -1) const { return lastIndexOf(c, from); }
+        -:  355:    inline QT3_SUPPORT int findRev(const char *c, int from = -1) const { return lastIndexOf(c, from); }
+        -:  356:    inline QT3_SUPPORT int findRev(const QByteArray &ba, int from = -1) const { return lastIndexOf(ba, from); }
+        -:  357:#ifndef QT_NO_CAST_TO_ASCII
+        -:  358:    QT3_SUPPORT int find(const QString &s, int from = 0) const;
+        -:  359:    QT3_SUPPORT int findRev(const QString &s, int from = -1) const;
+        -:  360:#endif
+        -:  361:#endif
+        -:  362:
+        -:  363:private:
+        -:  364:    operator QNoImplicitBoolCast() const;
+        -:  365:    static Data shared_null;
+        -:  366:    static Data shared_empty;
+        -:  367:    Data *d;
+        -:  368:    QByteArray(Data *dd, int /*dummy*/, int /*dummy*/) : d(dd) {}
+        -:  369:    void realloc(int alloc);
+        -:  370:    void expand(int i);
+        -:  371:    QByteArray nulTerminated() const;
+        -:  372:
+        -:  373:    friend class QByteRef;
+        -:  374:    friend class QString;
+        -:  375:    friend Q_CORE_EXPORT QByteArray qUncompress(const uchar *data, int nbytes);
+        -:  376:public:
+        -:  377:    typedef Data * DataPtr;
+        -:  378:    inline DataPtr &data_ptr() { return d; }
+        -:  379:};
+        -:  380:
+        -:  381:inline QByteArray::QByteArray(): d(&shared_null) { d->ref.ref(); }
+    #####:  382:inline QByteArray::~QByteArray() { if (!d->ref.deref()) qFree(d); }
+        -:  383:inline int QByteArray::size() const
+        -:  384:{ return d->size; }
+        -:  385:
+        -:  386:#ifdef Q_COMPILER_MANGLES_RETURN_TYPE
+        -:  387:inline const char QByteArray::at(int i) const
+        -:  388:{ Q_ASSERT(i >= 0 && i < size()); return d->data[i]; }
+        -:  389:inline const char QByteArray::operator[](int i) const
+        -:  390:{ Q_ASSERT(i >= 0 && i < size()); return d->data[i]; }
+        -:  391:inline const char QByteArray::operator[](uint i) const
+        -:  392:{ Q_ASSERT(i < uint(size())); return d->data[i]; }
+        -:  393:#else
+        -:  394:inline char QByteArray::at(int i) const
+        -:  395:{ Q_ASSERT(i >= 0 && i < size()); return d->data[i]; }
+        -:  396:inline char QByteArray::operator[](int i) const
+        -:  397:{ Q_ASSERT(i >= 0 && i < size()); return d->data[i]; }
+        -:  398:inline char QByteArray::operator[](uint i) const
+        -:  399:{ Q_ASSERT(i < uint(size())); return d->data[i]; }
+        -:  400:#endif
+        -:  401:
+        -:  402:inline bool QByteArray::isEmpty() const
+        -:  403:{ return d->size == 0; }
+        -:  404:#ifndef QT_NO_CAST_FROM_BYTEARRAY
+        -:  405:inline QByteArray::operator const char *() const
+        -:  406:{ return d->data; }
+        -:  407:inline QByteArray::operator const void *() const
+        -:  408:{ return d->data; }
+        -:  409:#endif
+    #####:  410:inline char *QByteArray::data()
+    #####:  411:{ detach(); return d->data; }
+        -:  412:inline const char *QByteArray::data() const
+        -:  413:{ return d->data; }
+        -:  414:inline const char *QByteArray::constData() const
+        -:  415:{ return d->data; }
+    #####:  416:inline void QByteArray::detach()
+    #####:  417:{ if (d->ref != 1 || d->data != d->array) realloc(d->size); }
+        -:  418:inline bool QByteArray::isDetached() const
+        -:  419:{ return d->ref == 1; }
+        -:  420:inline QByteArray::QByteArray(const QByteArray &a) : d(a.d)
+        -:  421:{ d->ref.ref(); }
+        -:  422:#ifdef QT3_SUPPORT
+        -:  423:inline QByteArray::QByteArray(int aSize) : d(&shared_null)
+        -:  424:{ d->ref.ref(); if (aSize > 0) fill('\0', aSize); }
+        -:  425:#endif
+        -:  426:
+        -:  427:inline int QByteArray::capacity() const
+        -:  428:{ return d->alloc; }
+        -:  429:
+        -:  430:inline void QByteArray::reserve(int asize)
+        -:  431:{ if (d->ref != 1 || asize > d->alloc) realloc(asize); }
+        -:  432:
+        -:  433:inline void QByteArray::squeeze()
+        -:  434:{ if (d->size < d->alloc) realloc(d->size); }
+        -:  435:
+        -:  436:class Q_CORE_EXPORT QByteRef {
+        -:  437:    QByteArray &a;
+        -:  438:    int i;
+        -:  439:    inline QByteRef(QByteArray &array, int idx)
+        -:  440:        : a(array),i(idx) {}
+        -:  441:    friend class QByteArray;
+        -:  442:public:
+        -:  443:#ifdef Q_COMPILER_MANGLES_RETURN_TYPE
+        -:  444:    inline operator const char() const
+        -:  445:        { return i < a.d->size ? a.d->data[i] : char(0); }
+        -:  446:#else
+        -:  447:    inline operator char() const
+        -:  448:        { return i < a.d->size ? a.d->data[i] : char(0); }
+        -:  449:#endif
+        -:  450:    inline QByteRef &operator=(char c)
+        -:  451:        { if (i >= a.d->size) a.expand(i); else a.detach();
+        -:  452:          a.d->data[i] = c;  return *this; }
+        -:  453:    inline QByteRef &operator=(const QByteRef &c)
+        -:  454:        { if (i >= a.d->size) a.expand(i); else a.detach();
+        -:  455:          a.d->data[i] = c.a.d->data[c.i];  return *this; }
+        -:  456:    inline bool operator==(char c) const
+        -:  457:    { return a.d->data[i] == c; }
+        -:  458:    inline bool operator!=(char c) const
+        -:  459:    { return a.d->data[i] != c; }
+        -:  460:    inline bool operator>(char c) const
+        -:  461:    { return a.d->data[i] > c; }
+        -:  462:    inline bool operator>=(char c) const
+        -:  463:    { return a.d->data[i] >= c; }
+        -:  464:    inline bool operator<(char c) const
+        -:  465:    { return a.d->data[i] < c; }
+        -:  466:    inline bool operator<=(char c) const
+        -:  467:    { return a.d->data[i] <= c; }
+        -:  468:};
+        -:  469:
+        -:  470:inline QByteRef QByteArray::operator[](int i)
+        -:  471:{ Q_ASSERT(i >= 0); return QByteRef(*this, i); }
+        -:  472:inline QByteRef QByteArray::operator[](uint i)
+        -:  473:{ return QByteRef(*this, i); }
+        -:  474:inline QByteArray::iterator QByteArray::begin()
+        -:  475:{ detach(); return d->data; }
+        -:  476:inline QByteArray::const_iterator QByteArray::begin() const
+        -:  477:{ return d->data; }
+        -:  478:inline QByteArray::const_iterator QByteArray::constBegin() const
+        -:  479:{ return d->data; }
+        -:  480:inline QByteArray::iterator QByteArray::end()
+        -:  481:{ detach(); return d->data + d->size; }
+        -:  482:inline QByteArray::const_iterator QByteArray::end() const
+        -:  483:{ return d->data + d->size; }
+        -:  484:inline QByteArray::const_iterator QByteArray::constEnd() const
+        -:  485:{ return d->data + d->size; }
+        -:  486:inline QByteArray &QByteArray::operator+=(char c)
+        -:  487:{ return append(c); }
+        -:  488:inline QByteArray &QByteArray::operator+=(const char *s)
+        -:  489:{ return append(s); }
+        -:  490:inline QByteArray &QByteArray::operator+=(const QByteArray &a)
+        -:  491:{ return append(a); }
+        -:  492:inline void QByteArray::push_back(char c)
+        -:  493:{ append(c); }
+        -:  494:inline void QByteArray::push_back(const char *c)
+        -:  495:{ append(c); }
+        -:  496:inline void QByteArray::push_back(const QByteArray &a)
+        -:  497:{ append(a); }
+        -:  498:inline void QByteArray::push_front(char c)
+        -:  499:{ prepend(c); }
+        -:  500:inline void QByteArray::push_front(const char *c)
+        -:  501:{ prepend(c); }
+        -:  502:inline void QByteArray::push_front(const QByteArray &a)
+        -:  503:{ prepend(a); }
+        -:  504:inline QBool QByteArray::contains(const QByteArray &a) const
+        -:  505:{ return QBool(indexOf(a) != -1); }
+        -:  506:inline QBool QByteArray::contains(char c) const
+        -:  507:{ return QBool(indexOf(c) != -1); }
+        -:  508:inline bool operator==(const QByteArray &a1, const QByteArray &a2)
+        -:  509:{ return (a1.size() == a2.size()) && (memcmp(a1.constData(), a2.constData(), a1.size())==0); }
+        -:  510:inline bool operator==(const QByteArray &a1, const char *a2)
+        -:  511:{ return a2 ? qstrcmp(a1,a2) == 0 : a1.isEmpty(); }
+        -:  512:inline bool operator==(const char *a1, const QByteArray &a2)
+        -:  513:{ return a1 ? qstrcmp(a1,a2) == 0 : a2.isEmpty(); }
+        -:  514:inline bool operator!=(const QByteArray &a1, const QByteArray &a2)
+        -:  515:{ return !(a1==a2); }
+        -:  516:inline bool operator!=(const QByteArray &a1, const char *a2)
+        -:  517:{ return a2 ? qstrcmp(a1,a2) != 0 : !a1.isEmpty(); }
+        -:  518:inline bool operator!=(const char *a1, const QByteArray &a2)
+        -:  519:{ return a1 ? qstrcmp(a1,a2) != 0 : !a2.isEmpty(); }
+        -:  520:inline bool operator<(const QByteArray &a1, const QByteArray &a2)
+        -:  521:{ return qstrcmp(a1, a2) < 0; }
+        -:  522: inline bool operator<(const QByteArray &a1, const char *a2)
+        -:  523:{ return qstrcmp(a1, a2) < 0; }
+        -:  524:inline bool operator<(const char *a1, const QByteArray &a2)
+        -:  525:{ return qstrcmp(a1, a2) < 0; }
+        -:  526:inline bool operator<=(const QByteArray &a1, const QByteArray &a2)
+        -:  527:{ return qstrcmp(a1, a2) <= 0; }
+        -:  528:inline bool operator<=(const QByteArray &a1, const char *a2)
+        -:  529:{ return qstrcmp(a1, a2) <= 0; }
+        -:  530:inline bool operator<=(const char *a1, const QByteArray &a2)
+        -:  531:{ return qstrcmp(a1, a2) <= 0; }
+        -:  532:inline bool operator>(const QByteArray &a1, const QByteArray &a2)
+        -:  533:{ return qstrcmp(a1, a2) > 0; }
+        -:  534:inline bool operator>(const QByteArray &a1, const char *a2)
+        -:  535:{ return qstrcmp(a1, a2) > 0; }
+        -:  536:inline bool operator>(const char *a1, const QByteArray &a2)
+        -:  537:{ return qstrcmp(a1, a2) > 0; }
+        -:  538:inline bool operator>=(const QByteArray &a1, const QByteArray &a2)
+        -:  539:{ return qstrcmp(a1, a2) >= 0; }
+        -:  540:inline bool operator>=(const QByteArray &a1, const char *a2)
+        -:  541:{ return qstrcmp(a1, a2) >= 0; }
+        -:  542:inline bool operator>=(const char *a1, const QByteArray &a2)
+        -:  543:{ return qstrcmp(a1, a2) >= 0; }
+        -:  544:inline const QByteArray operator+(const QByteArray &a1, const QByteArray &a2)
+        -:  545:{ return QByteArray(a1) += a2; }
+        -:  546:inline const QByteArray operator+(const QByteArray &a1, const char *a2)
+        -:  547:{ return QByteArray(a1) += a2; }
+        -:  548:inline const QByteArray operator+(const QByteArray &a1, char a2)
+        -:  549:{ return QByteArray(a1) += a2; }
+        -:  550:inline const QByteArray operator+(const char *a1, const QByteArray &a2)
+        -:  551:{ return QByteArray(a1) += a2; }
+        -:  552:inline const QByteArray operator+(char a1, const QByteArray &a2)
+        -:  553:{ return QByteArray(&a1, 1) += a2; }
+        -:  554:inline QBool QByteArray::contains(const char *c) const
+        -:  555:{ return QBool(indexOf(c) != -1); }
+        -:  556:inline QByteArray &QByteArray::replace(char before, const char *c)
+        -:  557:{ return replace(&before, 1, c, qstrlen(c)); }
+        -:  558:inline QByteArray &QByteArray::replace(const QByteArray &before, const char *c)
+        -:  559:{ return replace(before.constData(), before.size(), c, qstrlen(c)); }
+        -:  560:inline QByteArray &QByteArray::replace(const char *before, const char *after)
+        -:  561:{ return replace(before, qstrlen(before), after, qstrlen(after)); }
+        -:  562:
+        -:  563:inline QByteArray &QByteArray::setNum(short n, int base)
+        -:  564:{ return setNum(qlonglong(n), base); }
+        -:  565:inline QByteArray &QByteArray::setNum(ushort n, int base)
+        -:  566:{ return setNum(qulonglong(n), base); }
+        -:  567:inline QByteArray &QByteArray::setNum(int n, int base)
+        -:  568:{ return setNum(qlonglong(n), base); }
+        -:  569:inline QByteArray &QByteArray::setNum(uint n, int base)
+        -:  570:{ return setNum(qulonglong(n), base); }
+        -:  571:inline QByteArray &QByteArray::setNum(float n, char f, int prec)
+        -:  572:{ return setNum(double(n),f,prec); }
+        -:  573:
+        -:  574:
+        -:  575:#if !defined(QT_NO_DATASTREAM) || (defined(QT_BOOTSTRAPPED) && !defined(QT_BUILD_QMAKE))
+        -:  576:Q_CORE_EXPORT QDataStream &operator<<(QDataStream &, const QByteArray &);
+        -:  577:Q_CORE_EXPORT QDataStream &operator>>(QDataStream &, QByteArray &);
+        -:  578:#endif
+        -:  579:
+        -:  580:#ifndef QT_NO_COMPRESS
+        -:  581:Q_CORE_EXPORT QByteArray qCompress(const uchar* data, int nbytes, int compressionLevel = -1);
+        -:  582:Q_CORE_EXPORT QByteArray qUncompress(const uchar* data, int nbytes);
+        -:  583:inline QByteArray qCompress(const QByteArray& data, int compressionLevel = -1)
+        -:  584:{ return qCompress(reinterpret_cast<const uchar *>(data.constData()), data.size(), compressionLevel); }
+        -:  585:inline QByteArray qUncompress(const QByteArray& data)
+        -:  586:{ return qUncompress(reinterpret_cast<const uchar*>(data.constData()), data.size()); }
+        -:  587:#endif
+        -:  588:
+        -:  589:Q_DECLARE_TYPEINFO(QByteArray, Q_MOVABLE_TYPE);
+        -:  590:Q_DECLARE_SHARED(QByteArray)
+        -:  591:
+        -:  592:QT_END_NAMESPACE
+        -:  593:
+        -:  594:QT_END_HEADER
+        -:  595:
+        -:  596:#endif // QBYTEARRAY_H

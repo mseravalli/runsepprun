@@ -1,0 +1,151 @@
+        -:    0:Source:/usr/include/qt4/QtTest/qtestmouse.h
+        -:    0:Graph:debug/main.gcno
+        -:    0:Data:debug/main.gcda
+        -:    0:Runs:2
+        -:    0:Programs:1
+        -:    1:/****************************************************************************
+        -:    2:**
+        -:    3:** Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies).
+        -:    4:** All rights reserved.
+        -:    5:** Contact: Nokia Corporation (qt-info@nokia.com)
+        -:    6:**
+        -:    7:** This file is part of the QtTest module of the Qt Toolkit.
+        -:    8:**
+        -:    9:** $QT_BEGIN_LICENSE:LGPL$
+        -:   10:** Commercial Usage
+        -:   11:** Licensees holding valid Qt Commercial licenses may use this file in
+        -:   12:** accordance with the Qt Commercial License Agreement provided with the
+        -:   13:** Software or, alternatively, in accordance with the terms contained in
+        -:   14:** a written agreement between you and Nokia.
+        -:   15:**
+        -:   16:** GNU Lesser General Public License Usage
+        -:   17:** Alternatively, this file may be used under the terms of the GNU Lesser
+        -:   18:** General Public License version 2.1 as published by the Free Software
+        -:   19:** Foundation and appearing in the file LICENSE.LGPL included in the
+        -:   20:** packaging of this file.  Please review the following information to
+        -:   21:** ensure the GNU Lesser General Public License version 2.1 requirements
+        -:   22:** will be met: http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+        -:   23:**
+        -:   24:** In addition, as a special exception, Nokia gives you certain additional
+        -:   25:** rights.  These rights are described in the Nokia Qt LGPL Exception
+        -:   26:** version 1.1, included in the file LGPL_EXCEPTION.txt in this package.
+        -:   27:**
+        -:   28:** GNU General Public License Usage
+        -:   29:** Alternatively, this file may be used under the terms of the GNU
+        -:   30:** General Public License version 3.0 as published by the Free Software
+        -:   31:** Foundation and appearing in the file LICENSE.GPL included in the
+        -:   32:** packaging of this file.  Please review the following information to
+        -:   33:** ensure the GNU General Public License version 3.0 requirements will be
+        -:   34:** met: http://www.gnu.org/copyleft/gpl.html.
+        -:   35:**
+        -:   36:** If you have questions regarding the use of this file, please contact
+        -:   37:** Nokia at qt-info@nokia.com.
+        -:   38:** $QT_END_LICENSE$
+        -:   39:**
+        -:   40:****************************************************************************/
+        -:   41:
+        -:   42:#if !defined(QTESTMOUSE_H)
+        -:   43:#define QTESTMOUSE_H
+        -:   44:
+        -:   45:#if 0
+        -:   46:// inform syncqt
+        -:   47:#pragma qt_no_master_include
+        -:   48:#endif
+        -:   49:
+        -:   50:#include <QtTest/qtest_global.h>
+        -:   51:#include <QtTest/qtestassert.h>
+        -:   52:#include <QtTest/qtestsystem.h>
+        -:   53:#include <QtTest/qtestspontaneevent.h>
+        -:   54:
+        -:   55:#include <QtCore/qpoint.h>
+        -:   56:#include <QtCore/qstring.h>
+        -:   57:#include <QtGui/qapplication.h>
+        -:   58:#include <QtGui/qevent.h>
+        -:   59:#include <QtGui/qwidget.h>
+        -:   60:
+        -:   61:QT_BEGIN_HEADER
+        -:   62:
+        -:   63:QT_BEGIN_NAMESPACE
+        -:   64:
+        -:   65:QT_MODULE(Test)
+        -:   66:
+        -:   67:namespace QTest
+        -:   68:{
+        -:   69:    enum MouseAction { MousePress, MouseRelease, MouseClick, MouseDClick, MouseMove };
+        -:   70:
+    #####:   71:    static void mouseEvent(MouseAction action, QWidget *widget, Qt::MouseButton button,
+        -:   72:                           Qt::KeyboardModifiers stateKey, QPoint pos, int delay=-1)
+        -:   73:    {
+    #####:   74:        QTEST_ASSERT(widget);
+        -:   75:        extern int Q_TESTLIB_EXPORT defaultMouseDelay();
+        -:   76:
+    #####:   77:        if (delay == -1 || delay < defaultMouseDelay())
+    #####:   78:            delay = defaultMouseDelay();
+    #####:   79:        if(delay > 0)
+    #####:   80:            QTest::qWait(delay);
+        -:   81:
+    #####:   82:        if (pos.isNull())
+    #####:   83:            pos = widget->rect().center();
+        -:   84:
+    #####:   85:        if (action == MouseClick) {
+    #####:   86:            mouseEvent(MousePress, widget, button, stateKey, pos);
+    #####:   87:            mouseEvent(MouseRelease, widget, button, stateKey, pos);
+    #####:   88:            return;
+        -:   89:        }
+        -:   90:
+    #####:   91:        QTEST_ASSERT(button == Qt::NoButton || button & Qt::MouseButtonMask);
+    #####:   92:        QTEST_ASSERT(stateKey == 0 || stateKey & Qt::KeyboardModifierMask);
+        -:   93:
+    #####:   94:        stateKey &= static_cast<unsigned int>(Qt::KeyboardModifierMask);
+        -:   95:
+    #####:   96:        QMouseEvent me(QEvent::User, QPoint(), Qt::LeftButton, button, stateKey);
+    #####:   97:        switch (action)
+        -:   98:        {
+        -:   99:            case MousePress:
+    #####:  100:                me = QMouseEvent(QEvent::MouseButtonPress, pos, widget->mapToGlobal(pos), button, button, stateKey);
+    #####:  101:                break;
+        -:  102:            case MouseRelease:
+    #####:  103:                me = QMouseEvent(QEvent::MouseButtonRelease, pos, widget->mapToGlobal(pos), button, 0, stateKey);
+    #####:  104:                break;
+        -:  105:            case MouseDClick:
+    #####:  106:                me = QMouseEvent(QEvent::MouseButtonDblClick, pos, widget->mapToGlobal(pos), button, button, stateKey);
+    #####:  107:                break;
+        -:  108:            case MouseMove:
+    #####:  109:                QCursor::setPos(widget->mapToGlobal(pos));
+    #####:  110:                qApp->processEvents();
+        -:  111:                return;
+        -:  112:            default:
+    #####:  113:                QTEST_ASSERT(false);
+        -:  114:        }
+    #####:  115:        QSpontaneKeyEvent::setSpontaneous(&me);
+    #####:  116:        if (!qApp->notify(widget, &me)) {
+        -:  117:            static const char *mouseActionNames[] =
+        -:  118:                { "MousePress", "MouseRelease", "MouseClick", "MouseDClick", "MouseMove" };
+    #####:  119:            QString warning = QString::fromLatin1("Mouse event \"%1\" not accepted by receiving widget");
+    #####:  120:            QTest::qWarn(warning.arg(QString::fromLatin1(mouseActionNames[static_cast<int>(action)])).toAscii().data());
+    #####:  121:        }
+        -:  122:
+        -:  123:    }
+        -:  124:
+        -:  125:    inline void mousePress(QWidget *widget, Qt::MouseButton button, Qt::KeyboardModifiers stateKey = 0,
+        -:  126:                           QPoint pos = QPoint(), int delay=-1)
+        -:  127:    { mouseEvent(MousePress, widget, button, stateKey, pos, delay); }
+        -:  128:    inline void mouseRelease(QWidget *widget, Qt::MouseButton button, Qt::KeyboardModifiers stateKey = 0,
+        -:  129:                             QPoint pos = QPoint(), int delay=-1)
+        -:  130:    { mouseEvent(MouseRelease, widget, button, stateKey, pos, delay); }
+        -:  131:    inline void mouseClick(QWidget *widget, Qt::MouseButton button, Qt::KeyboardModifiers stateKey = 0,
+        -:  132:                           QPoint pos = QPoint(), int delay=-1)
+        -:  133:    { mouseEvent(MouseClick, widget, button, stateKey, pos, delay); }
+        -:  134:    inline void mouseDClick(QWidget *widget, Qt::MouseButton button, Qt::KeyboardModifiers stateKey = 0,
+        -:  135:                            QPoint pos = QPoint(), int delay=-1)
+        -:  136:    { mouseEvent(MouseDClick, widget, button, stateKey, pos, delay); }
+        -:  137:    inline void mouseMove(QWidget *widget, QPoint pos = QPoint(), int delay=-1)
+        -:  138:    { mouseEvent(MouseMove, widget, Qt::NoButton, 0, pos, delay); }
+        -:  139:
+        -:  140:}
+        -:  141:
+        -:  142:QT_END_NAMESPACE
+        -:  143:
+        -:  144:QT_END_HEADER
+        -:  145:
+        -:  146:#endif // QTESTMOUSE_H

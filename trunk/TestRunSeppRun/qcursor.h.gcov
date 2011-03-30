@@ -1,0 +1,180 @@
+        -:    0:Source:/usr/include/qt4/QtGui/qcursor.h
+        -:    0:Graph:debug/main.gcno
+        -:    0:Data:debug/main.gcda
+        -:    0:Runs:2
+        -:    0:Programs:1
+        -:    1:/****************************************************************************
+        -:    2:**
+        -:    3:** Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies).
+        -:    4:** All rights reserved.
+        -:    5:** Contact: Nokia Corporation (qt-info@nokia.com)
+        -:    6:**
+        -:    7:** This file is part of the QtGui module of the Qt Toolkit.
+        -:    8:**
+        -:    9:** $QT_BEGIN_LICENSE:LGPL$
+        -:   10:** Commercial Usage
+        -:   11:** Licensees holding valid Qt Commercial licenses may use this file in
+        -:   12:** accordance with the Qt Commercial License Agreement provided with the
+        -:   13:** Software or, alternatively, in accordance with the terms contained in
+        -:   14:** a written agreement between you and Nokia.
+        -:   15:**
+        -:   16:** GNU Lesser General Public License Usage
+        -:   17:** Alternatively, this file may be used under the terms of the GNU Lesser
+        -:   18:** General Public License version 2.1 as published by the Free Software
+        -:   19:** Foundation and appearing in the file LICENSE.LGPL included in the
+        -:   20:** packaging of this file.  Please review the following information to
+        -:   21:** ensure the GNU Lesser General Public License version 2.1 requirements
+        -:   22:** will be met: http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+        -:   23:**
+        -:   24:** In addition, as a special exception, Nokia gives you certain additional
+        -:   25:** rights.  These rights are described in the Nokia Qt LGPL Exception
+        -:   26:** version 1.1, included in the file LGPL_EXCEPTION.txt in this package.
+        -:   27:**
+        -:   28:** GNU General Public License Usage
+        -:   29:** Alternatively, this file may be used under the terms of the GNU
+        -:   30:** General Public License version 3.0 as published by the Free Software
+        -:   31:** Foundation and appearing in the file LICENSE.GPL included in the
+        -:   32:** packaging of this file.  Please review the following information to
+        -:   33:** ensure the GNU General Public License version 3.0 requirements will be
+        -:   34:** met: http://www.gnu.org/copyleft/gpl.html.
+        -:   35:**
+        -:   36:** If you have questions regarding the use of this file, please contact
+        -:   37:** Nokia at qt-info@nokia.com.
+        -:   38:** $QT_END_LICENSE$
+        -:   39:**
+        -:   40:****************************************************************************/
+        -:   41:
+        -:   42:#ifndef QCURSOR_H
+        -:   43:#define QCURSOR_H
+        -:   44:
+        -:   45:#include <QtCore/qpoint.h>
+        -:   46:#include <QtGui/qwindowdefs.h>
+        -:   47:
+        -:   48:QT_BEGIN_HEADER
+        -:   49:
+        -:   50:QT_BEGIN_NAMESPACE
+        -:   51:
+        -:   52:QT_MODULE(Gui)
+        -:   53:
+        -:   54:class QVariant;
+        -:   55:
+        -:   56:/*
+        -:   57:  ### The fake cursor has to go first with old qdoc.
+        -:   58:*/
+        -:   59:#ifdef QT_NO_CURSOR
+        -:   60:
+        -:   61:class Q_GUI_EXPORT QCursor
+        -:   62:{
+        -:   63:public:
+        -:   64:    static QPoint pos();
+        -:   65:    static void setPos(int x, int y);
+        -:   66:    inline static void setPos(const QPoint &p) { setPos(p.x(), p.y()); }
+        -:   67:private:
+        -:   68:    QCursor();
+        -:   69:};
+        -:   70:
+        -:   71:#endif // QT_NO_CURSOR
+        -:   72:
+        -:   73:#ifndef QT_NO_CURSOR
+        -:   74:
+        -:   75:class QCursorData;
+        -:   76:class QBitmap;
+        -:   77:class QPixmap;
+        -:   78:
+        -:   79:#if defined(Q_WS_MAC)
+        -:   80:void qt_mac_set_cursor(const QCursor *c, const QPoint &p);
+        -:   81:#endif
+        -:   82:#if defined(Q_OS_SYMBIAN)
+        -:   83:extern void qt_symbian_show_pointer_sprite();
+        -:   84:extern void qt_symbian_hide_pointer_sprite();
+        -:   85:extern void qt_symbian_set_pointer_sprite(const QCursor& cursor);
+        -:   86:extern void qt_symbian_move_cursor_sprite();
+        -:   87:#endif
+        -:   88:
+        -:   89:class Q_GUI_EXPORT QCursor
+        -:   90:{
+        -:   91:public:
+        -:   92:    QCursor();
+        -:   93:    QCursor(Qt::CursorShape shape);
+        -:   94:    QCursor(const QBitmap &bitmap, const QBitmap &mask, int hotX=-1, int hotY=-1);
+        -:   95:    QCursor(const QPixmap &pixmap, int hotX=-1, int hotY=-1);
+        -:   96:    QCursor(const QCursor &cursor);
+        -:   97:    ~QCursor();
+        -:   98:    QCursor &operator=(const QCursor &cursor);
+        -:   99:    operator QVariant() const;
+        -:  100:
+        -:  101:    Qt::CursorShape shape() const;
+        -:  102:    void setShape(Qt::CursorShape newShape);
+        -:  103:
+        -:  104:    const QBitmap *bitmap() const;
+        -:  105:    const QBitmap *mask() const;
+        -:  106:    QPixmap pixmap() const;
+        -:  107:    QPoint hotSpot() const;
+        -:  108:
+        -:  109:    static QPoint pos();
+        -:  110:    static void setPos(int x, int y);
+    #####:  111:    inline static void setPos(const QPoint &p) { setPos(p.x(), p.y()); }
+        -:  112:    
+        -:  113:#ifdef qdoc
+        -:  114:    HCURSOR_or_HANDLE handle() const;
+        -:  115:    QCursor(HCURSOR cursor);
+        -:  116:    QCursor(Qt::HANDLE cursor);
+        -:  117:#endif
+        -:  118:
+        -:  119:#ifndef qdoc
+        -:  120:#if defined(Q_WS_WIN)
+        -:  121:    HCURSOR handle() const;
+        -:  122:    QCursor(HCURSOR cursor);
+        -:  123:#elif defined(Q_WS_X11)
+        -:  124:    Qt::HANDLE handle() const;
+        -:  125:    QCursor(Qt::HANDLE cursor);
+        -:  126:    static int x11Screen();
+        -:  127:#elif defined(Q_WS_MAC)
+        -:  128:    Qt::HANDLE handle() const;
+        -:  129:#elif defined(Q_WS_QWS)
+        -:  130:    int handle() const;
+        -:  131:#elif defined(Q_OS_SYMBIAN)
+        -:  132:    Qt::HANDLE handle() const;
+        -:  133:#endif
+        -:  134:#endif
+        -:  135:
+        -:  136:private:
+        -:  137:    QCursorData *d;
+        -:  138:#if defined(Q_WS_MAC)
+        -:  139:    friend void *qt_mac_nsCursorForQCursor(const QCursor &c);
+        -:  140:    friend void qt_mac_set_cursor(const QCursor *c, const QPoint &p);
+        -:  141:#endif
+        -:  142:#if defined(Q_OS_SYMBIAN)
+        -:  143:    friend void qt_symbian_show_pointer_sprite();
+        -:  144:    friend void qt_symbian_hide_pointer_sprite();
+        -:  145:    friend void qt_symbian_set_pointer_sprite(const QCursor& cursor);
+        -:  146:    friend void qt_symbian_move_cursor_sprite();
+        -:  147:#endif
+        -:  148:};
+        -:  149:
+        -:  150:#ifdef QT3_SUPPORT
+        -:  151:// CursorShape is defined in X11/X.h
+        -:  152:#ifdef CursorShape
+        -:  153:#define X_CursorShape CursorShape
+        -:  154:#undef CursorShape
+        -:  155:#endif
+        -:  156:typedef Qt::CursorShape QCursorShape;
+        -:  157:#ifdef X_CursorShape
+        -:  158:#define CursorShape X_CursorShape
+        -:  159:#endif
+        -:  160:#endif
+        -:  161:
+        -:  162:/*****************************************************************************
+        -:  163:  QCursor stream functions
+        -:  164: *****************************************************************************/
+        -:  165:#ifndef QT_NO_DATASTREAM
+        -:  166:Q_GUI_EXPORT QDataStream &operator<<(QDataStream &outS, const QCursor &cursor);
+        -:  167:Q_GUI_EXPORT QDataStream &operator>>(QDataStream &inS, QCursor &cursor);
+        -:  168:#endif
+        -:  169:#endif // QT_NO_CURSOR
+        -:  170:
+        -:  171:QT_END_NAMESPACE
+        -:  172:
+        -:  173:QT_END_HEADER
+        -:  174:
+        -:  175:#endif // QCURSOR_H

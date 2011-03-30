@@ -1,0 +1,35 @@
+        -:    0:Source:TestLevel.h
+        -:    0:Graph:debug/main.gcno
+        -:    0:Data:-
+        -:    0:Runs:0
+        -:    0:Programs:0
+        -:    1:/*
+        -:    2: * TestLevel.h
+        -:    3: *
+        -:    4: *  Created on: Apr 20, 2010
+        -:    5: *      Author: marco
+        -:    6: */
+        -:    7:
+        -:    8:#ifndef TESTLEVEL_H_
+        -:    9:#define TESTLEVEL_H_
+        -:   10:
+        -:   11:#include <QtTest/QtTest>
+        -:   12:#include <QObject>
+        -:   13:
+    #####:   14:class TestLevel : public QObject {
+        -:   15:
+        -:   16:	Q_OBJECT
+        -:   17:
+        -:   18:private slots:
+        -:   19:
+        -:   20:	void loadLevel();
+        -:   21:	void parseXML();
+        -:   22:	void testNoCollision();
+        -:   23:	void testEnvironmentCollision();
+        -:   24:	void testEnemyCollision();
+        -:   25:	void testCollectableCollision();
+        -:   26:	void testImmediateDeathCollision();
+        -:   27:
+        -:   28:};
+        -:   29:
+        -:   30:#endif /* TESTLEVEL_H_ */
