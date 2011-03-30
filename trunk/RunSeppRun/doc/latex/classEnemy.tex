@@ -1,0 +1,51 @@
+\hypertarget{classEnemy}{
+\section{Enemy Class Reference}
+\label{classEnemy}\index{Enemy@{Enemy}}
+}
+
+
+\hyperlink{classLevel}{Level} enemies.  
+
+
+{\ttfamily \#include $<$Enemy.h$>$}Inheritance diagram for Enemy::\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3cm]{classEnemy}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classEnemy_a4e510ab21b2b8fc986720ac9ab7a4c6a}{Enemy} (int, int, int, int, std::string, int, std::string, std::string, \hyperlink{classLevel}{Level} \&)
+\item 
+void \hyperlink{classEnemy_a9a398f8d12234f02563b27440aff7891}{move} ()
+\begin{DoxyCompactList}\small\item\em It moves the enemy. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{classLevel}{Level} enemies. This class represents the enemies in the level. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classEnemy_a4e510ab21b2b8fc986720ac9ab7a4c6a}{
+\index{Enemy@{Enemy}!Enemy@{Enemy}}
+\index{Enemy@{Enemy}!Enemy@{Enemy}}
+\subsubsection[{Enemy}]{\setlength{\rightskip}{0pt plus 5cm}Enemy::Enemy (int {\em x}, \/  int {\em y}, \/  int {\em w}, \/  int {\em h}, \/  std::string {\em color}, \/  int {\em initialDirection}, \/  std::string {\em type}, \/  std::string {\em image}, \/  {\bf Level} \& {\em l})}}
+\label{classEnemy_a4e510ab21b2b8fc986720ac9ab7a4c6a}
+Create a new \hyperlink{classEnemy}{Enemy} by specifying its position, size, color and level in which it is contained. 
+
+\subsection{Member Function Documentation}
+\hypertarget{classEnemy_a9a398f8d12234f02563b27440aff7891}{
+\index{Enemy@{Enemy}!move@{move}}
+\index{move@{move}!Enemy@{Enemy}}
+\subsubsection[{move}]{\setlength{\rightskip}{0pt plus 5cm}void Enemy::move ()\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}
+\label{classEnemy_a9a398f8d12234f02563b27440aff7891}
+
+
+It moves the enemy. This method calculates and sets the position of the enemy during the movement. It makes sure that it changes direction when it collides with a WordElement. 
+
+Reimplemented from \hyperlink{classWorldElement}{WorldElement}.
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+Enemy.h\item 
+Enemy.cpp\end{DoxyCompactItemize}

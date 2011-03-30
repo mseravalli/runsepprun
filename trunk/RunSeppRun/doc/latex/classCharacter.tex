@@ -1,0 +1,109 @@
+\hypertarget{classCharacter}{
+\section{Character Class Reference}
+\label{classCharacter}\index{Character@{Character}}
+}
+
+
+\hyperlink{classLevel}{Level} characters.  
+
+
+{\ttfamily \#include $<$Character.h$>$}Inheritance diagram for Character::\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3cm]{classCharacter}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classCharacter_a38fd0fe8b748b17cfda79f3c8b4e3e58}{Character} (int, int, int, int, std::string, std::string, std::string, \hyperlink{classLevel}{Level} \&)
+\item 
+virtual void \hyperlink{classCharacter_a20727808aa2d7c646c7fe209801bae1f}{move} (int \&, int \&, int \&, int \&)
+\begin{DoxyCompactList}\small\item\em It moves the character. \item\end{DoxyCompactList}\item 
+void \hyperlink{classCharacter_a79111ebd8a8da953f15312adde87bec9}{setIsWillingToJump} (bool)
+\item 
+\hypertarget{classCharacter_a7dffb61b5343fff4c122143919c5bae0}{
+int {\bfseries getDirection} ()}
+\label{classCharacter_a7dffb61b5343fff4c122143919c5bae0}
+
+\item 
+\hypertarget{classCharacter_ae030adc5c8aa5e934f918b6d6185d493}{
+bool {\bfseries getIsAbleToJump} ()}
+\label{classCharacter_ae030adc5c8aa5e934f918b6d6185d493}
+
+\item 
+\hypertarget{classCharacter_a81bb0c825cf6ed1fefde938e459183ea}{
+double {\bfseries getJumpingForce} ()}
+\label{classCharacter_a81bb0c825cf6ed1fefde938e459183ea}
+
+\item 
+\hypertarget{classCharacter_a1e00eede43aa9b436b0cbd2127ab251a}{
+int {\bfseries getLife} ()}
+\label{classCharacter_a1e00eede43aa9b436b0cbd2127ab251a}
+
+\item 
+\hypertarget{classCharacter_a8e59bdcbc422df338cea33f932c9a9d8}{
+void {\bfseries setLife} (int)}
+\label{classCharacter_a8e59bdcbc422df338cea33f932c9a9d8}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classCharacter_a5d67b59885aa532b80cecee4e5d79349}{
+int {\bfseries life}}
+\label{classCharacter_a5d67b59885aa532b80cecee4e5d79349}
+
+\item 
+\hypertarget{classCharacter_a5ae72b18bdb3b118819ceaed4fe2fda2}{
+double {\bfseries jumping\_\-force}}
+\label{classCharacter_a5ae72b18bdb3b118819ceaed4fe2fda2}
+
+\item 
+\hypertarget{classCharacter_a164cc88dccff96c3a4ae10bab576d816}{
+bool {\bfseries isAbleToJump}}
+\label{classCharacter_a164cc88dccff96c3a4ae10bab576d816}
+
+\item 
+\hypertarget{classCharacter_a3030115f048e24509b906635763aa2f4}{
+bool {\bfseries isWillingToJump}}
+\label{classCharacter_a3030115f048e24509b906635763aa2f4}
+
+\item 
+\hypertarget{classCharacter_ae58d05c06ac80e567154e79b1b4c0665}{
+double {\bfseries jumpHeight}}
+\label{classCharacter_ae58d05c06ac80e567154e79b1b4c0665}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{classLevel}{Level} characters. This class represents the player and the enemies of the level. It is responsible for its movement and for the gravity acting on them. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classCharacter_a38fd0fe8b748b17cfda79f3c8b4e3e58}{
+\index{Character@{Character}!Character@{Character}}
+\index{Character@{Character}!Character@{Character}}
+\subsubsection[{Character}]{\setlength{\rightskip}{0pt plus 5cm}Character::Character (int {\em x}, \/  int {\em y}, \/  int {\em w}, \/  int {\em h}, \/  std::string {\em color}, \/  std::string {\em type}, \/  std::string {\em image}, \/  {\bf Level} \& {\em l})}}
+\label{classCharacter_a38fd0fe8b748b17cfda79f3c8b4e3e58}
+Create a new \hyperlink{classCharacter}{Character} by specifying its position, size, color and level in which it is contained. 
+
+\subsection{Member Function Documentation}
+\hypertarget{classCharacter_a20727808aa2d7c646c7fe209801bae1f}{
+\index{Character@{Character}!move@{move}}
+\index{move@{move}!Character@{Character}}
+\subsubsection[{move}]{\setlength{\rightskip}{0pt plus 5cm}void Character::move (int \& {\em isCollidingBottom}, \/  int \& {\em isCollidingFront}, \/  int \& {\em isCollidingTop}, \/  int \& {\em collisionIndex})\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}
+\label{classCharacter_a20727808aa2d7c646c7fe209801bae1f}
+
+
+It moves the character. This method calculates and sets the position of the character during the movement or jump. \hypertarget{classCharacter_a79111ebd8a8da953f15312adde87bec9}{
+\index{Character@{Character}!setIsWillingToJump@{setIsWillingToJump}}
+\index{setIsWillingToJump@{setIsWillingToJump}!Character@{Character}}
+\subsubsection[{setIsWillingToJump}]{\setlength{\rightskip}{0pt plus 5cm}void Character::setIsWillingToJump (bool {\em wantsToJump})}}
+\label{classCharacter_a79111ebd8a8da953f15312adde87bec9}
+sets the willing of jump 
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+Character.h\item 
+Character.cpp\end{DoxyCompactItemize}

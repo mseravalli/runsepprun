@@ -1,0 +1,81 @@
+\hypertarget{classPlayer}{
+\section{Player Class Reference}
+\label{classPlayer}\index{Player@{Player}}
+}
+
+
+Main character of the game.  
+
+
+{\ttfamily \#include $<$Player.h$>$}Inheritance diagram for Player::\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3cm]{classPlayer}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classPlayer_ae3c70b075d5da30ada86473920ddbb2d}{Player} (int, int, int, int, std::string, std::string, std::string, \hyperlink{classLevel}{Level} \&)
+\item 
+\hypertarget{classPlayer_ad83c5e93ef8b148c2eb0f1aa6349bc6a}{
+void {\bfseries hit} ()}
+\label{classPlayer_ad83c5e93ef8b148c2eb0f1aa6349bc6a}
+
+\item 
+void \hyperlink{classPlayer_a4fe8735a8d96bee2227f9c175c860429}{launch} ()
+\item 
+\hypertarget{classPlayer_ac40e79c61de10b533e1a509206e59383}{
+void {\bfseries addPoints} (int)}
+\label{classPlayer_ac40e79c61de10b533e1a509206e59383}
+
+\item 
+\hypertarget{classPlayer_ab98ee3c0e10f7b2b65ad43b2a2929445}{
+int {\bfseries getPoints} ()}
+\label{classPlayer_ab98ee3c0e10f7b2b65ad43b2a2929445}
+
+\item 
+\hypertarget{classPlayer_ad79773e699f73e0f59311d5313d0ad30}{
+int {\bfseries getEggs} ()}
+\label{classPlayer_ad79773e699f73e0f59311d5313d0ad30}
+
+\item 
+\hypertarget{classPlayer_a4394cba91e440bd55603fcc6e5ab24ce}{
+void {\bfseries setEggs} (int)}
+\label{classPlayer_a4394cba91e440bd55603fcc6e5ab24ce}
+
+\item 
+void \hyperlink{classPlayer_ae02ee46d8c20dd0697b975f935b09839}{move} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Main character of the game. This class represents the main character of the game, which can be controlled by the user. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classPlayer_ae3c70b075d5da30ada86473920ddbb2d}{
+\index{Player@{Player}!Player@{Player}}
+\index{Player@{Player}!Player@{Player}}
+\subsubsection[{Player}]{\setlength{\rightskip}{0pt plus 5cm}Player::Player (int {\em x}, \/  int {\em y}, \/  int {\em w}, \/  int {\em h}, \/  std::string {\em color}, \/  std::string {\em type}, \/  std::string {\em image}, \/  {\bf Level} \& {\em l})}}
+\label{classPlayer_ae3c70b075d5da30ada86473920ddbb2d}
+Create a new \hyperlink{classPlayer}{Player} by specifying its position, size, color and level in which it is contained. 
+
+\subsection{Member Function Documentation}
+\hypertarget{classPlayer_a4fe8735a8d96bee2227f9c175c860429}{
+\index{Player@{Player}!launch@{launch}}
+\index{launch@{launch}!Player@{Player}}
+\subsubsection[{launch}]{\setlength{\rightskip}{0pt plus 5cm}void Player::launch ()}}
+\label{classPlayer_a4fe8735a8d96bee2227f9c175c860429}
+the player will launch an egg in the direction s/he currently is \hypertarget{classPlayer_ae02ee46d8c20dd0697b975f935b09839}{
+\index{Player@{Player}!move@{move}}
+\index{move@{move}!Player@{Player}}
+\subsubsection[{move}]{\setlength{\rightskip}{0pt plus 5cm}void Player::move ()\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}
+\label{classPlayer_ae02ee46d8c20dd0697b975f935b09839}
+The player will perform some other decisions about the movement 
+
+Reimplemented from \hyperlink{classWorldElement}{WorldElement}.
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+Player.h\item 
+Player.cpp\end{DoxyCompactItemize}

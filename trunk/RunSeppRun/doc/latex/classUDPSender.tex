@@ -1,0 +1,67 @@
+\hypertarget{classUDPSender}{
+\section{UDPSender Class Reference}
+\label{classUDPSender}\index{UDPSender@{UDPSender}}
+}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classUDPSender_a6c49b0e6d4373b1b7f1103403f837d22}{
+{\bfseries UDPSender} (\hyperlink{classClient}{Client} $\ast$)}
+\label{classUDPSender_a6c49b0e6d4373b1b7f1103403f837d22}
+
+\item 
+\hypertarget{classUDPSender_a7d3b9cb339e730c0ad576b13fe994b8b}{
+void {\bfseries setRunning} (bool)}
+\label{classUDPSender_a7d3b9cb339e730c0ad576b13fe994b8b}
+
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classUDPSender_a1b054a0c92b84a80954d6fd7f96eea70}{
+static QMutex {\bfseries mutex}}
+\label{classUDPSender_a1b054a0c92b84a80954d6fd7f96eea70}
+
+\item 
+\hypertarget{classUDPSender_ada4810e9a607561509ae471d2ba8ac2a}{
+static QWaitCondition {\bfseries canSend}}
+\label{classUDPSender_ada4810e9a607561509ae471d2ba8ac2a}
+
+\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classUDPSender_a2507f9459a454129b845f1d7e859fb09}{
+void {\bfseries run} ()}
+\label{classUDPSender_a2507f9459a454129b845f1d7e859fb09}
+
+\item 
+\hypertarget{classUDPSender_aeac20143f1a9c93d535c53cbf720db60}{
+void {\bfseries sendDatagram} ()}
+\label{classUDPSender_aeac20143f1a9c93d535c53cbf720db60}
+
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classUDPSender_a095b19ae7dddaf46b464d964e4233c37}{
+\hyperlink{classClient}{Client} $\ast$ {\bfseries client}}
+\label{classUDPSender_a095b19ae7dddaf46b464d964e4233c37}
+
+\item 
+\hypertarget{classUDPSender_a04b0beb20e2da8d2a722d1796c1fb5e8}{
+QUdpSocket $\ast$ {\bfseries udpSocket}}
+\label{classUDPSender_a04b0beb20e2da8d2a722d1796c1fb5e8}
+
+\item 
+\hypertarget{classUDPSender_a73988ecd7f31e40409d0c10f914052ad}{
+bool {\bfseries running}}
+\label{classUDPSender_a73988ecd7f31e40409d0c10f914052ad}
+
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+UDPSender.h\item 
+UDPSender.cpp\end{DoxyCompactItemize}
