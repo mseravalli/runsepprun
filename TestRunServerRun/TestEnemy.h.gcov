@@ -1,0 +1,28 @@
+        -:    0:Source:TestEnemy.h
+        -:    0:Graph:debug/main.gcno
+        -:    0:Data:-
+        -:    0:Runs:0
+        -:    0:Programs:0
+        -:    1:/*
+        -:    2: * TestEnemy.h
+        -:    3: *
+        -:    4: *  Created on: Apr 29, 2010
+        -:    5: *      Author: marco
+        -:    6: */
+        -:    7:
+        -:    8:#ifndef TESTENEMY_H_
+        -:    9:#define TESTENEMY_H_
+        -:   10:
+        -:   11:#include <QtTest/QtTest>
+        -:   12:#include <QObject>
+        -:   13:
+    #####:   14:class TestEnemy : public QObject {
+        -:   15:
+        -:   16:	Q_OBJECT
+        -:   17:
+        -:   18:private slots:
+        -:   19:	void changeDirection();
+        -:   20:
+        -:   21:};
+        -:   22:
+        -:   23:#endif /* TESTENEMY_H_ */

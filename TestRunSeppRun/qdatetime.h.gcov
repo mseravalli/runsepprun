@@ -1,0 +1,339 @@
+        -:    0:Source:/usr/include/qt4/QtCore/qdatetime.h
+        -:    0:Graph:debug/main.gcno
+        -:    0:Data:debug/main.gcda
+        -:    0:Runs:2
+        -:    0:Programs:1
+        -:    1:/****************************************************************************
+        -:    2:**
+        -:    3:** Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies).
+        -:    4:** All rights reserved.
+        -:    5:** Contact: Nokia Corporation (qt-info@nokia.com)
+        -:    6:**
+        -:    7:** This file is part of the QtCore module of the Qt Toolkit.
+        -:    8:**
+        -:    9:** $QT_BEGIN_LICENSE:LGPL$
+        -:   10:** Commercial Usage
+        -:   11:** Licensees holding valid Qt Commercial licenses may use this file in
+        -:   12:** accordance with the Qt Commercial License Agreement provided with the
+        -:   13:** Software or, alternatively, in accordance with the terms contained in
+        -:   14:** a written agreement between you and Nokia.
+        -:   15:**
+        -:   16:** GNU Lesser General Public License Usage
+        -:   17:** Alternatively, this file may be used under the terms of the GNU Lesser
+        -:   18:** General Public License version 2.1 as published by the Free Software
+        -:   19:** Foundation and appearing in the file LICENSE.LGPL included in the
+        -:   20:** packaging of this file.  Please review the following information to
+        -:   21:** ensure the GNU Lesser General Public License version 2.1 requirements
+        -:   22:** will be met: http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+        -:   23:**
+        -:   24:** In addition, as a special exception, Nokia gives you certain additional
+        -:   25:** rights.  These rights are described in the Nokia Qt LGPL Exception
+        -:   26:** version 1.1, included in the file LGPL_EXCEPTION.txt in this package.
+        -:   27:**
+        -:   28:** GNU General Public License Usage
+        -:   29:** Alternatively, this file may be used under the terms of the GNU
+        -:   30:** General Public License version 3.0 as published by the Free Software
+        -:   31:** Foundation and appearing in the file LICENSE.GPL included in the
+        -:   32:** packaging of this file.  Please review the following information to
+        -:   33:** ensure the GNU General Public License version 3.0 requirements will be
+        -:   34:** met: http://www.gnu.org/copyleft/gpl.html.
+        -:   35:**
+        -:   36:** If you have questions regarding the use of this file, please contact
+        -:   37:** Nokia at qt-info@nokia.com.
+        -:   38:** $QT_END_LICENSE$
+        -:   39:**
+        -:   40:****************************************************************************/
+        -:   41:
+        -:   42:#ifndef QDATETIME_H
+        -:   43:#define QDATETIME_H
+        -:   44:
+        -:   45:#include <QtCore/qstring.h>
+        -:   46:#include <QtCore/qnamespace.h>
+        -:   47:#include <QtCore/qsharedpointer.h>
+        -:   48:
+        -:   49:QT_BEGIN_HEADER
+        -:   50:
+        -:   51:QT_BEGIN_NAMESPACE
+        -:   52:
+        -:   53:QT_MODULE(Core)
+        -:   54:
+        -:   55:class Q_CORE_EXPORT QDate
+        -:   56:{
+        -:   57:public:
+        -:   58:    enum MonthNameType {
+        -:   59:        DateFormat = 0,
+        -:   60:        StandaloneFormat
+        -:   61:    };
+        -:   62:public:
+        -:   63:    QDate() { jd = 0; }
+        -:   64:    QDate(int y, int m, int d);
+        -:   65:
+        -:   66:    bool isNull() const { return jd == 0; }
+        -:   67:    bool isValid() const;
+        -:   68:
+        -:   69:    int year() const;
+        -:   70:    int month() const;
+        -:   71:    int day() const;
+        -:   72:    int dayOfWeek() const;
+        -:   73:    int dayOfYear() const;
+        -:   74:    int daysInMonth() const;
+        -:   75:    int daysInYear() const;
+        -:   76:    int weekNumber(int *yearNum = 0) const;
+        -:   77:
+        -:   78:#ifndef QT_NO_TEXTDATE
+        -:   79:#ifdef QT3_SUPPORT
+        -:   80:    static QT3_SUPPORT QString monthName(int month) { return shortMonthName(month); }
+        -:   81:    static QT3_SUPPORT QString dayName(int weekday) { return shortDayName(weekday); }
+        -:   82:#endif
+        -:   83:    // ### Qt 5: merge these functions.
+        -:   84:    static QString shortMonthName(int month);
+        -:   85:    static QString shortMonthName(int month, MonthNameType type);
+        -:   86:    static QString shortDayName(int weekday);
+        -:   87:    static QString shortDayName(int weekday, MonthNameType type);
+        -:   88:    static QString longMonthName(int month);
+        -:   89:    static QString longMonthName(int month, MonthNameType type);
+        -:   90:    static QString longDayName(int weekday);
+        -:   91:    static QString longDayName(int weekday, MonthNameType type);
+        -:   92:#endif // QT_NO_TEXTDATE
+        -:   93:#ifndef QT_NO_DATESTRING
+        -:   94:    QString toString(Qt::DateFormat f = Qt::TextDate) const;
+        -:   95:    QString toString(const QString &format) const;
+        -:   96:#endif
+        -:   97:    bool setYMD(int y, int m, int d);
+        -:   98:    bool setDate(int year, int month, int day);
+        -:   99:
+        -:  100:    void getDate(int *year, int *month, int *day);
+        -:  101:
+        -:  102:    QDate addDays(int days) const;
+        -:  103:    QDate addMonths(int months) const;
+        -:  104:    QDate addYears(int years) const;
+        -:  105:    int daysTo(const QDate &) const;
+        -:  106:
+        -:  107:    bool operator==(const QDate &other) const { return jd == other.jd; }
+        -:  108:    bool operator!=(const QDate &other) const { return jd != other.jd; }
+        -:  109:    bool operator<(const QDate &other) const { return jd < other.jd; }
+        -:  110:    bool operator<=(const QDate &other) const { return jd <= other.jd; }
+        -:  111:    bool operator>(const QDate &other) const { return jd > other.jd; }
+        -:  112:    bool operator>=(const QDate &other) const { return jd >= other.jd; }
+        -:  113:
+        -:  114:    static QDate currentDate();
+        -:  115:#ifndef QT_NO_DATESTRING
+        -:  116:    static QDate fromString(const QString &s, Qt::DateFormat f = Qt::TextDate);
+        -:  117:    static QDate fromString(const QString &s, const QString &format);
+        -:  118:#endif
+        -:  119:    static bool isValid(int y, int m, int d);
+        -:  120:    static bool isLeapYear(int year);
+        -:  121:#ifdef QT3_SUPPORT
+        -:  122:    inline static QT3_SUPPORT bool leapYear(int year) { return isLeapYear(year); }
+        -:  123:#endif
+        -:  124:
+        -:  125:    // ### Qt 5: remove these two functions
+        -:  126:    static uint gregorianToJulian(int y, int m, int d);
+        -:  127:    static void julianToGregorian(uint jd, int &y, int &m, int &d);
+        -:  128:
+        -:  129:#ifdef QT3_SUPPORT
+        -:  130:    static QT3_SUPPORT QDate currentDate(Qt::TimeSpec spec);
+        -:  131:#endif
+        -:  132:
+        -:  133:    static inline QDate fromJulianDay(int jd) { QDate d; d.jd = jd; return d; }
+        -:  134:    inline int toJulianDay() const { return jd; }
+        -:  135:
+        -:  136:private:
+        -:  137:    uint jd;
+        -:  138:
+        -:  139:    friend class QDateTime;
+        -:  140:    friend class QDateTimePrivate;
+        -:  141:#ifndef QT_NO_DATASTREAM
+        -:  142:    friend Q_CORE_EXPORT QDataStream &operator<<(QDataStream &, const QDate &);
+        -:  143:    friend Q_CORE_EXPORT QDataStream &operator>>(QDataStream &, QDate &);
+        -:  144:#endif
+        -:  145:};
+        -:  146:Q_DECLARE_TYPEINFO(QDate, Q_MOVABLE_TYPE);
+        -:  147:
+        -:  148:class Q_CORE_EXPORT QTime
+        -:  149:{
+        -:  150:public:
+    #####:  151:    QTime(): mds(NullTime)
+        -:  152:#if defined(Q_OS_WINCE)
+        -:  153:        , startTick(NullTime)
+        -:  154:#endif
+    #####:  155:    {}
+        -:  156:    QTime(int h, int m, int s = 0, int ms = 0);
+        -:  157:
+        -:  158:    bool isNull() const { return mds == NullTime; }
+        -:  159:    bool isValid() const;
+        -:  160:
+        -:  161:    int hour() const;
+        -:  162:    int minute() const;
+        -:  163:    int second() const;
+        -:  164:    int msec() const;
+        -:  165:#ifndef QT_NO_DATESTRING
+        -:  166:    QString toString(Qt::DateFormat f = Qt::TextDate) const;
+        -:  167:    QString toString(const QString &format) const;
+        -:  168:#endif
+        -:  169:    bool setHMS(int h, int m, int s, int ms = 0);
+        -:  170:
+        -:  171:    QTime addSecs(int secs) const;
+        -:  172:    int secsTo(const QTime &) const;
+        -:  173:    QTime addMSecs(int ms) const;
+        -:  174:    int msecsTo(const QTime &) const;
+        -:  175:
+        -:  176:    bool operator==(const QTime &other) const { return mds == other.mds; }
+        -:  177:    bool operator!=(const QTime &other) const { return mds != other.mds; }
+        -:  178:    bool operator<(const QTime &other) const { return mds < other.mds; }
+        -:  179:    bool operator<=(const QTime &other) const { return mds <= other.mds; }
+        -:  180:    bool operator>(const QTime &other) const { return mds > other.mds; }
+        -:  181:    bool operator>=(const QTime &other) const { return mds >= other.mds; }
+        -:  182:
+        -:  183:    static QTime currentTime();
+        -:  184:#ifndef QT_NO_DATESTRING
+        -:  185:    static QTime fromString(const QString &s, Qt::DateFormat f = Qt::TextDate);
+        -:  186:    static QTime fromString(const QString &s, const QString &format);
+        -:  187:#endif
+        -:  188:    static bool isValid(int h, int m, int s, int ms = 0);
+        -:  189:
+        -:  190:#ifdef QT3_SUPPORT
+        -:  191:    static QT3_SUPPORT QTime currentTime(Qt::TimeSpec spec);
+        -:  192:#endif
+        -:  193:
+        -:  194:    void start();
+        -:  195:    int restart();
+        -:  196:    int elapsed() const;
+        -:  197:private:
+        -:  198:    enum TimeFlag { NullTime = -1 };
+        -:  199:    inline int ds() const { return mds == -1 ? 0 : mds; }
+        -:  200:    int mds;
+        -:  201:#if defined(Q_OS_WINCE)
+        -:  202:    int startTick;
+        -:  203:#endif
+        -:  204:
+        -:  205:    friend class QDateTime;
+        -:  206:    friend class QDateTimePrivate;
+        -:  207:#ifndef QT_NO_DATASTREAM
+        -:  208:    friend Q_CORE_EXPORT QDataStream &operator<<(QDataStream &, const QTime &);
+        -:  209:    friend Q_CORE_EXPORT QDataStream &operator>>(QDataStream &, QTime &);
+        -:  210:#endif
+        -:  211:};
+        -:  212:Q_DECLARE_TYPEINFO(QTime, Q_MOVABLE_TYPE);
+        -:  213:
+        -:  214:class QDateTimePrivate;
+        -:  215:
+        -:  216:class Q_CORE_EXPORT QDateTime
+        -:  217:{
+        -:  218:public:
+        -:  219:    QDateTime();
+        -:  220:    explicit QDateTime(const QDate &);
+        -:  221:    QDateTime(const QDate &, const QTime &, Qt::TimeSpec spec = Qt::LocalTime);
+        -:  222:    QDateTime(const QDateTime &other);
+        -:  223:    ~QDateTime();
+        -:  224:
+        -:  225:    QDateTime &operator=(const QDateTime &other);
+        -:  226:
+        -:  227:    bool isNull() const;
+        -:  228:    bool isValid() const;
+        -:  229:
+        -:  230:    QDate date() const;
+        -:  231:    QTime time() const;
+        -:  232:    Qt::TimeSpec timeSpec() const;
+        -:  233:    uint toTime_t() const;
+        -:  234:    void setDate(const QDate &date);
+        -:  235:    void setTime(const QTime &time);
+        -:  236:    void setTimeSpec(Qt::TimeSpec spec);
+        -:  237:    void setTime_t(uint secsSince1Jan1970UTC);
+        -:  238:#ifndef QT_NO_DATESTRING
+        -:  239:    QString toString(Qt::DateFormat f = Qt::TextDate) const;
+        -:  240:    QString toString(const QString &format) const;
+        -:  241:#endif
+        -:  242:    QDateTime addDays(int days) const;
+        -:  243:    QDateTime addMonths(int months) const;
+        -:  244:    QDateTime addYears(int years) const;
+        -:  245:    QDateTime addSecs(int secs) const;
+        -:  246:    QDateTime addMSecs(qint64 msecs) const;
+        -:  247:    QDateTime toTimeSpec(Qt::TimeSpec spec) const;
+        -:  248:    inline QDateTime toLocalTime() const { return toTimeSpec(Qt::LocalTime); }
+        -:  249:    inline QDateTime toUTC() const { return toTimeSpec(Qt::UTC); }
+        -:  250:    int daysTo(const QDateTime &) const;
+        -:  251:    int secsTo(const QDateTime &) const;
+        -:  252:
+        -:  253:    bool operator==(const QDateTime &other) const;
+        -:  254:    inline bool operator!=(const QDateTime &other) const { return !(*this == other); }
+        -:  255:    bool operator<(const QDateTime &other) const;
+        -:  256:    inline bool operator<=(const QDateTime &other) const { return !(other < *this); }
+        -:  257:    inline bool operator>(const QDateTime &other) const { return other < *this; }
+        -:  258:    inline bool operator>=(const QDateTime &other) const { return !(*this < other); }
+        -:  259:
+        -:  260:    void setUtcOffset(int seconds);
+        -:  261:    int utcOffset() const;
+        -:  262:
+        -:  263:    static QDateTime currentDateTime();
+        -:  264:#ifndef QT_NO_DATESTRING
+        -:  265:    static QDateTime fromString(const QString &s, Qt::DateFormat f = Qt::TextDate);
+        -:  266:    static QDateTime fromString(const QString &s, const QString &format);
+        -:  267:#endif
+        -:  268:    static QDateTime fromTime_t(uint secsSince1Jan1970UTC);
+        -:  269:
+        -:  270:#ifdef QT3_SUPPORT
+        -:  271:    inline QT3_SUPPORT void setTime_t(uint secsSince1Jan1970UTC, Qt::TimeSpec spec) {
+        -:  272:        setTime_t(secsSince1Jan1970UTC);
+        -:  273:        if (spec == Qt::UTC)
+        -:  274:            *this = toUTC();
+        -:  275:    }
+        -:  276:    static inline QT3_SUPPORT QDateTime currentDateTime(Qt::TimeSpec spec) {
+        -:  277:        if (spec == Qt::LocalTime)
+        -:  278:            return currentDateTime();
+        -:  279:        else
+        -:  280:            return currentDateTime().toUTC();
+        -:  281:    }
+        -:  282:    
+        -:  283:#endif
+        -:  284:
+        -:  285:private:
+        -:  286:    friend class QDateTimePrivate;
+        -:  287:    void detach();
+        -:  288:    QExplicitlySharedDataPointer<QDateTimePrivate> d;
+        -:  289:
+        -:  290:#ifndef QT_NO_DATASTREAM
+        -:  291:    friend Q_CORE_EXPORT QDataStream &operator<<(QDataStream &, const QDateTime &);
+        -:  292:    friend Q_CORE_EXPORT QDataStream &operator>>(QDataStream &, QDateTime &);
+        -:  293:#endif
+        -:  294:};
+        -:  295:Q_DECLARE_TYPEINFO(QDateTime, Q_MOVABLE_TYPE);
+        -:  296:
+        -:  297:#ifdef QT3_SUPPORT
+        -:  298:inline QDate QDate::currentDate(Qt::TimeSpec spec)
+        -:  299:{
+        -:  300:    if (spec == Qt::LocalTime)
+        -:  301:        return currentDate();
+        -:  302:    else
+        -:  303:        return QDateTime::currentDateTime().toUTC().date();
+        -:  304:}
+        -:  305:
+        -:  306:inline QTime QTime::currentTime(Qt::TimeSpec spec)
+        -:  307:{
+        -:  308:    if (spec == Qt::LocalTime)
+        -:  309:        return currentTime();
+        -:  310:    else
+        -:  311:        return QDateTime::currentDateTime().toUTC().time();
+        -:  312:}
+        -:  313:#endif
+        -:  314:
+        -:  315:#ifndef QT_NO_DATASTREAM
+        -:  316:Q_CORE_EXPORT QDataStream &operator<<(QDataStream &, const QDate &);
+        -:  317:Q_CORE_EXPORT QDataStream &operator>>(QDataStream &, QDate &);
+        -:  318:Q_CORE_EXPORT QDataStream &operator<<(QDataStream &, const QTime &);
+        -:  319:Q_CORE_EXPORT QDataStream &operator>>(QDataStream &, QTime &);
+        -:  320:Q_CORE_EXPORT QDataStream &operator<<(QDataStream &, const QDateTime &);
+        -:  321:Q_CORE_EXPORT QDataStream &operator>>(QDataStream &, QDateTime &);
+        -:  322:#endif // QT_NO_DATASTREAM
+        -:  323:
+        -:  324:#if !defined(QT_NO_DEBUG_STREAM) && !defined(QT_NO_DATESTRING)
+        -:  325:Q_CORE_EXPORT QDebug operator<<(QDebug, const QDate &);
+        -:  326:Q_CORE_EXPORT QDebug operator<<(QDebug, const QTime &);
+        -:  327:Q_CORE_EXPORT QDebug operator<<(QDebug, const QDateTime &);
+        -:  328:#endif
+        -:  329:
+        -:  330:QT_END_NAMESPACE
+        -:  331:
+        -:  332:QT_END_HEADER
+        -:  333:
+        -:  334:#endif // QDATETIME_H

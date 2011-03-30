@@ -1,0 +1,141 @@
+<level levelNumber="3" levelLength="6000">
+    <environment>
+        
+		<block type="paintImage" x="0" y="400" w="40" h="40" image="transparent.svg"/> 
+		<block type="paintImage" x="0" y="560" w="300" h="40" image="snow.svg"/>
+		<block type="paintImage" x="140" y="240" w="190" h="40" image="snow.svg"/>
+		<block type="paintImage" x="290" y="180" w="40" h="40" image="snow.svg"/>  
+		<block type="paintImage" x="360" y="480" w="40" h="40" image="snow.svg"/>   
+			<block type="paintRect" x="360" y="520" w="40" h="80" color="#d38d5f"/>   
+		<block type="paintImage" x="450" y="400" w="40" h="40" image="snow.svg"/>         
+		<block type="paintImage" x="590" y="320" w="40" h="40" image="snow.svg"/>
+		<block type="paintImage" x="720" y="560" w="360" h="40" image="snow.svg"/>
+		<block type="paintImage" x="740" y="220" w="40" h="40" image="snow.svg"/> 
+			<block type="paintRect" x="740" y="260" w="40" h="50" color="#d38d5f"/>   
+		<block type="paintImage" x="780" y="280" w="480" h="30" image="snow.svg"/>
+		<block type="paintImage" x="940" y="130" w="160" h="40" image="snow.svg"/>
+		<block type="paintImage" x="1130" y="460" w="260" h="40" image="snow.svg"/>
+		<block type="paintImage" x="1260" y="220" w="40" h="40" image="snow.svg"/>
+			<block type="paintRect" x="1260" y="260" w="40" h="50" color="#d38d5f"/>
+		<block type="paintImage" x="1280" y="560" w="110" h="40" image="snow.svg"/>
+		<block type="paintImage" x="1460" y="360" w="280" h="40" image="snow.svg"/>
+		<block type="paintImage" x="1520" y="130" w="150" h="40" image="transparent.svg"/>
+		<block type="paintImage" x="1840" y="50" w="1090" h="40" image="snow.svg"/>
+		<block type="paintImage" x="1910" y="440" w="40" h="40" image="snow.svg"/>
+			<block type="paintRect" x="1910" y="480" w="40" h="120" color="#d38d5f"/>
+		<block type="paintImage" x="1950" y="560" w="580" h="40" image="snow.svg"/>
+		<block type="paintImage" x="2010" y="290" w="130" h="40" image="snow.svg"/>
+		<block type="paintImage" x="2220" y="410" w="130" h="40" image="snow.svg"/>
+		<block type="paintImage" x="2530" y="490" w="40" h="40" image="snow.svg"/>
+			<block type="paintRect" x="2530" y="530" w="40" h="70" color="#d38d5f"/>
+		<block type="paintImage" x="2660" y="360" w="40" h="40" image="snow.svg"/>
+		<block type="paintImage" x="2820" y="280" w="40" h="40" image="snow.svg"/>
+		<block type="paintImage" x="2910" y="490" w="40" h="40" image="snow.svg"/>
+			<block type="paintRect" x="2910" y="530" w="40" h="70" color="#d38d5f"/>
+		<block type="paintImage" x="2950" y="560" w="610" h="40" image="snow.svg"/>
+		<block type="paintImage" x="3000" y="240" w="40" h="40" image="snow.svg"/>
+		<block type="paintImage" x="3120" y="450" w="120" h="40" image="snow.svg"/>
+		<block type="paintImage" x="3210" y="160" w="40" h="40" image="snow.svg"/>
+			<block type="paintRect" x="3210" y="200" w="40" h="40" color="#d38d5f"/>
+		<block type="paintImage" x="3250" y="200" w="490" h="40" image="snow.svg"/>
+		<block type="paintImage" x="3340" y="70" w="130" h="40" image="snow.svg"/>
+		<block type="paintImage" x="3480" y="520" w="120" h="40" image="snow.svg"/>
+		<block type="paintImage" x="3560" y="450" w="40" h="70" image="snow.svg"/>
+		<block type="paintImage" x="3740" y="80" w="40" h="40" image="snow.svg"/>
+			<block type="paintRect" x="3740" y="120" w="40" h="120" color="#d38d5f"/>
+		<block type="paintImage" x="3810" y="480" w="120" h="40" image="snow.svg"/>
+		<block type="paintImage" x="3900" y="260" w="40" h="40" image="snow.svg"/>
+		<block type="paintImage" x="4050" y="390" w="40" h="40" image="snow.svg"/>
+		<block type="paintImage" x="4100" y="560" w="420" h="40" image="snow.svg"/>
+		<block type="paintImage" x="4260" y="360" w="40" h="40" image="snow.svg"/>
+		<block type="paintImage" x="4490" y="120" w="40" h="40" image="transparent.svg"/>
+		<block type="paintImage" x="4430" y="280" w="370" h="40" image="snow.svg"/>	
+		<block type="paintImage" x="4610" y="60" w="220" h="40" image="snow.svg"/>
+		<block type="paintImage" x="4690" y="560" w="90" h="40" image="snow.svg"/>
+		<block type="paintImage" x="4950" y="460" w="40" h="40" image="snow.svg"/>
+			<block type="paintRect" x="4950" y="500" w="40" h="100" color="#d38d5f"/>
+		<block type="paintImage" x="4990" y="560" w="480" h="40" image="snow.svg"/>
+		<block type="paintImage" x="5000" y="110" w="180" h="40" image="snow.svg"/>
+		<block type="paintImage" x="5290" y="360" w="40" h="40" image="snow.svg"/>
+		<block type="paintImage" x="5430" y="260" w="40" h="40" image="snow.svg"/>
+		<block type="paintImage" x="5470" y="460" w="40" h="40" image="snow.svg"/>
+			<block type="paintRect" x="5470" y="500" w="40" h="100" color="#d38d5f"/>
+		<block type="paintImage" x="5620" y="120" w="260" h="40" image="snow.svg"/>
+			<block type="paintRect" x="5620" y="160" w="40" h="480" color="#d38d5f"/>
+		<block type="paintImage" x="5660" y="430" w="230" h="40" image="snow.svg"/>
+		<block type="paintImage" x="5660" y="560" w="210" h="40" image="snow.svg"/>
+		<block type="paintImage" x="5780" y="230" w="40" h="40" image="snow.svg"/>
+			<block type="paintRect" x="5780" y="270" w="40" h="100" color="#d38d5f"/>
+		<block type="paintImage" x="5820" y="330" w="180" h="40" image="snow.svg"/>
+	
+	
+
+
+    </environment>
+    <enemies>
+        <enemy type ="paintSheep" x="1200" y="100" w="30" h="25" color="red" start="right"/>
+        <enemy type ="paintSheep" x="1800" y="100" w="30" h="25" color="red" start="right"/>
+        <enemy type ="paintSheep" x="1250" y="100" w="30" h="25" color="red" start="right"/>
+        <enemy type ="paintSheep" x="1850" y="100" w="30" h="25" color="red" start="right"/>
+        <enemy type ="paintSheep" x="1300" y="100" w="30" h="25" color="red" start="right"/>
+        <enemy type ="paintSheep" x="1900" y="100" w="30" h="25" color="red" start="right"/>
+        <enemy type ="paintSheep" x="1350" y="100" w="30" h="25" color="red" start="right"/>
+        <enemy type ="paintSheep" x="1950" y="100" w="30" h="25" color="red" start="right"/>
+        <enemy type ="paintSheep" x="1400" y="100" w="30" h="25" color="red" start="right"/>
+        <enemy type ="paintSheep" x="2000" y="100" w="30" h="25" color="red" start="right"/>
+        <enemy type ="paintSheep" x="300" y="450" w="30" h="25" color="red" start="right"/>
+        <enemy type ="paintSheep" x="350" y="450" w="30" h="25" color="red" start="right"/>
+        <enemy type ="paintSheep" x="400" y="450" w="30" h="25" color="red" start="right"/>
+
+        <enemy type ="paintSheep" x="5100" y="500" w="30" h="25" color="red" start="right"/>
+		<enemy type ="paintSheep" x="5130" y="500" w="30" h="25" color="red" start="right"/>
+		<enemy type ="paintSheep" x="5160" y="500" w="30" h="25" color="red" start="right"/>
+		<enemy type ="paintSheep" x="5190" y="500" w="30" h="25" color="red" start="right"/>
+		<enemy type ="paintSheep" x="5220" y="500" w="30" h="25" color="red" start="right"/>
+		<enemy type ="paintSheep" x="5250" y="500" w="30" h="25" color="red" start="right"/>
+		<enemy type ="paintSheep" x="5280" y="500" w="30" h="25" color="red" start="right"/>
+        
+		<enemy type ="paintSheep" x="5840" y="280" w="30" h="25" color="red" start="right"/>
+		<enemy type ="paintSheep" x="5870" y="280" w="30" h="25" color="red" start="right"/>
+		<enemy type ="paintSheep" x="5900" y="280" w="30" h="25" color="red" start="right"/>
+    
+    </enemies>
+    <backgrounds>
+        <background type="paintImage" x="0" y="0" w="6500" h="600" image="background1.svg"/>
+        <background type="paintImage" x="0" y="515" w="52" h="40" image="grave.svg"/>
+        <background type="paintImage" x="0" y="580" w="6000" h="20" image="pins.svg"/>
+        <background type="paintImage" x="1500" y="450" w="90" h="100" image="snowtree.svg"/>
+        <background type="paintImage" x="400" y="300" w="90" h="100" image="snowtree.svg"/>
+        <background type="paintImage" x="1800" y="100" w="90" h="100" image="snowtree.svg"/>
+        <background type="paintImage" x="3600" y="450" w="90" h="100" image="snowtree.svg"/>
+        <background type="paintImage" x="2350" y="250" w="120" h="50" image="igloo.svg"/>
+        <background type="paintImage" x="4200" y="500" w="120" h="50" image="igloo.svg"/>
+        
+        <background type="paintImage" x="1400" y="100" w="69" h="100" image="snowman.svg"/>
+        <background type="paintImage" x="2800" y="150" w="69" h="100" image="snowman.svg"/>
+        <background type="paintImage" x="5600" y="450" w="69" h="100" image="snowman.svg"/>
+    
+        <background type="paintImage" x="300" y="300" w="50" h="50" image="ice2.svg"/>
+        <background type="paintImage" x="1000" y="250" w="50" h="50" image="ice2.svg"/>
+        
+        <background type="paintImage" x="3250" y="100" w="50" h="50" image="ice2.svg"/>
+        <background type="paintImage" x="5250" y="350" w="50" h="50" image="ice2.svg"/>
+    
+    
+    </backgrounds>
+    <collects>
+        <collect type="paintImage" x="900" y="380" w="10" h="10" value="50" image="coin.svg"/>
+       
+        <collect type="paintImage" x="10" y="535" w="28" h="15" value="-3" image="collectEgg.svg"/>
+        <collect type="paintImage" x="1550" y="500" w="10" h="10" value="-3" image="collectEgg.svg"/>
+        <collect type="paintImage" x="1570" y="500" w="10" h="10" value="-3" image="collectEgg.svg"/>
+        
+        <collect type="paintImage" x="3630" y="500" w="10" h="10" value="-3" image="collectEgg.svg"/>
+        <collect type="paintImage" x="3650" y="500" w="10" h="10" value="-3" image="collectEgg.svg"/>
+        <collect type="paintImage" x="3670" y="500" w="10" h="10" value="-3" image="collectEgg.svg"/>
+        
+    </collects>
+    <finalBlocks>
+        <finalBlock type="paintImage" x="5660" y="510" w="50" h="50" image="flag.svg"/>
+    </finalBlocks>
+</level>

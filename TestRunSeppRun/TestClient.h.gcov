@@ -1,0 +1,35 @@
+        -:    0:Source:TestClient.h
+        -:    0:Graph:debug/main.gcno
+        -:    0:Data:debug/main.gcda
+        -:    0:Runs:2
+        -:    0:Programs:1
+        -:    1:/*
+        -:    2: * TestClfg sg gient.h
+        -:    3: *
+        -:    4: *  Created o sdg sdgn: May 11, 2010
+        -:    5: *      Author: marco
+        -:    6: */
+        -:    7:
+        -:    8:#ifndef TESTCLIENT_H_
+        -:    9:#define TESTCLIENT_H_
+        -:   10:
+        -:   11:#include <QtTest/QtTest>
+        -:   12:#include <QObject>
+        -:   13:
+        2:   14:class TestClient : public QObject{
+        -:   15:
+        -:   16:	Q_OBJECT
+        -:   17:
+        -:   18:private slots:
+        -:   19:
+        -:   20:	void testSendHelloPacket();
+        -:   21:	void testSendAckPacket();
+        -:   22:	void testSendAck2Packet();
+        -:   23:	void testSendLevelIDPacket();
+        -:   24:	void testSendReadyPacket();
+        -:   25:	void testSendKeyInputPacket();
+        -:   26:
+        -:   27:
+        -:   28:};
+        -:   29:
+        -:   30:#endif /* TESTCLIENT_H_ */

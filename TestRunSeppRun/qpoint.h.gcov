@@ -1,0 +1,368 @@
+        -:    0:Source:/usr/include/qt4/QtCore/qpoint.h
+        -:    0:Graph:debug/main.gcno
+        -:    0:Data:debug/main.gcda
+        -:    0:Runs:2
+        -:    0:Programs:1
+        -:    1:/****************************************************************************
+        -:    2:**
+        -:    3:** Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies).
+        -:    4:** All rights reserved.
+        -:    5:** Contact: Nokia Corporation (qt-info@nokia.com)
+        -:    6:**
+        -:    7:** This file is part of the QtCore module of the Qt Toolkit.
+        -:    8:**
+        -:    9:** $QT_BEGIN_LICENSE:LGPL$
+        -:   10:** Commercial Usage
+        -:   11:** Licensees holding valid Qt Commercial licenses may use this file in
+        -:   12:** accordance with the Qt Commercial License Agreement provided with the
+        -:   13:** Software or, alternatively, in accordance with the terms contained in
+        -:   14:** a written agreement between you and Nokia.
+        -:   15:**
+        -:   16:** GNU Lesser General Public License Usage
+        -:   17:** Alternatively, this file may be used under the terms of the GNU Lesser
+        -:   18:** General Public License version 2.1 as published by the Free Software
+        -:   19:** Foundation and appearing in the file LICENSE.LGPL included in the
+        -:   20:** packaging of this file.  Please review the following information to
+        -:   21:** ensure the GNU Lesser General Public License version 2.1 requirements
+        -:   22:** will be met: http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+        -:   23:**
+        -:   24:** In addition, as a special exception, Nokia gives you certain additional
+        -:   25:** rights.  These rights are described in the Nokia Qt LGPL Exception
+        -:   26:** version 1.1, included in the file LGPL_EXCEPTION.txt in this package.
+        -:   27:**
+        -:   28:** GNU General Public License Usage
+        -:   29:** Alternatively, this file may be used under the terms of the GNU
+        -:   30:** General Public License version 3.0 as published by the Free Software
+        -:   31:** Foundation and appearing in the file LICENSE.GPL included in the
+        -:   32:** packaging of this file.  Please review the following information to
+        -:   33:** ensure the GNU General Public License version 3.0 requirements will be
+        -:   34:** met: http://www.gnu.org/copyleft/gpl.html.
+        -:   35:**
+        -:   36:** If you have questions regarding the use of this file, please contact
+        -:   37:** Nokia at qt-info@nokia.com.
+        -:   38:** $QT_END_LICENSE$
+        -:   39:**
+        -:   40:****************************************************************************/
+        -:   41:
+        -:   42:#ifndef QPOINT_H
+        -:   43:#define QPOINT_H
+        -:   44:
+        -:   45:#include <QtCore/qnamespace.h>
+        -:   46:
+        -:   47:QT_BEGIN_HEADER
+        -:   48:
+        -:   49:QT_BEGIN_NAMESPACE
+        -:   50:
+        -:   51:QT_MODULE(Core)
+        -:   52:
+        -:   53:class Q_CORE_EXPORT QPoint
+        -:   54:{
+        -:   55:public:
+        -:   56:    QPoint();
+        -:   57:    QPoint(int xpos, int ypos);
+        -:   58:
+        -:   59:    bool isNull() const;
+        -:   60:
+        -:   61:    int x() const;
+        -:   62:    int y() const;
+        -:   63:    void setX(int x);
+        -:   64:    void setY(int y);
+        -:   65:
+        -:   66:    int manhattanLength() const;
+        -:   67:
+        -:   68:    int &rx();
+        -:   69:    int &ry();
+        -:   70:
+        -:   71:    QPoint &operator+=(const QPoint &p);
+        -:   72:    QPoint &operator-=(const QPoint &p);
+        -:   73:    QPoint &operator*=(qreal c);
+        -:   74:    QPoint &operator/=(qreal c);
+        -:   75:
+        -:   76:    friend inline bool operator==(const QPoint &, const QPoint &);
+        -:   77:    friend inline bool operator!=(const QPoint &, const QPoint &);
+        -:   78:    friend inline const QPoint operator+(const QPoint &, const QPoint &);
+        -:   79:    friend inline const QPoint operator-(const QPoint &, const QPoint &);
+        -:   80:    friend inline const QPoint operator*(const QPoint &, qreal);
+        -:   81:    friend inline const QPoint operator*(qreal, const QPoint &);
+        -:   82:    friend inline const QPoint operator-(const QPoint &);
+        -:   83:    friend inline const QPoint operator/(const QPoint &, qreal);
+        -:   84:
+        -:   85:private:
+        -:   86:    friend class QTransform;
+        -:   87:    // ### Qt 5;  remove the ifdef and just have the same order on all platforms.
+        -:   88:#if defined(Q_OS_MAC)
+        -:   89:    int yp;
+        -:   90:    int xp;
+        -:   91:#else
+        -:   92:    int xp;
+        -:   93:    int yp;
+        -:   94:#endif
+        -:   95:};
+        -:   96:
+        -:   97:Q_DECLARE_TYPEINFO(QPoint, Q_MOVABLE_TYPE);
+        -:   98:
+        -:   99:/*****************************************************************************
+        -:  100:  QPoint stream functions
+        -:  101: *****************************************************************************/
+        -:  102:#ifndef QT_NO_DATASTREAM
+        -:  103:Q_CORE_EXPORT QDataStream &operator<<(QDataStream &, const QPoint &);
+        -:  104:Q_CORE_EXPORT QDataStream &operator>>(QDataStream &, QPoint &);
+        -:  105:#endif
+        -:  106:
+        -:  107:/*****************************************************************************
+        -:  108:  QPoint inline functions
+        -:  109: *****************************************************************************/
+        -:  110:
+    #####:  111:inline QPoint::QPoint()
+    #####:  112:{ xp=0; yp=0; }
+        -:  113:
+    #####:  114:inline QPoint::QPoint(int xpos, int ypos)
+    #####:  115:{ xp = xpos; yp = ypos; }
+        -:  116:
+    #####:  117:inline bool QPoint::isNull() const
+    #####:  118:{ return xp == 0 && yp == 0; }
+        -:  119:
+    #####:  120:inline int QPoint::x() const
+    #####:  121:{ return xp; }
+        -:  122:
+    #####:  123:inline int QPoint::y() const
+    #####:  124:{ return yp; }
+        -:  125:
+        -:  126:inline void QPoint::setX(int xpos)
+        -:  127:{ xp = xpos; }
+        -:  128:
+        -:  129:inline void QPoint::setY(int ypos)
+        -:  130:{ yp = ypos; }
+        -:  131:
+        -:  132:inline int &QPoint::rx()
+        -:  133:{ return xp; }
+        -:  134:
+        -:  135:inline int &QPoint::ry()
+        -:  136:{ return yp; }
+        -:  137:
+        -:  138:inline QPoint &QPoint::operator+=(const QPoint &p)
+        -:  139:{ xp+=p.xp; yp+=p.yp; return *this; }
+        -:  140:
+        -:  141:inline QPoint &QPoint::operator-=(const QPoint &p)
+        -:  142:{ xp-=p.xp; yp-=p.yp; return *this; }
+        -:  143:
+        -:  144:inline QPoint &QPoint::operator*=(qreal c)
+        -:  145:{ xp = qRound(xp*c); yp = qRound(yp*c); return *this; }
+        -:  146:
+        -:  147:inline bool operator==(const QPoint &p1, const QPoint &p2)
+        -:  148:{ return p1.xp == p2.xp && p1.yp == p2.yp; }
+        -:  149:
+        -:  150:inline bool operator!=(const QPoint &p1, const QPoint &p2)
+        -:  151:{ return p1.xp != p2.xp || p1.yp != p2.yp; }
+        -:  152:
+        -:  153:inline const QPoint operator+(const QPoint &p1, const QPoint &p2)
+        -:  154:{ return QPoint(p1.xp+p2.xp, p1.yp+p2.yp); }
+        -:  155:
+        -:  156:inline const QPoint operator-(const QPoint &p1, const QPoint &p2)
+        -:  157:{ return QPoint(p1.xp-p2.xp, p1.yp-p2.yp); }
+        -:  158:
+        -:  159:inline const QPoint operator*(const QPoint &p, qreal c)
+        -:  160:{ return QPoint(qRound(p.xp*c), qRound(p.yp*c)); }
+        -:  161:
+        -:  162:inline const QPoint operator*(qreal c, const QPoint &p)
+        -:  163:{ return QPoint(qRound(p.xp*c), qRound(p.yp*c)); }
+        -:  164:
+        -:  165:inline const QPoint operator-(const QPoint &p)
+        -:  166:{ return QPoint(-p.xp, -p.yp); }
+        -:  167:
+        -:  168:inline QPoint &QPoint::operator/=(qreal c)
+        -:  169:{
+        -:  170:    xp = qRound(xp/c);
+        -:  171:    yp = qRound(yp/c);
+        -:  172:    return *this;
+        -:  173:}
+        -:  174:
+        -:  175:inline const QPoint operator/(const QPoint &p, qreal c)
+        -:  176:{
+        -:  177:    return QPoint(qRound(p.xp/c), qRound(p.yp/c));
+        -:  178:}
+        -:  179:
+        -:  180:#ifndef QT_NO_DEBUG_STREAM
+        -:  181:Q_CORE_EXPORT QDebug operator<<(QDebug, const QPoint &);
+        -:  182:#endif
+        -:  183:
+        -:  184:
+        -:  185:
+        -:  186:
+        -:  187:
+        -:  188:class Q_CORE_EXPORT QPointF
+        -:  189:{
+        -:  190:public:
+        -:  191:    QPointF();
+        -:  192:    QPointF(const QPoint &p);
+        -:  193:    QPointF(qreal xpos, qreal ypos);
+        -:  194:
+        -:  195:    qreal manhattanLength() const;
+        -:  196:
+        -:  197:    bool isNull() const;
+        -:  198:
+        -:  199:    qreal x() const;
+        -:  200:    qreal y() const;
+        -:  201:    void setX(qreal x);
+        -:  202:    void setY(qreal y);
+        -:  203:
+        -:  204:    qreal &rx();
+        -:  205:    qreal &ry();
+        -:  206:
+        -:  207:    QPointF &operator+=(const QPointF &p);
+        -:  208:    QPointF &operator-=(const QPointF &p);
+        -:  209:    QPointF &operator*=(qreal c);
+        -:  210:    QPointF &operator/=(qreal c);
+        -:  211:
+        -:  212:    friend inline bool operator==(const QPointF &, const QPointF &);
+        -:  213:    friend inline bool operator!=(const QPointF &, const QPointF &);
+        -:  214:    friend inline const QPointF operator+(const QPointF &, const QPointF &);
+        -:  215:    friend inline const QPointF operator-(const QPointF &, const QPointF &);
+        -:  216:    friend inline const QPointF operator*(qreal, const QPointF &);
+        -:  217:    friend inline const QPointF operator*(const QPointF &, qreal);
+        -:  218:    friend inline const QPointF operator-(const QPointF &);
+        -:  219:    friend inline const QPointF operator/(const QPointF &, qreal);
+        -:  220:
+        -:  221:    QPoint toPoint() const;
+        -:  222:
+        -:  223:private:
+        -:  224:    friend class QMatrix;
+        -:  225:    friend class QTransform;
+        -:  226:
+        -:  227:    qreal xp;
+        -:  228:    qreal yp;
+        -:  229:};
+        -:  230:
+        -:  231:Q_DECLARE_TYPEINFO(QPointF, Q_MOVABLE_TYPE);
+        -:  232:
+        -:  233:/*****************************************************************************
+        -:  234:  QPointF stream functions
+        -:  235: *****************************************************************************/
+        -:  236:#ifndef QT_NO_DATASTREAM
+        -:  237:Q_CORE_EXPORT QDataStream &operator<<(QDataStream &, const QPointF &);
+        -:  238:Q_CORE_EXPORT QDataStream &operator>>(QDataStream &, QPointF &);
+        -:  239:#endif
+        -:  240:
+        -:  241:/*****************************************************************************
+        -:  242:  QPointF inline functions
+        -:  243: *****************************************************************************/
+        -:  244:
+        -:  245:inline QPointF::QPointF() : xp(0), yp(0) { }
+        -:  246:
+        -:  247:inline QPointF::QPointF(qreal xpos, qreal ypos) : xp(xpos), yp(ypos) { }
+        -:  248:
+        -:  249:inline QPointF::QPointF(const QPoint &p) : xp(p.x()), yp(p.y()) { }
+        -:  250:
+        -:  251:inline bool QPointF::isNull() const
+        -:  252:{
+        -:  253:    return qIsNull(xp) && qIsNull(yp);
+        -:  254:}
+        -:  255:
+        -:  256:inline qreal QPointF::x() const
+        -:  257:{
+        -:  258:    return xp;
+        -:  259:}
+        -:  260:
+        -:  261:inline qreal QPointF::y() const
+        -:  262:{
+        -:  263:    return yp;
+        -:  264:}
+        -:  265:
+        -:  266:inline void QPointF::setX(qreal xpos)
+        -:  267:{
+        -:  268:    xp = xpos;
+        -:  269:}
+        -:  270:
+        -:  271:inline void QPointF::setY(qreal ypos)
+        -:  272:{
+        -:  273:    yp = ypos;
+        -:  274:}
+        -:  275:
+        -:  276:inline qreal &QPointF::rx()
+        -:  277:{
+        -:  278:    return xp;
+        -:  279:}
+        -:  280:
+        -:  281:inline qreal &QPointF::ry()
+        -:  282:{
+        -:  283:    return yp;
+        -:  284:}
+        -:  285:
+        -:  286:inline QPointF &QPointF::operator+=(const QPointF &p)
+        -:  287:{
+        -:  288:    xp+=p.xp;
+        -:  289:    yp+=p.yp;
+        -:  290:    return *this;
+        -:  291:}
+        -:  292:
+        -:  293:inline QPointF &QPointF::operator-=(const QPointF &p)
+        -:  294:{
+        -:  295:    xp-=p.xp; yp-=p.yp; return *this;
+        -:  296:}
+        -:  297:
+        -:  298:inline QPointF &QPointF::operator*=(qreal c)
+        -:  299:{
+        -:  300:    xp*=c; yp*=c; return *this;
+        -:  301:}
+        -:  302:
+        -:  303:inline bool operator==(const QPointF &p1, const QPointF &p2)
+        -:  304:{
+        -:  305:    return qFuzzyIsNull(p1.xp - p2.xp) && qFuzzyIsNull(p1.yp - p2.yp);
+        -:  306:}
+        -:  307:
+        -:  308:inline bool operator!=(const QPointF &p1, const QPointF &p2)
+        -:  309:{
+        -:  310:    return !qFuzzyIsNull(p1.xp - p2.xp) || !qFuzzyIsNull(p1.yp - p2.yp);
+        -:  311:}
+        -:  312:
+        -:  313:inline const QPointF operator+(const QPointF &p1, const QPointF &p2)
+        -:  314:{
+        -:  315:    return QPointF(p1.xp+p2.xp, p1.yp+p2.yp);
+        -:  316:}
+        -:  317:
+        -:  318:inline const QPointF operator-(const QPointF &p1, const QPointF &p2)
+        -:  319:{
+        -:  320:    return QPointF(p1.xp-p2.xp, p1.yp-p2.yp);
+        -:  321:}
+        -:  322:
+        -:  323:inline const QPointF operator*(const QPointF &p, qreal c)
+        -:  324:{
+        -:  325:    return QPointF(p.xp*c, p.yp*c);
+        -:  326:}
+        -:  327:
+        -:  328:inline const QPointF operator*(qreal c, const QPointF &p)
+        -:  329:{
+        -:  330:    return QPointF(p.xp*c, p.yp*c);
+        -:  331:}
+        -:  332:
+        -:  333:inline const QPointF operator-(const QPointF &p)
+        -:  334:{
+        -:  335:    return QPointF(-p.xp, -p.yp);
+        -:  336:}
+        -:  337:
+        -:  338:inline QPointF &QPointF::operator/=(qreal c)
+        -:  339:{
+        -:  340:    xp/=c;
+        -:  341:    yp/=c;
+        -:  342:    return *this;
+        -:  343:}
+        -:  344:
+        -:  345:inline const QPointF operator/(const QPointF &p, qreal c)
+        -:  346:{
+        -:  347:    return QPointF(p.xp/c, p.yp/c);
+        -:  348:}
+        -:  349:
+        -:  350:inline QPoint QPointF::toPoint() const
+        -:  351:{
+        -:  352:    return QPoint(qRound(xp), qRound(yp));
+        -:  353:}
+        -:  354:
+        -:  355:#ifndef QT_NO_DEBUG_STREAM
+        -:  356:Q_CORE_EXPORT QDebug operator<<(QDebug d, const QPointF &p);
+        -:  357:#endif
+        -:  358:
+        -:  359:QT_END_NAMESPACE
+        -:  360:
+        -:  361:QT_END_HEADER
+        -:  362:
+        -:  363:#endif // QPOINT_H

@@ -1,0 +1,29 @@
+        -:    0:Source:main.cpp
+        -:    0:Graph:debug/main.gcno
+        -:    0:Data:-
+        -:    0:Runs:0
+        -:    0:Programs:0
+        -:    1:#include <QtCore>
+        -:    2:#include <QCoreApplication>
+        -:    3:
+        -:    4:#include "TestLevel.h"
+        -:    5:#include "TestPlayer.h"
+        -:    6:#include "TestEnemy.h"
+        -:    7:#include "TestEgg.h"
+        -:    8:
+    #####:    9:int main(int argc, char *argv[])
+        -:   10:{
+    #####:   11:    QCoreApplication a(argc, argv);
+        -:   12:
+    #####:   13:    TestLevel *testLevel = new TestLevel();
+    #####:   14:    TestPlayer *testPlayer = new TestPlayer();
+    #####:   15:    TestEnemy  *testEnemy = new TestEnemy();
+    #####:   16:    TestEgg *testEgg = new TestEgg();
+        -:   17:
+    #####:   18:    QTest::qExec(testLevel, argc, argv);
+    #####:   19:    QTest::qExec(testPlayer, argc, argv);
+    #####:   20:    QTest::qExec(testEnemy, argc, argv);
+    #####:   21:    QTest::qExec(testEgg, argc, argv);
+        -:   22:	
+    #####:   23:    return a.exec();
+        -:   24:}
